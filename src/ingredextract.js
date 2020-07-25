@@ -2,8 +2,7 @@
 var ingred_title = []
 
 //gets ingredients
-function getIngred(){
-
+export function getIngred(){
     //obtain both lists
     var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
     //get all the ingredients of class checkList__line
@@ -24,10 +23,10 @@ function getIngred(){
 }
 
 //format: <amount> <measurement> <name>
-var ingredients = {}
+var ingredients = {}//{"all purpose flour": ["1", "cups"]}
 
 //creates a dictionary -- example: "flour": [2, "cups"]
-function addIngred(){
+export function addIngred(){
     for (var i = 0; i < ingred_title.length; i++){
         var title = ingred_title[i]
         if (getMeas(title).includes("egg")) {
@@ -36,6 +35,7 @@ function addIngred(){
             ingredients[getItem(title)] = [getVal(title), getMeas(title)]
         }
     }
+
 }
 
 //get the number value at the beginning of the ingredient title
@@ -65,9 +65,9 @@ function getItem(title){
 // import database
 var database = require('./database.json')
 var replacers = {}
-console.log(database)
-//retrieves default replacer from database
-function getReplacer(){
+
+//retrieves default replacer from database for each ingredient and puts into replacers
+export function getReplacer(){
     for (var p in ingredients) {
         var i = 0
         while (i<database.length){
@@ -76,12 +76,29 @@ function getReplacer(){
             }
             i = i + 1
         }
-        replacers[p] = [database[i].replacements[0]]
+        replacers[p] = [ingredients[p][0], ingredients[p][1], database[i].replacements[0]]
+    }
+    return replacers
+}
+
+//returns a dictionary with the original ingredient amount with the necessary replacement amount for that ingredient and notes 
+export function calculateAmount(){
+    for (var replacer in replacers){
+        var conv_factor = replacers[replacer][0]/getVal(replacers[replacer][2]["replaceemeasurement"])
+        console.log("Conversion Factor" + conv_factor)
+        for (var sub_replace in replacers[replacer][2]["replacer"]){
+            replacers[replacer][2]["replacer"][sub_replace]["replacermeasurement"] = (conv_factor * getVal(replacers[replacer][2]["replacer"][sub_replace]["replacermeasurement"])).toString() + " " + getMeas(replacers[replacer][2]["replacer"][sub_replace]["replacermeasurement"]) + "(s)"
+            console.log(replacers[replacer][2]["replacer"][sub_replace]["replacermeasurement"])
+        }
+        delete replacers[replacer][2].replaceemeasurement
     }
     console.log(replacers)
-}
-getReplacer()
+    return replacers
 
-export default getIngred;
-export default addIngred;
+}
+
+
+
+
+
    
