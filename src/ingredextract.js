@@ -2,24 +2,35 @@
 var ingred_title = []
 
 //get ingredients
-function getIngred(){
+function getIndred(){
+    
+    //obtain both lists
+    var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
     //get all the ingredients of class checkList__line
-    var ingredients = document.getElementsByClassName("checkList__line")
-    //extract label ng-class of the checkList__line
-    for (var i = 0; i < ingredients.length; i++){
-        //get the ingredient title
-        var item = ingredients[i].getElementsByClassName("checkList__item")
-        ingred_title.push(item.textContext)
+    var lines = []
+    for (var i = 0; i < checklists.length; i++){
+        lines.push(checklists[i].getElementsByClassName("checkList__line"))
     }
+    //extract label ng-class of the checkList__line
+    for (var j = 0; j < lines.length; j++){
+        //get the ingredient title
+        for (var k = 0; k < lines[j].length; k++){
+            var item = lines[j][k].getElementsByClassName("checkList__item")
+            ingred_title.push(item[0].textContent.trim())
+        }
+    }
+    ingred_title.splice(ingred_title.length-1, ingred_title.length)
 }
 
 //format: <amount> <measurement> <name>
-var ingredients = {"all purpose flour": ["1", "cup"]}
+var ingredients = []
 
 function addIngred(){
     for (var i = 0; i < ingred_title.length; i++){
         var title = ingred_title[i]
-        ingredients[getItem(title)] = [getVal(title), getMeas(title)]
+        ingredients.push({
+            key: getItem(title),
+            value: [getVal(title), getMeas(title)]})
     }
 }
 
@@ -36,7 +47,7 @@ function getVal(title){
 //get the measurement after the number value
 function getMeas(title){
     var rest = title.replace(getVal(title), '')
-    var words = rest.split(" ")
+    var words = rest.trim().split(" ")
     return words[0]
 }
 
@@ -44,7 +55,7 @@ function getMeas(title){
 function getItem(title){
     var rest = title.replace(getVal(title) + ' ' + getMeas(title), '')
     var words = rest.split(",")
-    return words[0]
+    return words[0].trim()
 }
 
 // import database
@@ -68,3 +79,4 @@ function getReplacer(){
 getReplacer()
 
 
+   
