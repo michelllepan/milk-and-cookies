@@ -2,8 +2,8 @@
 var ingred_title = []
 
 //get ingredients
-function getIndred(){
-    
+function getIngred(){
+
     //obtain both lists
     var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
     //get all the ingredients of class checkList__line
@@ -23,14 +23,16 @@ function getIndred(){
 }
 
 //format: <amount> <measurement> <name>
-var ingredients = []
+var ingredients = {}
 
 function addIngred(){
     for (var i = 0; i < ingred_title.length; i++){
         var title = ingred_title[i]
-        ingredients.push({
-            key: getItem(title),
-            value: [getVal(title), getMeas(title)]})
+        if (getMeas(title).includes("egg")) {
+            ingredients[getMeas(title)] = [getVal(title)]
+        } else {
+            ingredients[getItem(title)] = [getVal(title), getMeas(title)]
+        }
     }
 }
 
@@ -65,7 +67,7 @@ console.log(database)
 //retrieves default replacer from database
 function getReplacer(){
     for (var p in ingredients) {
-        i = 0
+        var i = 0
         while (i<database.length){
             if(database[i].replacee == p){
                 break
