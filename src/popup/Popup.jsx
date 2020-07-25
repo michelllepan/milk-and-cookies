@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Ingredient from './Ingredient';
+import addIngred from './ingredextract';
 
 const Overlay = styled.div`
   width: 100%;
@@ -29,6 +30,18 @@ const ListContainer = styled.div`
 `
 
 class Popup extends React.Component {
+  // names = addIngred()
+  // ingredients = []
+  // for (var i = 0; i < names.length; i++){
+
+  // }
+  // state = {
+  //   ingredients: [
+  //     {
+
+  //     }
+  //   ]
+  // }
 
   state = {
     ingredients: [

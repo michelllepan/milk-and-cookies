@@ -1,7 +1,7 @@
 //list of ingredient titles formatted <amount> <measurement> <name>
 var ingred_title = []
 
-//get ingredients
+//gets ingredients
 function getIngred(){
 
     //obtain both lists
@@ -20,11 +20,13 @@ function getIngred(){
         }
     }
     ingred_title.splice(ingred_title.length-1, ingred_title.length)
+    return ingred_title
 }
 
 //format: <amount> <measurement> <name>
 var ingredients = {}
 
+//creates a dictionary -- example: "flour": [2, "cups"]
 function addIngred(){
     for (var i = 0; i < ingred_title.length; i++){
         var title = ingred_title[i]
@@ -80,5 +82,6 @@ function getReplacer(){
 }
 getReplacer()
 
-
+export default getIngred;
+export default addIngred;
    
