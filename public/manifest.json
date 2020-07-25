@@ -39,5 +39,17 @@
     "16": "logo.png",
     "48": "logo.png",
     "128": "logo.png"
-  }
+  },
+
+  "content_scripts":
+  [
+    {
+      "matches": ["*://*/*"],
+      "all_frames": true,
+      "js": ["content_scripts.js"],
+      "run_at": "document_end"
+    }
+
+  ]
+
 }
