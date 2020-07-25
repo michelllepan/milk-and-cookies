@@ -2,7 +2,7 @@
 var ingred_title = []
 
 //get ingredients
-function getIndred(){
+function getIngred(){
     //get all the ingredients of class checkList__line
     var ingredients = document.getElementsByClassName("checkList__line")
     //extract label ng-class of the checkList__line
@@ -14,7 +14,7 @@ function getIndred(){
 }
 
 //format: <amount> <measurement> <name>
-var ingredients = {}
+var ingredients = {"all purpose flour": ["1", "cup"]}
 
 function addIngred(){
     for (var i = 0; i < ingred_title.length; i++){
@@ -46,3 +46,25 @@ function getItem(title){
     var words = rest.split(",")
     return words[0]
 }
+
+// import database
+var database = require('./database.json')
+var replacers = {}
+console.log(database)
+//retrieves default replacer from database
+function getReplacer(){
+    for (var p in ingredients) {
+        i = 0
+        while (i<database.length){
+            if(database[i].replacee == p){
+                break
+            }
+            i = i + 1
+        }
+        replacers[p] = [database[i].replacements[0]]
+    }
+    console.log(replacers)
+}
+getReplacer()
+
+
