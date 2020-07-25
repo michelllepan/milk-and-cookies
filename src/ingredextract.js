@@ -3,12 +3,17 @@ var ingred_title = []
 
 //get ingredients
 function getIndred(){
+    //obtain both lists
+    var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
     //get all the ingredients of class checkList__line
-    var ingredients = document.getElementsByClassName("checkList__line")
+    var lines = []
+    for (var i = 0; i < checklists.length; i++){
+        lines.push(checklists[i].getElementsByClassName("checkList__line"))
+    }
     //extract label ng-class of the checkList__line
-    for (var i = 0; i < ingredients.length; i++){
+    for (var j = 0; j < lines.length; j++){
         //get the ingredient title
-        var item = ingredients[i].getElementsByClassName("checkList__item")
+        var item = lines[j].getElementsByClassName("checkList__item")
         ingred_title.push(item.textContext)
     }
 }
