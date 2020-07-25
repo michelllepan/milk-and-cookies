@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Ingredient from './Ingredient';
-import getIngred from './ingredextract';
-import getReplacer from './ingredextract';
+import getIngred from '../ingredextract';
+import getReplacer from '../ingredextract';
 
 const Overlay = styled.div`
   width: 100%;

@@ -82,7 +82,7 @@ export function getReplacer(){
 }
 
 //returns a dictionary with the original ingredient amount with the necessary replacement amount for that ingredient and notes 
-export function calculateAmount(){
+function calculateAmount(){
     for (var replacer in replacers){
         var conv_factor = replacers[replacer][0]/getVal(replacers[replacer][2]["replaceemeasurement"])
         console.log("Conversion Factor" + conv_factor)
@@ -96,6 +96,8 @@ export function calculateAmount(){
     return replacers
 
 }
+
+export default {getIngred, addIngred, getReplacer}
 
 
 
