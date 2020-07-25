@@ -2,7 +2,7 @@
 var ingred_title = []
 
 //get ingredients
-function getIndred(){
+function getIngred(){
     
     //obtain both lists
     var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
@@ -62,6 +62,7 @@ function getItem(title){
 var database = require('./database.json')
 var replacers = {}
 console.log(database)
+
 //retrieves default replacer from database
 function getReplacer(){
     for (var p in ingredients) {
