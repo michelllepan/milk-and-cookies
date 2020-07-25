@@ -25,7 +25,30 @@ const Title = styled.h3`
   margin: 60px 0px 0px 60px;
 `
 const ListContainer = styled.div`
-  margin: 30px 90px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  height: 315px;
+  overflow-y: scroll;
+  margin: 30px 65px 20px 60px;
+  padding-right: 20px;
+`
+const ButtonContainer = styled.div`
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 20px;
+`
+const Button = styled.div`
+  width: fit-content;
+  padding: 7px 12px 7px 12px;
+
+  background-color: #FF8159;
+  border-radius: 5px;
+  margin: auto;
+`
+const Text = styled.p`
+  font-size: 22px;
+  font-weight: 700;
+  color: #FFFFFF;
 `
 
 class Popup extends React.Component {
@@ -44,6 +67,26 @@ class Popup extends React.Component {
       },
       {
         name: "brown sugar",
+        selected: null,
+        replacements: ["thing1", "thing2", "thing3"]
+      },
+      {
+        name: "eggs",
+        selected: null,
+        replacements: ["thing1", "thing2", "thing3"]
+      },
+      {
+        name: "vanilla extract",
+        selected: null,
+        replacements: ["thing1", "thing2", "thing3"]
+      },
+      {
+        name: "baking soda",
+        selected: null,
+        replacements: ["thing1", "thing2", "thing3"]
+      },
+      {
+        name: "all-purpose flour",
         selected: null,
         replacements: ["thing1", "thing2", "thing3"]
       }
@@ -70,6 +113,11 @@ class Popup extends React.Component {
             {this.state.ingredients.map(i => <Ingredient ingredient={i}
                                                          handleSelect={this.handleSelect} />)}
           </ListContainer>
+          <ButtonContainer>
+            <Button className="button-element">
+              <Text>continue</Text>
+            </Button>
+          </ButtonContainer>
         </PopupInner>
       </Overlay>
 

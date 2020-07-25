@@ -1,13 +1,12 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { ReactComponent as DownArrow } from './DownArrow.svg';
-import { ReactComponent as UpArrow } from './UpArrow.svg';
+import { ReactComponent as DownArrow } from './down-arrow.svg';
+import { ReactComponent as UpArrow } from './up-arrow.svg';
 
 const Wrapper = styled.div`
   position: relative;
   width: 300px;
-  opacity: 60%;
-  ${'' /* box-shadow: ${props => props.isOpen}; */}
+  opacity: 70%;
 
   ${props => props.isOpen && css`
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
@@ -45,7 +44,7 @@ const ListWrapper = styled.div`
 `
 const ListItemWrapper = styled.div`
   padding: 4px 15px 4px 15px;
-  ${'' /* background-color: #FFFFFF; */}
+
   opacity: 50%;
   &:hover {
     opacity: 80%;
