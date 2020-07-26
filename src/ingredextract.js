@@ -98,6 +98,11 @@ function calculateAmount(){
 }
 calculateAmount()
 
+export default {getIngred, addIngred, getReplacer}
+
+
+
+
 
 
    
