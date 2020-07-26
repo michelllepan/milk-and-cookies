@@ -14,13 +14,16 @@
     "48": "logo.png",
     "128": "logo.png"
   },
-  "permissions": [
-    "activeTab"
-  ],
-  "content_scripts": [
+
+  "content_scripts":
+  [
     {
-      "matches": ["*://allrecipes.com/*", "<all_urls>"],
-      "js": ["content.js"]
+      "matches": ["*://*/*"],
+      "all_frames": true,
+      "js": ["content_scripts.js"],
+      "run_at": "document_end"
     }
+
   ]
+
 }
