@@ -2,7 +2,7 @@
 var ingred_title = []
 
 //get ingredients
-function getIngred(){
+export function getIngred(){
     //obtain both lists
     var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
     //get all the ingredients of class checkList__line
@@ -25,7 +25,7 @@ function getIngred(){
 //format: <amount> <measurement> <name>
 var ingredients = {"all purpose flour": ["1", "cups"]}
 
-function addIngred(){
+export function addIngred(){
     for (var i = 0; i < ingred_title.length; i++){
         var title = ingred_title[i]
         if (getMeas(title).includes("egg")) {
@@ -54,7 +54,7 @@ function getMeas(title){
 }
 
 //get the item after the measurement
-function getItem(title){
+export function getItem(title){
     var rest = title.replace(getVal(title) + ' ' + getMeas(title), '')
     var words = rest.split(",")
     return words[0].trim()
@@ -65,7 +65,7 @@ var database = require('./database.json')
 var replacers = {}
 
 //retrieves default replacer from database for each ingredient and puts into replacers
-function getReplacer(){
+export function getReplacer(){
     for (var p in ingredients) {
         var i = 0
         while (i<database.length){
@@ -78,7 +78,6 @@ function getReplacer(){
     }
     return replacers
 }
-getReplacer()
 
 
 //returns a dictionary with the original ingredient and amount with the necessary replacement amount for that ingredient and notes 
@@ -98,7 +97,7 @@ function calculateAmount(){
 }
 calculateAmount()
 
-export default {getIngred, addIngred, getReplacer}
+//export default {getIngred, addIngred, getReplacer}
 
 
 

@@ -5,7 +5,7 @@ import Popup from './popup/Popup';
 
 function App() {
   //list of replacement history
-  const cache = []
+  const cache = {}
   return (
     // <div className="App">
     //   <header className="App-header">

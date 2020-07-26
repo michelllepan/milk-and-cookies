@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ReactComponent as Checkbox } from './Checkbox.svg';
 import { ReactComponent as CheckboxSelected } from './checkbox-selected.svg';
 import Dropdown from './Dropdown';
-import App from './App';
+import App from '../App';
 
 const Wrapper = styled.div`
   display: flex;

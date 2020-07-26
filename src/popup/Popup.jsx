@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import Ingredient from './Ingredient';
-import getIngred from '../ingredextract';
-import getReplacer from '../ingredextract';
-import App from './App';
+// import getIngred from '../ingredextract';
+// import getReplacer from '../ingredextract';
+import {getIngred, getReplacer} from '../ingredextract';
+import App from '../App';
 import dreplace from '../content_scripts.js'
 
 const Overlay = styled.div`
