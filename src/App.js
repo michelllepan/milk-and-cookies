@@ -4,6 +4,12 @@ import './App.css';
 import Popup from './popup/Popup';
 
 function App() {
+
+  const unmount = () => {
+    var root = document.getElementById('root');
+    root.parentNode.removeChild(root)
+  }
+
   return (
     // <div className="App">
     //   <header className="App-header">
@@ -21,7 +27,7 @@ function App() {
     //     </a>
     //   </header>
     // </div>
-    <Popup></Popup>
+    <Popup unmount={unmount}></Popup>
 
   );
 }
