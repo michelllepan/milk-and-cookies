@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Ingredient from './Ingredient';
-import {getIngred, getReplacer, onlyReplacements, exportNames} from '../ingredextract';
+import {getIngred, getReplacer, onlyReplacements, exportNames, replaceonScreen} from '../ingredextract';
 
 const Overlay = styled.div`
   width: 100%;
@@ -92,6 +92,7 @@ class Popup extends React.Component {
   }
 
   handleExit = () => {
+    replaceonScreen()
     this.props.unmount()
   }
   
@@ -103,7 +104,7 @@ class Popup extends React.Component {
             Select the ingredients you'd like to find replacements for:
           </Title>
           <ListContainer>
-            {this.state.ingredients.map(i => (i.replacements[0] !== "no replacements") && 
+            {this.state.ingredients.map(i =>  
                               <Ingredient ingredient={i} handleSelect={this.handleSelect} />)}
           </ListContainer>
           <ButtonContainer>

@@ -14,7 +14,7 @@
       "matches": ["*://*/*"],
       "all_frames": true,
       "css": ["/static/css/main.css"],
-      "js": ["/static/js/main.js", "content.js"]
+      "js": ["/static/js/main.js"]
     }
   ],
   "permissions": [

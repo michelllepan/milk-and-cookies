@@ -114,28 +114,25 @@ export function getReplacer(){
     return replacers
 }
 
-/*
-export function onlyReplacements(item){
-    var final = {}
-    var replacements_only = []
-    for(var j = 0; j <replacers[item][2].length; j++){
-        if(replacers[item][2][j]["replacer"].length == 2){
-            var replacement = replacers[item][2][j]["replacer"][0]["name"] + " and " + replacers[item][2][j]["replacer"][1]["name"]
-
+export function replaceonScreen(){
+    var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
+    for (var i = 0; i < checklists.length; i++){
+        var inner1 = checklists[i].getElementsByClassName("checkList__line")
+        for (var j = 0; j<inner1.length; j++){
+            var inner2 = inner1[j].getElementsByClassName("recipe-ingred_txt added")
+            console.log(getItem(inner2[0].innerText))
+            var replacersss = replacers[getItem(inner2[0].innerText)][2]
+            console.log(replacers)
+            if (getItem(inner2[0].innerText) !== "Add all ingredients to list") {
+                if (replacersss[0] !== undefined) {
+                    console.log(replacers[getItem(inner2[0].innerText)][2][0].replacer)
+                    inner2[0].innerText = replacers[getItem(inner2[0].innerText)][2][0].replacer.name
+                }
+            }
         }
-        else{
-            var replacement = replacers[item][2][j]["replacer"][0]["name"] 
-        }
-        replacements_only.push(replacement)  
-
     }
 
-    
-        
-    return replacements_only
-
 }
-*/
 export function onlyReplacements(){
     var final = {}
     var replacements_only = []
