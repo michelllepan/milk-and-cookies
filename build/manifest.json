@@ -1,3 +1,32 @@
+<<<<<<< HEAD
+=======
+// {
+//   "short_name": "React App",
+//   "name": "Create React App Sample",
+//   "icons": [
+//     {
+//       "src": "favicon.ico",
+//       "sizes": "64x64 32x32 24x24 16x16",
+//       "type": "image/x-icon"
+//     },
+//     {
+//       "src": "logo192.png",
+//       "type": "image/png",
+//       "sizes": "192x192"
+//     },
+//     {
+//       "src": "logo512.png",
+//       "type": "image/png",
+//       "sizes": "512x512"
+//     }
+//   ],
+//   "start_url": ".",
+//   "display": "standalone",
+//   "theme_color": "#000000",
+//   "background_color": "#ffffff"
+// }
+
+>>>>>>> eb096c46b5e5900b86f38b4e6457e0483cabf1a2
 {
   "manifest_version": 2,
 
@@ -14,6 +43,7 @@
     "48": "logo.png",
     "128": "logo.png"
   },
+<<<<<<< HEAD
 
   "content_scripts":
   [
@@ -26,4 +56,16 @@
 
   ]
 
+=======
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["/static/css/main.css"],
+      "js": ["/static/js/main.js"]
+    }
+  ],
+  "permissions": [
+    "https://fonts.googleapis.com/"
+  ]
+>>>>>>> eb096c46b5e5900b86f38b4e6457e0483cabf1a2
 }

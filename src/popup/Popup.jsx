@@ -28,6 +28,8 @@ const PopupInner = styled.div`
 `
 const Title = styled.h3`
   width: 80%;
+  font-size: 30px;
+  font-weight: 600;
   margin: 60px 0px 0px 60px;
 `
 const ListContainer = styled.div`
@@ -52,8 +54,9 @@ const Button = styled.div`
   margin: auto;
 `
 const Text = styled.p`
+  margin: 0px;
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 600;
   color: #FFFFFF;
 `
 
@@ -67,7 +70,7 @@ class Popup extends React.Component {
   componentDidMount = () => {
     console.log("IN HERE")
     const components = []
-    const names = ["all purpose flour"] //getIngred() //
+    const names =  getIngred() //["all purpose flour"]
     for (let i=0; i<names.length; i++) {
       const replacements = getReplacer()
       const item = names[i]

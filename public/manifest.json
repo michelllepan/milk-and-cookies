@@ -14,16 +14,14 @@
     "48": "logo.png",
     "128": "logo.png"
   },
-
-  "content_scripts":
-  [
+  "content_scripts": [
     {
-      "matches": ["*://*/*"],
-      "all_frames": true,
-      "js": ["content_scripts.js"],
-      "run_at": "document_end"
+      "matches": ["<all_urls>"],
+      "css": ["/static/css/main.css"],
+      "js": ["/static/js/main.js"]
     }
-
+  ],
+  "permissions": [
+    "https://fonts.googleapis.com/"
   ]
-
 }

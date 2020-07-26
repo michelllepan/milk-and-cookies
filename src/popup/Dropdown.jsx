@@ -28,8 +28,9 @@ const Header = styled.div`
 `
 const SelectedText = styled.p`
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
   opacity: 50%;
+  margin: 0px;
 `
 const ListWrapper = styled.div`
   position: absolute;
@@ -52,7 +53,8 @@ const ListItemWrapper = styled.div`
 `
 const ListText = styled.p`
   font-size: 18px;
-  font-weight: 600; 
+  font-weight: 400; 
+  margin: 0px;
 `
 
 class Dropdown extends React.Component {
