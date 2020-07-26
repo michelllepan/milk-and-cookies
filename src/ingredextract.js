@@ -2,11 +2,12 @@
 var ingred_title = []
 
 //get ingredients
-function getIngred(){
+export function getIngred(){
     //obtain both lists
     var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
     //get all the ingredients of class checkList__line
     var lines = []
+    console.log(checklists.length)
     for (var i = 0; i < checklists.length; i++){
         lines.push(checklists[i].getElementsByClassName("checkList__line"))
     }
@@ -19,12 +20,19 @@ function getIngred(){
         }
     }
     ingred_title.splice(ingred_title.length-1, ingred_title.length)
+    return ingred_title
+}
+
+export function onlyIngred(){
+    getIngred()
+    return ingred_title.map(t => getItem(t))
+
 }
 
 //format: <amount> <measurement> <name>
-var ingredients = {"all purpose flour": ["1", "cups"]}
+var ingredients = {}
 
-function addIngred(){
+export function addIngred(){
     for (var i = 0; i < ingred_title.length; i++){
         var title = ingred_title[i]
         if (getMeas(title).includes("egg")) {
@@ -53,7 +61,10 @@ function getMeas(title){
 }
 
 //get the item after the measurement
-function getItem(title){
+export function getItem(title){
+    if (getMeas(title).includes("egg")) {
+        return getMeas(title)
+    }
     var rest = title.replace(getVal(title) + ' ' + getMeas(title), '')
     var words = rest.split(",")
     return words[0].trim()
@@ -64,23 +75,52 @@ var database = require('./database.json')
 var replacers = {}
 
 //retrieves default replacer from database for each ingredient and puts into replacers
-function getReplacer(){
+export function getReplacer(){
     for (var p in ingredients) {
         var i = 0
         while (i<database.length){
-            if(database[i].replacee == p){
+            if(p.includes(database[i].replacee)){
                 break
             }
             i = i + 1
         }
-        replacers[p] = [ingredients[p][0], ingredients[p][1], database[i].replacements[0]]
+        replacers[p] = [ingredients[p][0], ingredients[p][1], database[i].replacements]
     }
     return replacers
 }
-getReplacer()
+
+export function onlyReplacements(){
+    var replacements_only = []
+    for (var replacer in replacers){
+        console.log("Replacer " + replacer)
+        console.log(replacers[replacer][2][0])
+        for(var j = 0; j <replacers[replacer][2].length; j++){
+            console.log(replacers[replacer][2][j]["replacer"])
+            
+            if(replacers[replacer][2][j]["replacer"].length == 2){
+                var replacement = replacers[replacer][2][j]["replacer"][0]["name"] + " and " + replacers[replacer][2][j]["replacer"][1]["name"]
+
+            }
+            else{
+                var replacement = replacers[replacer][2][j]["replacer"][0]["name"] 
+            }
+            console.log(replacement)
+            replacements_only.push(replacement)  
+
+        }
+
+    }
+        
+    console.log("I EXIST")
+    console.log(replacements_only) 
+    return replacements_only
+
+}
 
 
-//returns a dictionary with the original ingredient amount with the necessary replacement amount for that ingredient and notes 
+
+
+//returns a dictionary with the original ingredient and amount with the necessary replacement amount for that ingredient and notes 
 function calculateAmount(){
     for (var replacer in replacers){
         var conv_factor = replacers[replacer][0]/getVal(replacers[replacer][2]["replaceemeasurement"])
@@ -96,6 +136,11 @@ function calculateAmount(){
 
 }
 calculateAmount()
+
+//export default {getIngred, addIngred, getReplacer}
+
+
+
 
 
 

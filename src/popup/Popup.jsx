@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Ingredient from './Ingredient';
+import {getIngred, getReplacer, onlyReplacements, onlyIngred} from '../ingredextract';
 
 const Overlay = styled.div`
   width: 100%;
@@ -55,48 +56,36 @@ const Text = styled.p`
 `
 
 class Popup extends React.Component {
-
+ 
   state = {
-    ingredients: [
-      {
-        name: "butter",
-        selected: null,
-        replacements: ["thing1", "thing2", "thing3"]
-      },
-      {
-        name: "white sugar",
-        selected: null,
-        replacements: ["thing1", "thing2", "thing3"]
-      },
-      {
-        name: "brown sugar",
-        selected: null,
-        replacements: ["thing1", "thing2", "thing3"]
-      },
-      {
-        name: "eggs",
-        selected: null,
-        replacements: ["thing1", "thing2", "thing3"]
-      },
-      {
-        name: "vanilla extract",
-        selected: null,
-        replacements: ["thing1", "thing2", "thing3"]
-      },
-      {
-        name: "baking soda",
-        selected: null,
-        replacements: ["thing1", "thing2", "thing3"]
-      },
-      {
-        name: "all-purpose flour",
-        selected: null,
-        replacements: ["thing1", "thing2", "thing3"]
-      }
-    ]
+    ingredients: []
+  }
+
+  componentDidMount = () => {
+    console.log("IN HERE")
+    const components = []
+    const names = onlyIngred()
+    //const names = ["all purpose flour"]
+    for (let i=0; i<names.length; i++) {
+      const replacements = getReplacer()
+      const item = names[i]
+      //check if the user has replaced this item before
+    //  if (item in App.cache){
+        //immediately replace text on the website
+      //  dreplace(App.cache[item])
+      //} else {
+        //add the ingredient to the list of ingredients
+      //FIX THIS FOR REPLACEMENTS
+      const obj = {name: item, selected: null, replacements: onlyReplacements()}
+      components.push(obj)
+      //}
+    }
+    this.setState({ingredients: components})
   }
 
   handleSelect = (ingredient, replacement) => {
+    //remember the replacement
+    //App.cache[this.props.ingredient] = replacement
     const i = this.state.ingredients.indexOf(ingredient)
     const ingredientList = this.state.ingredients
     ingredientList[i] = {name: ingredient.name,
