@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ReactComponent as Checkbox } from './Checkbox.svg';
 import { ReactComponent as CheckboxSelected } from './checkbox-selected.svg';
 import Dropdown from './Dropdown';
+import App from './App';
 
 const Wrapper = styled.div`
   display: flex;
@@ -26,6 +27,8 @@ const IngredientText = styled.p`
 class Ingredient extends React.Component {
 
   handleSelect = () => {
+    //if selected, add to cache
+    App.cache[this.props.ingredient] = ""
     if (this.props.ingredient.selected === null) {
       this.props.handleSelect(this.props.ingredient, this.props.ingredient.replacements[0])
       console.log(this.props.ingredient.replacements[0])

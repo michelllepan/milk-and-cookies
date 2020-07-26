@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Ingredient from './Ingredient';
 import getIngred from '../ingredextract';
 import getReplacer from '../ingredextract';
+import App from './App';
+import dreplace from '../content_scripts.js'
 
 const Overlay = styled.div`
   width: 100%;
@@ -64,13 +66,23 @@ class Popup extends React.Component {
     const names = getIngred()
     for (let i=0; i<names.length; i++) {
       const replacements = getReplacer()
-      const obj = {name: names[i], selected: null, subs: replacements[names[i]]}
-      components.push(obj)
+      const item = names[i]
+      //check if the user has replaced this item before
+      if (item in App.cache){
+        //immediately replace text on the website
+        dreplace(App.cache[item])
+      } else {
+        //add the ingredient to the list of ingredients
+        const obj = {name: item, selected: null, subs: replacements[item]}
+        components.push(obj)
+      }
     }
     this.setState({ingredients: components})
   }
 
   handleSelect = (ingredient, replacement) => {
+    //remember the replacement
+    App.cache[this.props.ingredient] = replacement
     const i = this.state.ingredients.indexOf(ingredient)
     const ingredientList = this.state.ingredients
     ingredientList[i] = {name: ingredient.name,
