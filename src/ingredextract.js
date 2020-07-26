@@ -95,16 +95,16 @@ export function getReplacer(){
             var things = database[i].replacements
         }
         else{
-            var things = {"replaceemeasurement": "",
+            var things = {"replaceemeasurement": "1",
             "replacer":
             [
                          {
                             "name": "",
-                            "replacermeasurement": ""
+                            "replacermeasurement": "0"
                          }, 
                          {
                             "name": "",
-                            "replacermeasurement": ""
+                            "replacermeasurement": "0"
                          }
             ], 
             "notes":""}
@@ -162,54 +162,7 @@ export function onlyReplacements(){
 }
 
 
-/* WORKING VERSION
-export function onlyReplacements(){
-    var replacements_only = []
-    for (var replacer in replacers){
-        for(var j = 0; j <replacers[replacer][2].length; j++){
-            if(replacers[replacer][2][j]["replacer"].length == 2){
-                var replacement = replacers[replacer][2][j]["replacer"][0]["name"] + " and " + replacers[replacer][2][j]["replacer"][1]["name"]
 
-            }
-            else{
-                var replacement = replacers[replacer][2][j]["replacer"][0]["name"] 
-            }
-            replacements_only.push(replacement)  
-
-        }
-
-    }
-        
-    return replacements_only
-
-}
-
-*/
-
-/* 
-export function onlyReplacements(item){
-    var replacements_only = {}
-    for (var replacer in replacers){
-        if (item == replacer){}
-            for(var j = 0; j <replacers[replacer][2].length; j++){
-                if(replacers[replacer][2][j]["replacer"].length == 2){
-                    var replacement = replacers[replacer][2][j]["replacer"][0]["name"] + " and " + replacers[replacer][2][j]["replacer"][1]["name"]
-
-                }
-                else{
-                    var replacement = replacers[replacer][2][j]["replacer"][0]["name"] 
-                }
-                replacements_only.push(replacement)  
-
-            }
-        }
-    }
-        
-    return replacements_only
-
-}
-
-*/
 
 
 
