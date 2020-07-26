@@ -93,46 +93,117 @@ export function getReplacer(){
         }
         if (i<database.length){
             var things = database[i].replacements
+            replacers[p] = [ingredients[p][0], ingredients[p][1], things]
         }
-        else{
-            var things = {"replaceemeasurement": "1",
-            "replacer":
-            [
-                         {
-                            "name": "",
-                            "replacermeasurement": "0"
-                         }, 
-                         {
-                            "name": "",
-                            "replacermeasurement": "0"
-                         }
-            ], 
-            "notes":""}
-        }
-        replacers[p] = [ingredients[p][0], ingredients[p][1], things]
     }
     return replacers
 }
 
-export function replaceonScreen(){
+
+export function replaceonScreen(selectedIngred){
+    calculateAmount()
     var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
     for (var i = 0; i < checklists.length; i++){
         var inner1 = checklists[i].getElementsByClassName("checkList__line")
         for (var j = 0; j<inner1.length; j++){
             var inner2 = inner1[j].getElementsByClassName("recipe-ingred_txt added")
-            console.log(getItem(inner2[0].innerText))
-            var replacersss = replacers[getItem(inner2[0].innerText)][2]
-            console.log(replacers)
-            if (getItem(inner2[0].innerText) !== "Add all ingredients to list") {
-                if (replacersss[0] !== undefined) {
-                    console.log(replacers[getItem(inner2[0].innerText)][2][0].replacer)
-                    inner2[0].innerText = replacers[getItem(inner2[0].innerText)][2][0].replacer.name
+            console.log("reached")
+            if (getItem(inner2[0].innerText) in replacers && getItem(inner2[0].innerText) in selectedIngred){
+                console.log("reached 1")
+                var replacersss = replacers[getItem(inner2[0].innerText)][2]
+                var number = selectedIngred[getItem(inner2[0].innerText)]
+                console.log(number)
+                console.log(replacers[getItem(inner2[0].innerText)][2][0].replacer)
+                var to_replace = ""
+                for(var k = 0; k<replacers[getItem(inner2[0].innerText)][2][0].replacer.length; k++){
+                    to_replace = to_replace + " and " + replacers[getItem(inner2[0].innerText)][2][number].replacer[k]["replacermeasurement"] + " " + replacers[getItem(inner2[0].innerText)][2][number].replacer[k]["name"]
                 }
+                inner2[0].innerText = to_replace.substring(5)
             }
+            
+
         }
     }
+}
+
+
+/*
+export function replaceonScreen(){
+    calculateAmount()
+    var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
+    for (var i = 0; i < checklists.length; i++){
+        var inner1 = checklists[i].getElementsByClassName("checkList__line")
+        for (var j = 0; j<inner1.length; j++){
+            var inner2 = inner1[j].getElementsByClassName("recipe-ingred_txt added")
+            console.log("reached")
+            if (getItem(inner2[0].innerText) in replacers){
+                console.log("reached 1")
+                var replacersss = replacers[getItem(inner2[0].innerText)][2]
+                console.log(replacers[getItem(inner2[0].innerText)][2][0].replacer)
+                var to_replace = ""
+                for(var k = 0; k<replacers[getItem(inner2[0].innerText)][2][0].replacer.length; k++){
+                    to_replace = to_replace + " and " + replacers[getItem(inner2[0].innerText)][2][0].replacer[k]["replacermeasurement"] + " " + replacers[getItem(inner2[0].innerText)][2][0].replacer[k]["name"]
+                }
+                inner2[0].innerText = to_replace.substring(5)
+            }
+            
+
+        }
+    }
+}
+*/
+
+
+
+// export function replaceonScreen(selectedIngred){
+//     var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
+//     for (var i = 0; i < checklists.length; i++){
+//         var inner1 = checklists[i].getElementsByClassName("checkList__line")
+//         for (var j = 0; j<inner1.length; j++){
+//             var inner2 = inner1[j].getElementsByClassName("recipe-ingred_txt added")
+//             console.log(getItem(inner2[0].innerText))
+            
+//             if (getItem(inner2[0].innerText) !== "Add all ingredients to list") {
+//                 var name = getItem(inner2[0].innerText)
+//                 var replacersss = replacers[name][2]
+//                 console.log(replacersss)
+//                 if (replacersss[0] !== undefined && name in selectedIngred) {
+                    
+//                     for (var k=0; k < replacersss.length; k++) {
+//                         var r = replacersss[k]
+//                         if (selectedIngred[name].includes(r.replacer[0].name)) {
+//                             console.log(r.replacer[0])
+//                             inner2[0].innerText = r.replacer[0].name
+//                         }
+//                     }
+//                     // console.log(replacersss[0].replacer[0])
+//                     // inner2[0].innerText = replacersss[0].replacer[0].name
+//                 }
+//             }
+//         }
+//     }
+
+// }
+
+
+//returns a dictionary with the original ingredient and amount with the necessary replacement amount for that ingredient and notes 
+function calculateAmount(){
+    for (var replacer in replacers){
+        console.log(replacers[replacer][2][0])
+        var conv_factor = replacers[replacer][0]/getVal(replacers[replacer][2][0]["replaceemeasurement"])
+        for (var sub_replace in replacers[replacer][2][0]["replacer"]){
+            console.log("in")
+            replacers[replacer][2][0]["replacer"][sub_replace]["replacermeasurement"] = numberToFraction((conv_factor * getVal(replacers[replacer][2][0]["replacer"][sub_replace]["replacermeasurement"]))).toString() + " " + getMeas(replacers[replacer][2][0]["replacer"][sub_replace]["replacermeasurement"]) + "(s)"
+            console.log("out")
+        }
+        delete replacers[replacer][2].replaceemeasurement
+    }
+    console.log(replacer)
+    console.log("exit")
+    return replacers
 
 }
+
 export function onlyReplacements(){
     var final = {}
     var replacements_only = []
@@ -163,18 +234,38 @@ export function onlyReplacements(){
 
 
 
-//returns a dictionary with the original ingredient and amount with the necessary replacement amount for that ingredient and notes 
-function calculateAmount(){
-    for (var replacer in replacers){
-        var conv_factor = replacers[replacer][0]/getVal(replacers[replacer][2]["replaceemeasurement"])
-        for (var sub_replace in replacers[replacer][2]["replacer"]){
-            replacers[replacer][2]["replacer"][sub_replace]["replacermeasurement"] = (conv_factor * getVal(replacers[replacer][2]["replacer"][sub_replace]["replacermeasurement"])).toString() + " " + getMeas(replacers[replacer][2]["replacer"][sub_replace]["replacermeasurement"]) + "(s)"
-        }
-        delete replacers[replacer][2].replaceemeasurement
-    }
-    return replacers
-
-}
-calculateAmount()
 
 //export default {getIngred, addIngred, getReplacer}
+
+
+function numberToFraction( amount ) {
+	// This is a whole number and doesn't need modification.
+	if ( parseFloat( amount ) === parseInt( amount ) ) {
+		return amount;
+	}
+	// Next 12 lines are cribbed from https://stackoverflow.com/a/23575406.
+	var gcd = function(a, b) {
+		if (b < 0.0000001) {
+			return a;
+		}
+		return gcd(b, Math.floor(a % b));
+	};
+	var len = amount.toString().length - 2;
+	var denominator = Math.pow(10, len);
+	var numerator = amount * denominator;
+	var divisor = gcd(numerator, denominator);
+	numerator /= divisor;
+	denominator /= divisor;
+	var base = 0;
+	// In a scenario like 3/2, convert to 1 1/2
+	// by pulling out the base number and reducing the numerator.
+	if ( numerator > denominator ) {
+		base = Math.floor( numerator / denominator );
+		numerator -= base * denominator;
+	}
+	amount = Math.floor(numerator) + '/' + Math.floor(denominator);
+	if ( base ) {
+		amount = base + ' ' + amount;
+	}
+	return amount;
+}

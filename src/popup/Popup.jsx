@@ -66,14 +66,11 @@ class Popup extends React.Component {
     const things = onlyReplacements()
     console.log("PRINTING")
     console.log(things)
-    for (let i=0; i<names.length; i++) {
-      const item = names[i]
+    for (var replacer in replacements) {
       console.log("creating object")
-      console.log("ITEM:")
-      console.log(item)
-      const obj = {name: item, selected: null, replacements: things[item]}
-      console.log("finished object")
+      const obj = {name: replacer, selected: null, replacements: things[replacer]}
       components.push(obj)
+      console.log("finished object")
       //}
     }
     console.log("created objects")
@@ -91,8 +88,28 @@ class Popup extends React.Component {
     this.setState({ingredients: ingredientList})
   }
 
+  // ORIGINAL
+  // handleExit = () => {
+  //   replaceonScreen()
+  //   this.props.unmount()
+  // }
+
+
   handleExit = () => {
-    replaceonScreen()
+    var selectedIngred = {}
+    // console.log("handleExit")
+    // console.log(this.state.ingredients)
+    for (var i=0; i<this.state.ingredients.length; i++) {
+      var current = this.state.ingredients[i]
+      //console.log("INGREDIENT: " + current)
+      if (!current.replacements[0].includes("no replacements") && current.selected !== null) {
+        //console.log("selected: " + current.selected)
+        // selectedIngred.push({key: i.name, value: i.selected})
+        selectedIngred[current.name] = current.replacements.indexOf(current.selected)
+      }
+    }
+    //console.log(selectedIngred)
+    replaceonScreen(selectedIngred)
     this.props.unmount()
   }
   
