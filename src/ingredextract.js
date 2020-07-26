@@ -7,6 +7,7 @@ function getIngred(){
     var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
     //get all the ingredients of class checkList__line
     var lines = []
+    console.log(checklists.length)
     for (var i = 0; i < checklists.length; i++){
         lines.push(checklists[i].getElementsByClassName("checkList__line"))
     }
