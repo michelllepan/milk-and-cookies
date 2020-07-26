@@ -29,9 +29,9 @@ class Ingredient extends React.Component {
 
   handleSelect = () => {
     if (this.props.ingredient.selected === null) {
-      console.log("before retrieval")
+      //console.log("before retrieval")
       var value = this.props.ingredient.replacements[0]
-      console.log("after retrieval")
+      //console.log("after retrieval")
 
       this.props.handleSelect(this.props.ingredient, value)
     } else {

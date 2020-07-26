@@ -152,8 +152,8 @@ export function onlyReplacements(){
             replacements_only.push(replacement)  
 
         }
-        if (replacements_only.length == 0){
-            replacements_only = ["No replacements"]
+        if (replacements_only.length === 0){
+            replacements_only = ["no replacements"]
         }
         final[replacer] = replacements_only
         replacements_only = []
@@ -162,7 +162,7 @@ export function onlyReplacements(){
     return final
 }
 
-export function replaceonScreen(){
+export function replaceonScreen(selectedIngred){
     var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
     for (var i = 0; i < checklists.length; i++){
         var inner1 = checklists[i].getElementsByClassName("checkList__line")
@@ -171,17 +171,48 @@ export function replaceonScreen(){
             console.log(getItem(inner2[0].innerText))
             
             if (getItem(inner2[0].innerText) !== "Add all ingredients to list") {
-                var replacersss = replacers[getItem(inner2[0].innerText)][2]
+                var name = getItem(inner2[0].innerText)
+                var replacersss = replacers[name][2]
                 console.log(replacersss)
-                if (replacersss[0] !== undefined) {
-                    console.log(replacers[getItem(inner2[0].innerText)][2][0].replacer[0])
-                    inner2[0].innerText = replacers[getItem(inner2[0].innerText)][2][0].replacer[0].name
+                if (replacersss[0] !== undefined && name in selectedIngred) {
+                    
+                    for (var k=0; k < replacersss.length; k++) {
+                        var r = replacersss[k]
+                        if (selectedIngred[name].includes(r.replacer[0].name)) {
+                            console.log(r.replacer[0])
+                            inner2[0].innerText = r.replacer[0].name
+                        }
+                    }
+                    // console.log(replacersss[0].replacer[0])
+                    // inner2[0].innerText = replacersss[0].replacer[0].name
                 }
             }
         }
     }
 
 }
+
+// WORKING VERSION
+// export function replaceonScreen(){
+//     var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
+//     for (var i = 0; i < checklists.length; i++){
+//         var inner1 = checklists[i].getElementsByClassName("checkList__line")
+//         for (var j = 0; j<inner1.length; j++){
+//             var inner2 = inner1[j].getElementsByClassName("recipe-ingred_txt added")
+//             console.log(getItem(inner2[0].innerText))
+            
+//             if (getItem(inner2[0].innerText) !== "Add all ingredients to list") {
+//                 var replacersss = replacers[getItem(inner2[0].innerText)][2]
+//                 console.log(replacersss)
+//                 if (replacersss[0] !== undefined) {
+//                     console.log(replacers[getItem(inner2[0].innerText)][2][0].replacer[0])
+//                     inner2[0].innerText = replacers[getItem(inner2[0].innerText)][2][0].replacer[0].name
+//                 }
+//             }
+//         }
+//     }
+
+// }
 
 
 /* WORKING VERSION

@@ -93,7 +93,20 @@ class Popup extends React.Component {
 
   //console.log("STATE:" + this.state)
   handleExit = () => {
-    replaceonScreen()
+    var selectedIngred = {}
+    console.log("handleExit")
+    console.log(this.state.ingredients)
+    for (var i=0; i<this.state.ingredients.length; i++) {
+      var current = this.state.ingredients[i]
+      console.log("INGREDIENT: " + current)
+      if (!current.replacements[0].includes("no replacements") && current.selected !== null) {
+        console.log("selected: " + current.selected)
+        // selectedIngred.push({key: i.name, value: i.selected})
+        selectedIngred[current.name] = current.selected
+      }
+    }
+    console.log(selectedIngred)
+    replaceonScreen(selectedIngred)
     this.props.unmount()
     console.log("HERE:" + this.props)
   }
