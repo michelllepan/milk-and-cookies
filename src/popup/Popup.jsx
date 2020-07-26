@@ -91,7 +91,9 @@ class Popup extends React.Component {
     this.setState({ingredients: ingredientList})
   }
 
-  //console.log("STATE:" + this.state)
+  handleExit = () => {
+    this.props.unmount()
+  }
   
   render() {
     return (
@@ -101,11 +103,11 @@ class Popup extends React.Component {
             Select the ingredients you'd like to find replacements for:
           </Title>
           <ListContainer>
-            {this.state.ingredients.map(i => <Ingredient ingredient={i}
-                                                         handleSelect={this.handleSelect} />)}
+            {this.state.ingredients.map(i => (i.replacements[0] !== "no replacements") && 
+                              <Ingredient ingredient={i} handleSelect={this.handleSelect} />)}
           </ListContainer>
           <ButtonContainer>
-            <Button className="button-element">
+            <Button className="button-element" onClick={this.handleExit}>
               <Text>continue</Text>
             </Button>
           </ButtonContainer>

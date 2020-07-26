@@ -152,7 +152,7 @@ export function onlyReplacements(){
 
         }
         if (replacements_only.length == 0){
-            replacements_only = ["No replacements"]
+            replacements_only = ["no replacements"]
         }
         final[replacer] = replacements_only
         replacements_only = []
