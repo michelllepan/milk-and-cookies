@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.991e940f.chunk.css",
+    "main.js": "/static/js/main.69e4637e.chunk.js",
+    "main.js.map": "/static/js/main.69e4637e.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.39a232be.js",
+    "runtime-main.js.map": "/static/js/runtime-main.39a232be.js.map",
+    "static/js/2.e5ffeb6a.chunk.js": "/static/js/2.e5ffeb6a.chunk.js",
+    "static/js/2.e5ffeb6a.chunk.js.map": "/static/js/2.e5ffeb6a.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.6d31175551e6c272376d145fbb10fa1f.js": "/precache-manifest.6d31175551e6c272376d145fbb10fa1f.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.991e940f.chunk.css.map": "/static/css/main.991e940f.chunk.css.map",
+    "static/js/2.e5ffeb6a.chunk.js.LICENSE.txt": "/static/js/2.e5ffeb6a.chunk.js.LICENSE.txt",
+    "static/media/checkbox-selected.26b43e05.svg": "/static/media/checkbox-selected.26b43e05.svg",
+    "static/media/checkbox.6ef8d4fa.svg": "/static/media/checkbox.6ef8d4fa.svg",
+    "static/media/down-arrow.7177fe82.svg": "/static/media/down-arrow.7177fe82.svg",
+    "static/media/logo.svg": "/static/media/logo.5d5d9eef.svg",
+    "static/media/up-arrow.674f1b44.svg": "/static/media/up-arrow.674f1b44.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.39a232be.js",
+    "static/js/2.e5ffeb6a.chunk.js",
+    "static/css/main.991e940f.chunk.css",
+    "static/js/main.69e4637e.chunk.js"
+  ]
+}
