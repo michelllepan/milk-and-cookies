@@ -118,10 +118,8 @@ export function replaceonScreen(selectedIngred){
                 for(var k = 0; k<replacers[getItem(inner2[0].innerText)][2][0].replacer.length; k++){
                     to_replace = to_replace + " and " + replacers[getItem(inner2[0].innerText)][2][number].replacer[k]["replacermeasurement"] + " " + replacers[getItem(inner2[0].innerText)][2][number].replacer[k]["name"]
                 }
-                inner2[0].innerText = to_replace.substring(5)
+                inner2[0].innerText = to_replace.substring(5) + " (" + getItem(inner2[0].innerText) + ")"
             }
-            
-
         }
     }
 }
@@ -153,37 +151,6 @@ export function replaceonScreen(){
 }
 */
 
-
-
-// export function replaceonScreen(selectedIngred){
-//     var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
-//     for (var i = 0; i < checklists.length; i++){
-//         var inner1 = checklists[i].getElementsByClassName("checkList__line")
-//         for (var j = 0; j<inner1.length; j++){
-//             var inner2 = inner1[j].getElementsByClassName("recipe-ingred_txt added")
-//             console.log(getItem(inner2[0].innerText))
-            
-//             if (getItem(inner2[0].innerText) !== "Add all ingredients to list") {
-//                 var name = getItem(inner2[0].innerText)
-//                 var replacersss = replacers[name][2]
-//                 console.log(replacersss)
-//                 if (replacersss[0] !== undefined && name in selectedIngred) {
-                    
-//                     for (var k=0; k < replacersss.length; k++) {
-//                         var r = replacersss[k]
-//                         if (selectedIngred[name].includes(r.replacer[0].name)) {
-//                             console.log(r.replacer[0])
-//                             inner2[0].innerText = r.replacer[0].name
-//                         }
-//                     }
-//                     // console.log(replacersss[0].replacer[0])
-//                     // inner2[0].innerText = replacersss[0].replacer[0].name
-//                 }
-//             }
-//         }
-//     }
-
-// }
 
 
 //returns a dictionary with the original ingredient and amount with the necessary replacement amount for that ingredient and notes 
