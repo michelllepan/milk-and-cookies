@@ -75,10 +75,40 @@ export function getReplacer(){
             }
             i = i + 1
         }
-        replacers[p] = [ingredients[p][0], ingredients[p][1], database[i].replacements[0]]
+        replacers[p] = [ingredients[p][0], ingredients[p][1], database[i].replacements]
     }
     return replacers
 }
+
+export function onlyReplacements(){
+    var replacements_only = []
+    for (var replacer in replacers){
+        console.log("Replacer " + replacer)
+        console.log(replacers[replacer][2][0])
+        for(var j = 0; j <replacers[replacer][2].length; j++){
+            console.log(replacers[replacer][2][j]["replacer"])
+            
+            if(replacers[replacer][2][j]["replacer"].length == 2){
+                var replacement = replacers[replacer][2][j]["replacer"][0]["name"] + " and " + replacers[replacer][2][j]["replacer"][1]["name"]
+
+            }
+            else{
+                var replacement = replacers[replacer][2][j]["replacer"][0]["name"] 
+            }
+            console.log(replacement)
+            replacements_only.push(replacement)  
+
+        }
+
+    }
+        
+    console.log("I EXIST")
+    console.log(replacements_only) 
+    return replacements_only
+
+}
+
+
 
 
 //returns a dictionary with the original ingredient and amount with the necessary replacement amount for that ingredient and notes 
