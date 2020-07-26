@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import Ingredient from './Ingredient';
 // import getIngred from '../ingredextract';
 // import getReplacer from '../ingredextract';
-import {getIngred, getReplacer} from '../ingredextract';
+import {getIngred, getReplacer, onlyReplacements} from '../ingredextract';
+
 import App from '../App';
 import dreplace from '../content_scripts.js'
 
@@ -78,9 +79,8 @@ class Popup extends React.Component {
       //} else {
         //add the ingredient to the list of ingredients
       //FIX THIS FOR REPLACEMENTS
-      const obj = {name: item, selected: null, replacements: replacements[item]}
+      const obj = {name: item, selected: null, replacements: onlyReplacements()}
       components.push(obj)
-      console.log(replacements)
       //}
     }
     this.setState({ingredients: components})
