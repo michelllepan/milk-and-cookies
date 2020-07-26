@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ReactComponent as Checkbox } from './Checkbox.svg';
 import { ReactComponent as CheckboxSelected } from './checkbox-selected.svg';
 import Dropdown from './Dropdown';
-//import App from '../App';
+import App from '../App';
 
 const Wrapper = styled.div`
   display: flex;
@@ -29,22 +29,11 @@ class Ingredient extends React.Component {
 
   handleSelect = () => {
     if (this.props.ingredient.selected === null) {
-      //console.log(
-      //this.props.ingredient.replacements[2]["replacer"][0]["name"])
-      //console.log(this.props.ingredient.replacements[2]["replacer"].length)
-      /*
-      if (this.props.ingredient.replacements[2]["replacer"].length === 2){
-        var value = this.props.ingredient.replacements[2]["replacer"][0]["name"] + " and " + this.props.ingredient.replacements[2]["replacer"][1]["name"]
-      }
-      else{
-        var value = this.props.ingredient.replacements[2]["replacer"][0]["name"]
-      }
-      */
-     var value = this.props.ingredient.replacements[0]
-
+      console.log("before retrieval")
+      var value = this.props.ingredient.replacements[0]
+      console.log("after retrieval")
 
       this.props.handleSelect(this.props.ingredient, value)
-      console.log("hello")
     } else {
       this.props.handleSelect(this.props.ingredient, null)
     }

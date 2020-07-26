@@ -20,11 +20,24 @@ export function getIngred(){
         }
     }
     ingred_title.splice(ingred_title.length-1, ingred_title.length)
+    addIngred()
     return ingred_title
 }
 
+export function exportNames(){
+    getIngred()
+    var all_names = addIngred()
+    console.log(all_names)
+    var names = []
+    for (var ingred in all_names){
+        console.log(ingred)
+        names.push(ingred)
+    }
+    return names
+}
+
 //format: <amount> <measurement> <name>
-var ingredients = {"all purpose flour": ["1", "cups"]}
+var ingredients = {}
 
 export function addIngred(){
     for (var i = 0; i < ingred_title.length; i++){
@@ -35,6 +48,7 @@ export function addIngred(){
             ingredients[getItem(title)] = [getVal(title), getMeas(title)]
         }
     }
+    return ingredients
 }
 
 //get the number value at the beginning of the ingredient title
@@ -56,6 +70,9 @@ function getMeas(title){
 
 //get the item after the measurement
 export function getItem(title){
+    if (getMeas(title).includes("egg")) {
+        return getMeas(title)
+    }
     var rest = title.replace(getVal(title) + ' ' + getMeas(title), '')
     var words = rest.split(",")
     return words[0].trim()
@@ -70,24 +87,61 @@ export function getReplacer(){
     for (var p in ingredients) {
         var i = 0
         while (i<database.length){
-            if(database[i].replacee == p){
+            if(p.includes(database[i].replacee)){
                 break
             }
             i = i + 1
         }
-        replacers[p] = [ingredients[p][0], ingredients[p][1], database[i].replacements]
+        if (i<database.length){
+            var things = database[i].replacements
+        }
+        else{
+            var things = {"replaceemeasurement": "",
+            "replacer":
+            [
+                         {
+                            "name": "",
+                            "replacermeasurement": ""
+                         }, 
+                         {
+                            "name": "",
+                            "replacermeasurement": ""
+                         }
+            ], 
+            "notes":""}
+        }
+        replacers[p] = [ingredients[p][0], ingredients[p][1], things]
     }
     return replacers
 }
 
+/*
+export function onlyReplacements(item){
+    var final = {}
+    var replacements_only = []
+    for(var j = 0; j <replacers[item][2].length; j++){
+        if(replacers[item][2][j]["replacer"].length == 2){
+            var replacement = replacers[item][2][j]["replacer"][0]["name"] + " and " + replacers[item][2][j]["replacer"][1]["name"]
+
+        }
+        else{
+            var replacement = replacers[item][2][j]["replacer"][0]["name"] 
+        }
+        replacements_only.push(replacement)  
+
+    }
+
+    
+        
+    return replacements_only
+
+}
+*/
 export function onlyReplacements(){
+    var final = {}
     var replacements_only = []
     for (var replacer in replacers){
-        console.log("Replacer " + replacer)
-        console.log(replacers[replacer][2][0])
         for(var j = 0; j <replacers[replacer][2].length; j++){
-            console.log(replacers[replacer][2][j]["replacer"])
-            
             if(replacers[replacer][2][j]["replacer"].length == 2){
                 var replacement = replacers[replacer][2][j]["replacer"][0]["name"] + " and " + replacers[replacer][2][j]["replacer"][1]["name"]
 
@@ -95,19 +149,89 @@ export function onlyReplacements(){
             else{
                 var replacement = replacers[replacer][2][j]["replacer"][0]["name"] 
             }
-            console.log(replacement)
+            replacements_only.push(replacement)  
+
+        }
+        if (replacements_only.length == 0){
+            replacements_only = ["No replacements"]
+        }
+        final[replacer] = replacements_only
+        replacements_only = []
+
+    }
+    return final
+}
+
+export function replaceonScreen(){
+    var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
+    for (var i = 0; i < checklists.length; i++){
+        var inner1 = checklists[i].getElementsByClassName("checkList__line")
+        for (var j = 0; j<inner1.length; j++){
+            var inner2 = inner1[j].getElementsByClassName("recipe-ingred_txt added")
+            console.log(getItem(inner2[0].innerText))
+            
+            if (getItem(inner2[0].innerText) !== "Add all ingredients to list") {
+                var replacersss = replacers[getItem(inner2[0].innerText)][2]
+                console.log(replacersss)
+                if (replacersss[0] !== undefined) {
+                    console.log(replacers[getItem(inner2[0].innerText)][2][0].replacer[0])
+                    inner2[0].innerText = replacers[getItem(inner2[0].innerText)][2][0].replacer[0].name
+                }
+            }
+        }
+    }
+
+}
+
+
+/* WORKING VERSION
+export function onlyReplacements(){
+    var replacements_only = []
+    for (var replacer in replacers){
+        for(var j = 0; j <replacers[replacer][2].length; j++){
+            if(replacers[replacer][2][j]["replacer"].length == 2){
+                var replacement = replacers[replacer][2][j]["replacer"][0]["name"] + " and " + replacers[replacer][2][j]["replacer"][1]["name"]
+
+            }
+            else{
+                var replacement = replacers[replacer][2][j]["replacer"][0]["name"] 
+            }
             replacements_only.push(replacement)  
 
         }
 
     }
         
-    console.log("I EXIST")
-    console.log(replacements_only) 
     return replacements_only
 
 }
 
+*/
+
+/* 
+export function onlyReplacements(item){
+    var replacements_only = {}
+    for (var replacer in replacers){
+        if (item == replacer){}
+            for(var j = 0; j <replacers[replacer][2].length; j++){
+                if(replacers[replacer][2][j]["replacer"].length == 2){
+                    var replacement = replacers[replacer][2][j]["replacer"][0]["name"] + " and " + replacers[replacer][2][j]["replacer"][1]["name"]
+
+                }
+                else{
+                    var replacement = replacers[replacer][2][j]["replacer"][0]["name"] 
+                }
+                replacements_only.push(replacement)  
+
+            }
+        }
+    }
+        
+    return replacements_only
+
+}
+
+*/
 
 
 
@@ -115,24 +239,14 @@ export function onlyReplacements(){
 function calculateAmount(){
     for (var replacer in replacers){
         var conv_factor = replacers[replacer][0]/getVal(replacers[replacer][2]["replaceemeasurement"])
-        console.log("Conversion Factor" + conv_factor)
         for (var sub_replace in replacers[replacer][2]["replacer"]){
             replacers[replacer][2]["replacer"][sub_replace]["replacermeasurement"] = (conv_factor * getVal(replacers[replacer][2]["replacer"][sub_replace]["replacermeasurement"])).toString() + " " + getMeas(replacers[replacer][2]["replacer"][sub_replace]["replacermeasurement"]) + "(s)"
-            console.log(replacers[replacer][2]["replacer"][sub_replace]["replacermeasurement"])
         }
         delete replacers[replacer][2].replaceemeasurement
     }
-    console.log(replacers)
     return replacers
 
 }
 calculateAmount()
 
 //export default {getIngred, addIngred, getReplacer}
-
-
-
-
-
-
-   
