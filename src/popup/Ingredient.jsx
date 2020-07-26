@@ -17,10 +17,11 @@ const LabelWrapper = styled.div`
   flex-direction: row;
   align-items: center;
 `
-const IngredientText = styled.p`
+const IngredientText = styled.h4`
+  margin: 0px;
   margin-left: 20px;
-  font-size: 22px;
-  font-weight: 600;
+  font-weight: 400;
+  font-size: 18px;
 `
 
 class Ingredient extends React.Component {
