@@ -20,6 +20,7 @@ export function getIngred(){
         }
     }
     ingred_title.splice(ingred_title.length-1, ingred_title.length)
+    return ingred_title
 }
 
 //format: <amount> <measurement> <name>
