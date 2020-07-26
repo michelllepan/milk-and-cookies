@@ -79,6 +79,24 @@ export function getReplacer(){
     return replacers
 }
 
+export function onlyReplacements(){
+    var replacements_only = []
+    for (var replacer in replacers){
+        for (var sub_replace in replacers[replacer][2]["replacer"]){
+            if(replacers[replacer][2]["replacer"].length == 2){
+                var replacement = replacers[replacer][2]["replacer"][0]["name"] + " and " + replacers[replacer][2]["replacer"][1]["name"]
+
+            }
+            else{
+                var replacement = replacers[replacer][2]["replacer"][0]["name"] 
+            }
+            replacements_only.push(replacement)
+        }
+    }
+
+
+}
+
 
 //returns a dictionary with the original ingredient and amount with the necessary replacement amount for that ingredient and notes 
 function calculateAmount(){

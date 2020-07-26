@@ -57,33 +57,38 @@ const Text = styled.p`
 `
 
 class Popup extends React.Component {
+ 
   
   state = {
     ingredients: []
   }
 
   componentDidMount = () => {
+    console.log("IN HERE")
     const components = []
-    const names = getIngred()
+    //const names = getIngred()
+    const names = ["all purpose flour"]
     for (let i=0; i<names.length; i++) {
       const replacements = getReplacer()
       const item = names[i]
       //check if the user has replaced this item before
-      if (item in App.cache){
+    //  if (item in App.cache){
         //immediately replace text on the website
-        dreplace(App.cache[item])
-      } else {
+      //  dreplace(App.cache[item])
+      //} else {
         //add the ingredient to the list of ingredients
-        const obj = {name: item, selected: null, subs: replacements[item]}
-        components.push(obj)
-      }
+      //FIX THIS FOR REPLACEMENTS
+      const obj = {name: item, selected: null, replacements: replacements[item]}
+      components.push(obj)
+      console.log(replacements)
+      //}
     }
     this.setState({ingredients: components})
   }
 
   handleSelect = (ingredient, replacement) => {
     //remember the replacement
-    App.cache[this.props.ingredient] = replacement
+    //App.cache[this.props.ingredient] = replacement
     const i = this.state.ingredients.indexOf(ingredient)
     const ingredientList = this.state.ingredients
     ingredientList[i] = {name: ingredient.name,
