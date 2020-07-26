@@ -7,7 +7,6 @@ const Overlay = styled.div`
   width: 100%;
   height: 100%;
   position: fixed;
-
   background-color: #3E3E3E99;
 `
 const PopupInner = styled.div`
@@ -43,7 +42,6 @@ const ButtonContainer = styled.div`
 const Button = styled.div`
   width: fit-content;
   padding: 7px 12px 7px 12px;
-
   background-color: #FF8159;
   border-radius: 5px;
   margin: auto;
@@ -62,24 +60,20 @@ class Popup extends React.Component {
   }
 
   componentDidMount = () => {
-    console.log("IN HERE")
     const components = []
-    const names = onlyIngred()
-    //const names = ["all purpose flour"]
+    const names = getIngred()
+    const replacements = getReplacer()
+    //const things = onlyReplacements()
+    //console.log(things)
     for (let i=0; i<names.length; i++) {
-      const replacements = getReplacer()
       const item = names[i]
-      //check if the user has replaced this item before
-    //  if (item in App.cache){
-        //immediately replace text on the website
-      //  dreplace(App.cache[item])
-      //} else {
-        //add the ingredient to the list of ingredients
-      //FIX THIS FOR REPLACEMENTS
-      const obj = {name: item, selected: null, replacements: onlyReplacements()}
+      console.log("creating object")
+      const obj = {name: item, selected: null, replacements: onlyReplacements()}//things[item]}
+      console.log("finished object")
       components.push(obj)
       //}
     }
+    console.log("created objects")
     this.setState({ingredients: components})
   }
 

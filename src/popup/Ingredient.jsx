@@ -29,22 +29,10 @@ class Ingredient extends React.Component {
 
   handleSelect = () => {
     if (this.props.ingredient.selected === null) {
-      //console.log(
-      //this.props.ingredient.replacements[2]["replacer"][0]["name"])
-      //console.log(this.props.ingredient.replacements[2]["replacer"].length)
-      /*
-      if (this.props.ingredient.replacements[2]["replacer"].length === 2){
-        var value = this.props.ingredient.replacements[2]["replacer"][0]["name"] + " and " + this.props.ingredient.replacements[2]["replacer"][1]["name"]
-      }
-      else{
-        var value = this.props.ingredient.replacements[2]["replacer"][0]["name"]
-      }
-      */
       var value = this.props.ingredient.replacements[0]
 
 
       this.props.handleSelect(this.props.ingredient, value)
-      console.log("hello")
     } else {
       this.props.handleSelect(this.props.ingredient, null)
     }

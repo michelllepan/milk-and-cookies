@@ -1,40 +1,9 @@
-// {
-//   "short_name": "React App",
-//   "name": "Create React App Sample",
-//   "icons": [
-//     {
-//       "src": "favicon.ico",
-//       "sizes": "64x64 32x32 24x24 16x16",
-//       "type": "image/x-icon"
-//     },
-//     {
-//       "src": "logo192.png",
-//       "type": "image/png",
-//       "sizes": "192x192"
-//     },
-//     {
-//       "src": "logo512.png",
-//       "type": "image/png",
-//       "sizes": "512x512"
-//     }
-//   ],
-//   "start_url": ".",
-//   "display": "standalone",
-//   "theme_color": "#000000",
-//   "background_color": "#ffffff"
-// }
-
 {
   "manifest_version": 2,
 
   "name": "milk & cookies",
   "description": "woohoooo",
   "version": "0.0.1",
-
-  // "browser_action": {
-  //   "default_popup": "index.html",
-  //   "default_title": "Open the popup"
-  // },
   "icons": {
     "16": "logo.png",
     "48": "logo.png",
@@ -42,9 +11,10 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": ["*://*/*"],
+      "all_frames": true,
       "css": ["/static/css/main.css"],
-      "js": ["/static/js/main.js"]
+      "js": ["/static/js/main.js", "content.js"]
     }
   ],
   "permissions": [

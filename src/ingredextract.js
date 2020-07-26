@@ -7,7 +7,6 @@ export function getIngred(){
     var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
     //get all the ingredients of class checkList__line
     var lines = []
-    console.log(checklists.length)
     for (var i = 0; i < checklists.length; i++){
         lines.push(checklists[i].getElementsByClassName("checkList__line"))
     }
@@ -20,14 +19,11 @@ export function getIngred(){
         }
     }
     ingred_title.splice(ingred_title.length-1, ingred_title.length)
+    addIngred()
     return ingred_title
 }
 
-export function onlyIngred(){
-    getIngred()
-    return ingred_title.map(t => getItem(t))
 
-}
 
 //format: <amount> <measurement> <name>
 var ingredients = {}
@@ -84,19 +80,57 @@ export function getReplacer(){
             }
             i = i + 1
         }
-        replacers[p] = [ingredients[p][0], ingredients[p][1], database[i].replacements]
+        if (i<database.length){
+            var things = database[i].replacements
+        }
+        else{
+            var things = {"replaceemeasurement": "",
+            "replacer":
+            [
+                         {
+                            "name": "",
+                            "replacermeasurement": ""
+                         }, 
+                         {
+                            "name": "",
+                            "replacermeasurement": ""
+                         }
+            ], 
+            "notes":""}
+        }
+        replacers[p] = [ingredients[p][0], ingredients[p][1], things]
     }
     return replacers
 }
 
+/*
+export function onlyReplacements(item){
+    var replacements_only = []
+    for(var j = 0; j <replacers[item][2].length; j++){
+        if(replacers[item][2][j]["replacer"].length == 2){
+            var replacement = replacers[item][2][j]["replacer"][0]["name"] + " and " + replacers[item][2][j]["replacer"][1]["name"]
+
+        }
+        else{
+            var replacement = replacers[item][2][j]["replacer"][0]["name"] 
+        }
+        replacements_only.push(replacement)  
+
+    }
+
+    
+        
+    return replacements_only
+
+}
+*/
+
+
+
 export function onlyReplacements(){
     var replacements_only = []
     for (var replacer in replacers){
-        console.log("Replacer " + replacer)
-        console.log(replacers[replacer][2][0])
         for(var j = 0; j <replacers[replacer][2].length; j++){
-            console.log(replacers[replacer][2][j]["replacer"])
-            
             if(replacers[replacer][2][j]["replacer"].length == 2){
                 var replacement = replacers[replacer][2][j]["replacer"][0]["name"] + " and " + replacers[replacer][2][j]["replacer"][1]["name"]
 
@@ -104,18 +138,16 @@ export function onlyReplacements(){
             else{
                 var replacement = replacers[replacer][2][j]["replacer"][0]["name"] 
             }
-            console.log(replacement)
             replacements_only.push(replacement)  
 
         }
 
     }
         
-    console.log("I EXIST")
-    console.log(replacements_only) 
     return replacements_only
 
 }
+
 
 
 
@@ -124,24 +156,14 @@ export function onlyReplacements(){
 function calculateAmount(){
     for (var replacer in replacers){
         var conv_factor = replacers[replacer][0]/getVal(replacers[replacer][2]["replaceemeasurement"])
-        console.log("Conversion Factor" + conv_factor)
         for (var sub_replace in replacers[replacer][2]["replacer"]){
             replacers[replacer][2]["replacer"][sub_replace]["replacermeasurement"] = (conv_factor * getVal(replacers[replacer][2]["replacer"][sub_replace]["replacermeasurement"])).toString() + " " + getMeas(replacers[replacer][2]["replacer"][sub_replace]["replacermeasurement"]) + "(s)"
-            console.log(replacers[replacer][2]["replacer"][sub_replace]["replacermeasurement"])
         }
         delete replacers[replacer][2].replaceemeasurement
     }
-    console.log(replacers)
     return replacers
 
 }
 calculateAmount()
 
 //export default {getIngred, addIngred, getReplacer}
-
-
-
-
-
-
-   
