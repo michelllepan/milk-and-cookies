@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Ingredient from './Ingredient';
-import {getIngred, getReplacer, onlyReplacements, onlyIngred} from '../ingredextract';
+import {getIngred, getReplacer, onlyReplacements, exportNames} from '../ingredextract';
 
 const Overlay = styled.div`
   width: 100%;
@@ -61,14 +61,17 @@ class Popup extends React.Component {
 
   componentDidMount = () => {
     const components = []
-    const names = getIngred()
+    const names = exportNames()
     const replacements = getReplacer()
-    //const things = onlyReplacements()
-    //console.log(things)
+    const things = onlyReplacements()
+    console.log("PRINTING")
+    console.log(things)
     for (let i=0; i<names.length; i++) {
       const item = names[i]
       console.log("creating object")
-      const obj = {name: item, selected: null, replacements: onlyReplacements()}//things[item]}
+      console.log("ITEM:")
+      console.log(item)
+      const obj = {name: item, selected: null, replacements: things[item]}
       console.log("finished object")
       components.push(obj)
       //}
@@ -88,6 +91,8 @@ class Popup extends React.Component {
     this.setState({ingredients: ingredientList})
   }
 
+  //console.log("STATE:" + this.state)
+  
   render() {
     return (
       <Overlay>

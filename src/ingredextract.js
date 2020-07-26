@@ -23,7 +23,17 @@ export function getIngred(){
     return ingred_title
 }
 
-
+export function exportNames(){
+    getIngred()
+    var all_names = addIngred()
+    console.log(all_names)
+    var names = []
+    for (var ingred in all_names){
+        console.log(ingred)
+        names.push(ingred)
+    }
+    return names
+}
 
 //format: <amount> <measurement> <name>
 var ingredients = {}
@@ -37,6 +47,7 @@ export function addIngred(){
             ingredients[getItem(title)] = [getVal(title), getMeas(title)]
         }
     }
+    return ingredients
 }
 
 //get the number value at the beginning of the ingredient title
@@ -105,6 +116,7 @@ export function getReplacer(){
 
 /*
 export function onlyReplacements(item){
+    var final = {}
     var replacements_only = []
     for(var j = 0; j <replacers[item][2].length; j++){
         if(replacers[item][2][j]["replacer"].length == 2){
@@ -124,9 +136,33 @@ export function onlyReplacements(item){
 
 }
 */
+export function onlyReplacements(){
+    var final = {}
+    var replacements_only = []
+    for (var replacer in replacers){
+        for(var j = 0; j <replacers[replacer][2].length; j++){
+            if(replacers[replacer][2][j]["replacer"].length == 2){
+                var replacement = replacers[replacer][2][j]["replacer"][0]["name"] + " and " + replacers[replacer][2][j]["replacer"][1]["name"]
+
+            }
+            else{
+                var replacement = replacers[replacer][2][j]["replacer"][0]["name"] 
+            }
+            replacements_only.push(replacement)  
+
+        }
+        if (replacements_only.length == 0){
+            replacements_only = ["No replacements"]
+        }
+        final[replacer] = replacements_only
+        replacements_only = []
+
+    }
+    return final
+}
 
 
-
+/* WORKING VERSION
 export function onlyReplacements(){
     var replacements_only = []
     for (var replacer in replacers){
@@ -148,7 +184,32 @@ export function onlyReplacements(){
 
 }
 
+*/
 
+/* 
+export function onlyReplacements(item){
+    var replacements_only = {}
+    for (var replacer in replacers){
+        if (item == replacer){}
+            for(var j = 0; j <replacers[replacer][2].length; j++){
+                if(replacers[replacer][2][j]["replacer"].length == 2){
+                    var replacement = replacers[replacer][2][j]["replacer"][0]["name"] + " and " + replacers[replacer][2][j]["replacer"][1]["name"]
+
+                }
+                else{
+                    var replacement = replacers[replacer][2][j]["replacer"][0]["name"] 
+                }
+                replacements_only.push(replacement)  
+
+            }
+        }
+    }
+        
+    return replacements_only
+
+}
+
+*/
 
 
 
