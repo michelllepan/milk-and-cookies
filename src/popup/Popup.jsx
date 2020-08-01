@@ -64,22 +64,14 @@ class Popup extends React.Component {
     const names = exportNames()
     const replacements = getReplacer()
     const things = onlyReplacements()
-    console.log("PRINTING")
-    console.log(things)
     for (var replacer in replacements) {
-      console.log("creating object")
       const obj = {name: replacer, selected: null, replacements: things[replacer]}
       components.push(obj)
-      console.log("finished object")
-      //}
     }
-    console.log("created objects")
     this.setState({ingredients: components})
   }
 
   handleSelect = (ingredient, replacement) => {
-    //remember the replacement
-    //App.cache[this.props.ingredient] = replacement
     const i = this.state.ingredients.indexOf(ingredient)
     const ingredientList = this.state.ingredients
     ingredientList[i] = {name: ingredient.name,
@@ -88,27 +80,15 @@ class Popup extends React.Component {
     this.setState({ingredients: ingredientList})
   }
 
-  // ORIGINAL
-  // handleExit = () => {
-  //   replaceonScreen()
-  //   this.props.unmount()
-  // }
-
-
   handleExit = () => {
     var selectedIngred = {}
-    // console.log("handleExit")
-    // console.log(this.state.ingredients)
+
     for (var i=0; i<this.state.ingredients.length; i++) {
       var current = this.state.ingredients[i]
-      //console.log("INGREDIENT: " + current)
-      if (!current.replacements[0].includes("no replacements") && current.selected !== null) {
-        //console.log("selected: " + current.selected)
-        // selectedIngred.push({key: i.name, value: i.selected})
+      if (current.selected !== null) {
         selectedIngred[current.name] = current.replacements.indexOf(current.selected)
       }
     }
-    //console.log(selectedIngred)
     replaceonScreen(selectedIngred)
     this.props.unmount()
   }
