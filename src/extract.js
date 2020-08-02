@@ -1,3 +1,4 @@
+import Ingredient from './Ingredient'
 /**
  * Overarching function called by frontend, must be exported
  * @return {Array} Array of ingredient objects with keys "name" (of replacee), "selected" (null), and "replacements"
@@ -7,34 +8,81 @@
  *   selected: null, 
  * 	 replacements: ["rolled oats and baking powder", "whole wheat flour and white flour"]}, ...]
  */
-function getOptions(){
-    // create an empty list to store the components
-    // 
+export function getOptions(){
+    //JANVI WILL DO
 }
+
 
 // record of ingredients to export
-var ingredients = {}
+var ingredients = []
 
 /**
- * Populates the record of ingredients
- * SAMPLE:
- * {"all-purpose flour": [1, "cup"]}
+ * Uses titles from the website to populate the record of Ingredient instances
  */
 function populateIngredients() {
-    
+    titles = getTitles()
+    // for each ingredient object in database:
+        // IF the ingredient name is in titles, construct Ingredient instance and add to ingredient list
+        // pass in the ingredient object to the constructor
+	for (var i=0; i<titles.length; i++){
+		ingredients.push(new Ingredient(titles[i]))
+	}
 }
-
-
 
 /**
- * Gets the replacements for each ingredient
- * @return {Object} keys are ingredient names, values are lists contianing the replacements
+ * Gets the titles from the website
+ * @return {Array} array of titles from the website
  * SAMPLE:
- * {"all-purpose flour": ["rolled oats", "baking powder"]}
+ * ["2 cups all-purpose flour", "3 teaspoons salt"]
  */
-function getReplacements(){
-    
+function getTitles(){
+    var ingred_title = []
+    //obtain both lists
+    var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
+    //get all the ingredients of class checkList__line
+    var lines = []
+    for (var i = 0; i < checklists.length; i++){
+        lines.push(checklists[i].getElementsByClassName("checkList__line"))
+    }
+    //extract label ng-class of the checkList__line
+    for (var j = 0; j < lines.length; j++){
+        //get the ingredient title
+        for (var k = 0; k < lines[j].length; k++){
+            var item = lines[j][k].getElementsByClassName("checkList__item")
+            ingred_title.push(item[0].textContent.trim())
+        }
+    }
+    //get rid of the title that says "Add items to cart"
+    ingred_title.splice(ingred_title.length-1, ingred_title.length)
+    return ingred_title
 }
+
+/**
+ * Replaces selected ingredients/measurements with corresponding replacement
+ * @param {Array} toReplace list of Ingredient instances to replace on screen
+ */
+export function replaceOnScreen(toReplace){
+    //JANVI WILL COMPLETE
+	// names of Ingredient instances to replace
+	names = toReplace.map(Ingredient.getName)
+	// access checklists
+    var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
+    for (var i = 0; i < checklists.length; i++){
+		// access lines
+		var lines = checklists[i].getElementsByClassName("checkList__line")
+		// alter text on each line
+        for (var j = 0; j<lines.length; j++){
+			var text_to_change = lines[j].getElementsByClassName("recipe-ingred_txt added")[0].innerText // {"2 cups butter, softened", Ingredient(....)}
+			// check if the ingredient is among the list of ingredients to replace
+			if(names.includes(ingred.getName())){
+
+				//change the text
+				text_to_change = 
+			}
+        }
+    }
+}
+
 
 
 /*

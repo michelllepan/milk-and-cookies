@@ -145,7 +145,7 @@ export function replaceonScreen(selectedIngred){
                 for(var k = 0; k<replacers[getItem(inner2[0].innerText)][2][0].replacer.length; k++){
                     to_replace = to_replace + " and " + replacers[getItem(inner2[0].innerText)][2][number].replacer[k]["replacermeasurement"] + " " + replacers[getItem(inner2[0].innerText)][2][number].replacer[k]["name"]
                 }
-                inner2[0].innerText = to_replace.substring(5) + " (" + getItem(inner2[0].innerText) + ")"
+                inner2[0].innerText = to_replace.substring(5) + " (" + getItem(inner2[0].innerText) + ")" 
             }
         }
     }

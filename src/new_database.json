@@ -1,0 +1,39 @@
+// JANVI WILL COMPLETE
+[
+    {
+        "ingredient": "all-purpose flour",
+        "replacements":
+        [
+            {
+                "replacer":
+                [
+                    {
+                        "name": "rolled oats",
+                        "multiplier": "1"
+                    }, 
+                    {
+                        "name": "baking powder",
+                        "multiplier": "5 / 96"
+                    }
+                ], 
+                "notes":"will result in a heavier yeast bread product"
+            }, 
+            
+            {
+                "replacer":
+                [
+                    {
+                        "name": "whole wheat flour",
+                        "multiplier": "1 / 3"
+                    }, 
+                    {
+                        "name": "white flour",
+                        "multiplier": "2 / 3"
+                    }
+                ], 
+                "notes": "will result in a heavier yeast bread product"
+            }
+        ]
+
+    }
+]
