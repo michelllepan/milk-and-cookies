@@ -1,3 +1,4 @@
+// module.exports = class Ingredient {
 export default class Ingredient {
 
     /**
@@ -5,19 +6,19 @@ export default class Ingredient {
      * SAMPLE: "2 cups all-purpose flour"
      */
     constructor(title, ingredientObject) {
-        this.name = getItem(title)    // all-purpose flour
-        this.amount = getVal(title)   // 2
-        this.unit = getUnit(title)    // cups
-        this.replacements = fileReplacements(ingredientObject)
+        this.name = this.getItem(title)    // all-purpose flour
+        this.amount = this.getVal(title)   // 2
+        this.unit = this.getUnit(title)    // cups
+        this.replacements = this.fileReplacements(ingredientObject)
         this.title = title
     }
 
     /** Extracts the name of the Ingredient */
     getItem(title) {
-        if (getUnit(title).includes("egg")) {
-            return getMeas(title)
+        if (this.getUnit(title).includes("egg")) {
+            return this.getMeas(title)
         }
-        var rest = title.replace(getVal(title) + " " + getUnit(title), "")
+        var rest = title.replace(this.getVal(title) + " " + this.getUnit(title), "")
         var words = rest.split(",")
         return words[0].trim()
     }
@@ -33,7 +34,7 @@ export default class Ingredient {
 
     /** Extracts the measurement type of the Ingredient */
     getUnit(title) {
-        var rest = title.replace(getVal(title), "")
+        var rest = title.replace(this.getVal(title), "")
         var words = rest.trim().split(" ")
         return words[0]
     }
@@ -62,23 +63,12 @@ export default class Ingredient {
      * Returns the corresponding amount of a replacement for a specific Ingredient
      */
     calculateAmount(replacement) {
-                // find corresponding Replacement instance and call calculate amount method
-    }
-
-    /******  GETTER METHODS *******/
-
-    /**
-     * Getter method for the list of replacements
-     */
-    getReplacements() {
-        return this.replacements
-    }
-
-    /**
-     * Getter method for the name of the Ingredient
-     */
-    getName() {
-        return this.name
+        // console.log(replacement)
+        for (var i = 0; i < this.replacements.length; i++) {
+            if (this.replacements[i].name === replacement) {
+                return this.replacements[i].calculateAmount(this.amount, this.unit)
+            }
+        }
     }
 }
 
@@ -93,11 +83,8 @@ class Replacement {
      */
     constructor(replacementObject) {
         this.parts = replacementObject.replacer
-        this.notes = replaceObject.notes
-    }
-
-    get name() {
-        return this.constructName()
+        this.notes = replacementObject.notes
+        this.name = this.constructName()
     }
 
     constructName() {
@@ -127,7 +114,7 @@ class Replacement {
     }
 
     calculateAmount(amount, unit) {
-        // do a lot of things
+        return "calculating amount for " + amount + " " + unit
     }
   
 }
