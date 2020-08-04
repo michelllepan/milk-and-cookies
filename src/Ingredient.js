@@ -1,69 +1,75 @@
-// module.exports = class Ingredient {
-export default class Ingredient {
+module.exports = class Ingredient {
+// export default class Ingredient {
 
     /**
-     * @arg {String} title the value, unit, and name for an ingredient
-     * SAMPLE: "2 cups all-purpose flour"
+     * Create an ingredient.
+     * @arg {string} title - The amount, unit, and name for an ingredient.
+     * @arg {Object} ingredientObject - The database object representing the ingredient.
      */
     constructor(title, ingredientObject) {
-        this.name = this.getItem(title)    // all-purpose flour
-        this.amount = this.getVal(title)   // 2
-        this.unit = this.getUnit(title)    // cups
-        this.replacements = this.fileReplacements(ingredientObject)
-        this.title = title
+        this.title = title               // 2 cups all-purpose flour
+        this.amount = this.getAmount()   // 2
+        this.unit = this.getUnit()       // cups
+        this.name = this.getName()       // all-purpose flour
+        this.replacements = this.fileReplacements(ingredientObject) // list of Replacement instances
     }
 
-    /** Extracts the name of the Ingredient */
-    getItem(title) {
-        if (this.getUnit(title).includes("egg")) {
-            return this.getMeas(title)
-        }
-        var rest = title.replace(this.getVal(title) + " " + this.getUnit(title), "")
-        var words = rest.split(",")
-        return words[0].trim()
-    }
-
-    /** Extracts the amount of the Ingredient */
-    getVal(title) {
+    /**
+     * Extract the amount of the ingredient.
+     * @return {number} - The amount of the ingredient.
+     */
+    getAmount() {
         var index = 0
-        while (! title.charAt(index).toLowerCase().match(/[a-x]/i) ){
+        while (! this.title.charAt(index).toLowerCase().match(/[a-x]/i) ){
             index++
         }
-        return title.substring(0, index).trim()
+        return this.title.substring(0, index).trim()
     }
 
-    /** Extracts the measurement type of the Ingredient */
-    getUnit(title) {
-        var rest = title.replace(this.getVal(title), "")
+    /**
+     * Extract the measurement unit of the ingredient.
+     * @return {string} - The measurement unit of the ingredient.
+     */
+    getUnit() {
+        var rest = this.title.replace(this.getAmount(this.title), "")
         var words = rest.trim().split(" ")
         return words[0]
     }
 
     /**
-     * Accesses database.json to retrieve replacements
-     * @param {Object} ingredientObject 
-     * 
+     * Extract the name of the ingredient.
+     * @return {string} - The name of the ingredient.
+     */
+    getName() {
+        if (this.getUnit(this.title).includes("egg")) {
+            return this.getMeas(this.title)
+        }
+        var rest = this.title.replace(this.getAmount(this.title) + " " + this.getUnit(this.title), "")
+        var words = rest.split(",")
+        return words[0].trim()
+    }
+
+    /**
+     * Retreive replacement information from the database.
+     * @param {Object} ingredientObject - The database object representing the ingredient.
+     * @return {Replacement[]} An array of replacements for the ingredient.
      */
     fileReplacements(ingredientObject) {
-        //gets a list of all the replacements
-       
         var replacementList = ingredientObject.replacements
-        // will populate with list of ReplacementObjects for each replacement
         var replacements = []
-        // loop through list of replacements, creates Replacement object for each replacement, push to lsit
+        // loop through replacements in database object
         for(var i = 0; i < replacementList.length; i++){
             replacements.push(new Replacement(replacementList[i]))
         }
-        // return list of ReplacementObjects for each replacement
         return replacements
     }
 
     /**
-     * replacement: name of the replacement to be calculated
-     * Returns the corresponding amount of a replacement for a specific Ingredient
+     * Calculate amount of specified replacement.
+     * @param {string} replacement - The name of the replacement to calculate the amount for.
+     * @return {string} The title of the replacement with amount, measurement, and name.
      */
     calculateAmount(replacement) {
-        // console.log(replacement)
         for (var i = 0; i < this.replacements.length; i++) {
             if (this.replacements[i].name === replacement) {
                 return this.replacements[i].calculateAmount(this.amount, this.unit)
@@ -72,14 +78,11 @@ export default class Ingredient {
     }
 }
 
-/**
- * 
- */
 class Replacement {
     
     /**
-     * 
-     * @param {Object} replacementObject 
+     * Create a replacement.
+     * @param {Object} replacementObject - The database object representing the ingredient.
      */
     constructor(replacementObject) {
         this.parts = replacementObject.replacer
@@ -87,6 +90,10 @@ class Replacement {
         this.name = this.constructName()
     }
 
+    /**
+     * Construct name of the replacement.
+     * @return {string} The name of the replacement. If multiple parts exist, they are combined.
+     */
     constructName() {
         switch(this.parts.length) {
             // if only one replacement part, return it
@@ -109,10 +116,12 @@ class Replacement {
         }
     }
 
-    getNotes() {
-        return this.notes
-    }
-
+    /**
+     * Calculate amount of the replacement.
+     * @param {number} amount - The amount of the ingredient to replace.
+     * @param {string} unit - The unit of the ingredient to replace.
+     * @return {string} The title of the replacement with amount, measurement, and name.
+     */
     calculateAmount(amount, unit) {
         return "calculating amount for " + amount + " " + unit
     }

@@ -1,28 +1,29 @@
-// to run this test, change the "export default class ...." in 
-// Ingredient.js to "module.exports = class ..."
+// switch the export mode of Ingredient.js before running this test!!
 
 const database = require("./new_database")
 const Ingredient = require("./ingredient")
 
-var ingredient = new Ingredient("2 cups all-purpose flour", database[0])
-var replacement = ingredient.replacements[0]
+const tester = "1 cup all-purpose flour"
 
-console.log("TESTING Ingredient class attributes")
+var ingredient = new Ingredient(tester, database[0])
+var replacement1 = ingredient.replacements[0]
+
+console.log("\n" + "using " + tester)
+
+console.log("\n" + "TESTING Ingredient class attributes")
 console.log("======================================")
 console.log("amount: " + ingredient.amount)
 console.log("unit: " + ingredient.unit)
 console.log("name: " + ingredient.name)
 console.log("title: " + ingredient.title)
 
-console.log() // spacing
+console.log("\n" + "using the first replacement")
 
-console.log("TESTING Replacement class attributes")
+console.log("\n" + "TESTING Replacement class attributes")
 console.log("======================================")
-console.log("name: " + replacement.name)
-console.log("notes: " + replacement.notes)
+console.log("name: " + replacement1.name)
+console.log("notes: " + replacement1.notes)
 
-console.log() // spacing
-
-console.log("TESTING replacement calculations")
+console.log("\n" + "TESTING replacement calculations")
 console.log("======================================")
-console.log("calculated amount: " + ingredient.calculateAmount(replacement.name))
+console.log("calculated amount: " + ingredient.calculateAmount(replacement1.name))
