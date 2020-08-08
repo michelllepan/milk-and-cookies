@@ -1,5 +1,5 @@
-module.exports = class Ingredient {
-// export default class Ingredient {
+// module.exports = class Ingredient {
+export default class Ingredient {
 
     /**
      * Create an ingredient.
@@ -7,10 +7,10 @@ module.exports = class Ingredient {
      * @arg {Object} ingredientObject - The database object representing the ingredient.
      */
     constructor(title, ingredientObject) {
-        this.title = title               // 2 cups all-purpose flour
-        this.amount = this.getAmount()   // 2
-        this.unit = this.getUnit()       // cups
-        this.name = this.getName()       // all-purpose flour
+        this.title = title               // 2 cups all-purpose flour (string)
+        this.amount = Ingredient.getAmount(title)   // 2 (string)
+        this.unit = Ingredient.getUnit(title)       // cup (string)
+        this.name = Ingredient.getName(title)       // all-purpose flour (string)
         this.replacements = this.fileReplacements(ingredientObject) // list of Replacement instances
     }
 
@@ -18,33 +18,33 @@ module.exports = class Ingredient {
      * Extract the amount of the ingredient.
      * @return {number} - The amount of the ingredient.
      */
-    getAmount() {
+    static getAmount(title) {
         var index = 0
-        while (! this.title.charAt(index).toLowerCase().match(/[a-x]/i) ){
+        while (! title.charAt(index).toLowerCase().match(/[a-x]/i) ){
             index++
         }
-        return this.title.substring(0, index).trim()
+        return title.substring(0, index).trim()
     }
 
     /**
      * Extract the measurement unit of the ingredient.
      * @return {string} - The measurement unit of the ingredient.
      */
-    getUnit() {
-        var rest = this.title.replace(this.getAmount(this.title), "")
-        var words = rest.trim().split(" ")
-        return words[0]
+    static getUnit(title) {
+        var rest = title.replace(Ingredient.getAmount(title), "")
+        var unit = rest.trim().split(" ")[0]
+        return unit
     }
 
     /**
      * Extract the name of the ingredient.
      * @return {string} - The name of the ingredient.
      */
-    getName() {
-        if (this.getUnit(this.title).includes("egg")) {
-            return this.getMeas(this.title)
+    static getName(title) {
+        if (Ingredient.getUnit(title).includes("egg")) {
+            return Ingredient.getUnit(title)
         }
-        var rest = this.title.replace(this.getAmount(this.title) + " " + this.getUnit(this.title), "")
+        var rest = title.replace(Ingredient.getAmount(title) + " " + Ingredient.getUnit(title), "")
         var words = rest.split(",")
         return words[0].trim()
     }
@@ -55,12 +55,10 @@ module.exports = class Ingredient {
      * @return {Replacement[]} An array of replacements for the ingredient.
      */
     fileReplacements(ingredientObject) {
-        var replacementList = ingredientObject.replacements
-        var replacements = []
-        // loop through replacements in database object
-        for(var i = 0; i < replacementList.length; i++){
-            replacements.push(new Replacement(replacementList[i]))
-        }
+        console.log("object in filereplacements method")
+        console.log(ingredientObject)
+        var replacementList = ingredientObject["replacements"]
+        var replacements = replacementList.map(r => (new Replacement(r)))
         return replacements
     }
 
@@ -135,8 +133,12 @@ class Replacement {
             //get the converted amount in the form of a fraction: [converted amount, unit]
             var components = this.formConversion(multiplier, amount, unit)
             var new_amount = components[0] 
+            var unit = components[1]
+            if (unit.charAt(unit.length - 1) === "s") {
+                unit = unit.substring(0, unit.length - 1)
+            }
             //add the conversion to the string
-            conversion += (new_amount + " " + components[1] + "(s) " + element["name"])
+            conversion += (new_amount + " " + unit + "(s) " + element["name"])
             //determine whether or not to add an "and" clause
             if (this.parts.length > 2 && i+1 < this.parts.length){
                 conversion += ", "
@@ -184,6 +186,12 @@ class Replacement {
         }
     }
 
+    /**
+     * Simplifies a fraction, or turns the fraction into a mixed number if applicable
+     * @param {Integer} numerator the numerator of the fraction
+     * @param {Integer} denominator the denominator of the fraction
+     * @return {String} the simplified fraction
+     */
     simplifyFraction(numerator, denominator){
         // This is a whole number and doesn't need modification.
         if (numerator % denominator == 0){

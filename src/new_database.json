@@ -1,5 +1,5 @@
-[
-    {
+{
+    "all-purpose flour": {
         "ingredient": "all-purpose flour",
         "replacements":
         [
@@ -35,4 +35,4 @@
         ]
 
     }
-]
+}

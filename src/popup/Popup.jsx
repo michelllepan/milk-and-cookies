@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Ingredient from './Ingredient';
-import {getIngred, getReplacer, onlyReplacements, exportNames, replaceonScreen} from '../ingredextract';
+import { getOptions, replaceOnScreen } from '../extract.js'; //{getIngred, getReplacer, onlyReplacements, exportNames, replaceonScreen} from '../ingredextract';
 
 const Overlay = styled.div`
   width: 100%;
@@ -60,14 +60,15 @@ class Popup extends React.Component {
   }
 
   componentDidMount = () => {
-    const components = []
-    const names = exportNames()
-    const replacements = getReplacer()
-    const things = onlyReplacements()
-    for (var replacer in replacements) {
-      const obj = {name: replacer, selected: null, replacements: things[replacer]}
-      components.push(obj)
-    }
+    console.log("mounting")
+    const components = getOptions() //[]
+    // const names = exportNames()
+    // const replacements = getReplacer()
+    // const things = onlyReplacements()
+    // for (var replacer in replacements) {
+    //   const obj = {name: replacer, selected: null, replacements: things[replacer]}
+    //   components.push(obj)
+    // }
     this.setState({ingredients: components})
   }
 
@@ -86,10 +87,10 @@ class Popup extends React.Component {
     for (var i=0; i<this.state.ingredients.length; i++) {
       var current = this.state.ingredients[i]
       if (current.selected !== null) {
-        selectedIngred[current.name] = current.replacements.indexOf(current.selected)
+        selectedIngred[current.name] = current.selected//current.replacements.indexOf(current.selected)
       }
     }
-    replaceonScreen(selectedIngred)
+    replaceOnScreen(selectedIngred)
     this.props.unmount()
   }
   

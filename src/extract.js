@@ -8,24 +8,45 @@ import Ingredient from './Ingredient'
  *   selected: null, 
  * 	 replacements: ["rolled oats and baking powder", "whole wheat flour and white flour"]}, ...]
  */
+
+var ingredients = []
+var ingredient_names = {}
+var database = require('./new_database.json')
+
+
 export function getOptions(){
-    //JANVI WILL DO
+    var options = []
+    populateIngredients()
+    populateIngredientNames()
+    for(var i = 0; i < ingredients.length; i++){
+        var temp = {name: ingredients[i].name, 
+                selected: null, 
+                replacements: ingredients[i].replacements.map(r => r.name)}
+        options.push(temp)
+    }
+    return options
+    
 }
 
-
-// record of ingredients to export
-var ingredients = []
+function populateIngredientNames(){
+    for (var i = 0; i < ingredients.length; i++){
+        ingredient_names[ingredients[i].name] = ingredients[i]
+    }
+}
 
 /**
  * Uses titles from the website to populate the record of Ingredient instances
  */
+//FIX THIS FUNCTION - INGREDIENT CLASS TAKES IN TWO THINGS
 function populateIngredients() {
-    titles = getTitles()
+    var titles = getTitles()
     // for each ingredient object in database:
         // IF the ingredient name is in titles, construct Ingredient instance and add to ingredient list
         // pass in the ingredient object to the constructor
 	for (var i=0; i<titles.length; i++){
-		ingredients.push(new Ingredient(titles[i]))
+        if (database[Ingredient.getName(titles[i])] !== undefined) {
+            ingredients.push(new Ingredient(titles[i], database[Ingredient.getName(titles[i])]))
+        }
 	}
 }
 
@@ -36,7 +57,7 @@ function populateIngredients() {
  * ["2 cups all-purpose flour", "3 teaspoons salt"]
  */
 function getTitles(){
-    var ingred_title = []
+    var ingred_titles = []
     //obtain both lists
     var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
     //get all the ingredients of class checkList__line
@@ -49,22 +70,21 @@ function getTitles(){
         //get the ingredient title
         for (var k = 0; k < lines[j].length; k++){
             var item = lines[j][k].getElementsByClassName("checkList__item")
-            ingred_title.push(item[0].textContent.trim())
+            ingred_titles.push(item[0].textContent.trim())
         }
     }
     //get rid of the title that says "Add items to cart"
-    ingred_title.splice(ingred_title.length-1, ingred_title.length)
-    return ingred_title
+    ingred_titles.splice(ingred_titles.length-1, ingred_titles.length)
+    return ingred_titles
 }
 
 /**
  * Replaces selected ingredients/measurements with corresponding replacement
- * @param {Array} toReplace list of Ingredient instances to replace on screen
+ * @param {Object} toReplace object with keys as ingredient names and values as replacement names {"all-purpose flour": "rolled oats and baking powder"}
  */
-export function replaceOnScreen(toReplace){
-    //JANVI WILL COMPLETE
+export function replaceOnScreen(toReplace){    
 	// names of Ingredient instances to replace
-	names = toReplace.map(Ingredient.getName)
+	var names = Object.keys(toReplace)
 	// access checklists
     var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
     for (var i = 0; i < checklists.length; i++){
@@ -72,30 +92,30 @@ export function replaceOnScreen(toReplace){
 		var lines = checklists[i].getElementsByClassName("checkList__line")
 		// alter text on each line
         for (var j = 0; j<lines.length; j++){
-			var text_to_change = lines[j].getElementsByClassName("recipe-ingred_txt added")[0].innerText // {"2 cups butter, softened", Ingredient(....)}
-			// check if the ingredient is among the list of ingredients to replace
-			if(names.includes(ingred.getName())){
+			var text_to_change = lines[j].getElementsByClassName("recipe-ingred_txt added")[0].innerText // "2 cups butter softened"
+            // check if the ingredient is among the list of ingredients to replace
+            
+            var ingred_in_title = included(names, text_to_change)
+            if(ingred_in_title != ""){
+                var replacement = ingredient_names[ingred_in_title].calculateAmount(toReplace[ingred_in_title])
+                lines[j].getElementsByClassName("recipe-ingred_txt added")[0].innerText = replacement + " (" + Ingredient.getName(text_to_change) + ")"
+            }
 
-				//change the text
-				text_to_change = 
-			}
         }
     }
 }
 
-
-
-/*
-
-componentDidMount = () => {
-    const components = []
-    const replacements = getReplacer()
-    const things = onlyReplacements()
-    for (var replacer in replacements) {
-      const obj = {name: replacer, selected: null, replacements: things[replacer]}
-      components.push(obj)
+//to check if the title has 
+function included(keys, item){
+    for(var i =0; i<keys.length; i++){
+        if(item.includes(keys[i])){
+            return keys[i]
+        }
     }
-    this.setState({ingredients: components})
-  }
+    return ""
+}
 
-*/
+
+
+
+
