@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Ingredient from './Ingredient';
-import {getIngred, getReplacer, onlyReplacements, exportNames, replaceonScreen} from '../ingredextract';
+import { getOptions, replaceOnScreen } from '../extract.js'; //{getIngred, getReplacer, onlyReplacements, exportNames, replaceonScreen} from '../ingredextract';
 
 const Overlay = styled.div`
   width: 100%;
@@ -60,26 +60,19 @@ class Popup extends React.Component {
   }
 
   componentDidMount = () => {
-    const components = []
-    const names = exportNames()
-    const replacements = getReplacer()
-    const things = onlyReplacements()
-    console.log("PRINTING")
-    console.log(things)
-    for (var replacer in replacements) {
-      console.log("creating object")
-      const obj = {name: replacer, selected: null, replacements: things[replacer]}
-      components.push(obj)
-      console.log("finished object")
-      //}
-    }
-    console.log("created objects")
+    console.log("mounting")
+    const components = getOptions() //[]
+    // const names = exportNames()
+    // const replacements = getReplacer()
+    // const things = onlyReplacements()
+    // for (var replacer in replacements) {
+    //   const obj = {name: replacer, selected: null, replacements: things[replacer]}
+    //   components.push(obj)
+    // }
     this.setState({ingredients: components})
   }
 
   handleSelect = (ingredient, replacement) => {
-    //remember the replacement
-    //App.cache[this.props.ingredient] = replacement
     const i = this.state.ingredients.indexOf(ingredient)
     const ingredientList = this.state.ingredients
     ingredientList[i] = {name: ingredient.name,
@@ -88,28 +81,16 @@ class Popup extends React.Component {
     this.setState({ingredients: ingredientList})
   }
 
-  // ORIGINAL
-  // handleExit = () => {
-  //   replaceonScreen()
-  //   this.props.unmount()
-  // }
-
-
   handleExit = () => {
     var selectedIngred = {}
-    // console.log("handleExit")
-    // console.log(this.state.ingredients)
+
     for (var i=0; i<this.state.ingredients.length; i++) {
       var current = this.state.ingredients[i]
-      //console.log("INGREDIENT: " + current)
-      if (!current.replacements[0].includes("no replacements") && current.selected !== null) {
-        //console.log("selected: " + current.selected)
-        // selectedIngred.push({key: i.name, value: i.selected})
-        selectedIngred[current.name] = current.replacements.indexOf(current.selected)
+      if (current.selected !== null) {
+        selectedIngred[current.name] = current.selected//current.replacements.indexOf(current.selected)
       }
     }
-    //console.log(selectedIngred)
-    replaceonScreen(selectedIngred)
+    replaceOnScreen(selectedIngred)
     this.props.unmount()
   }
   

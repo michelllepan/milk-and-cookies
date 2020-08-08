@@ -26,10 +26,8 @@ export function getIngred(){
 export function exportNames(){
     getIngred()
     var all_names = addIngred()
-    console.log(all_names)
     var names = []
     for (var ingred in all_names){
-        console.log(ingred)
         names.push(ingred)
     }
     return names
@@ -98,6 +96,39 @@ export function getReplacer(){
     }
     return replacers
 }
+// {"all purpose flour": [2, "cups", [
+        //     {
+        //         "replaceemeasurement": "2 cup",
+        //         "replacer":
+        //         [
+        //                      {
+        //                         "name": "rolled oats",
+        //                         "replacermeasurement": "2 cup"
+        //                      }, 
+        //                      {
+        //                         "name": "baking powder",
+        //                         "replacermeasurement": "5 teaspoon"
+        //                      }
+        //         ], 
+        //         "notes":"will result in a heavier yeast bread product"
+        //     }, 
+            
+        //     {
+        //         "replaceemeasurement": "3 cup",
+        //         "replacer":
+        //         [
+        //                 {
+        //                     "name": "whole wheat flour",
+        //                     "replacermeasurement": "1 cup"
+        //                 }, 
+        //                 {
+        //                     "name": "white flour",
+        //                     "replacermeasurement": "2 cup"
+        //                 }
+        //         ], 
+        //         "notes":"will result in a heavier yeast bread product"
+        //     }
+        // ]]}
 
 
 export function replaceonScreen(selectedIngred){
@@ -107,66 +138,29 @@ export function replaceonScreen(selectedIngred){
         var inner1 = checklists[i].getElementsByClassName("checkList__line")
         for (var j = 0; j<inner1.length; j++){
             var inner2 = inner1[j].getElementsByClassName("recipe-ingred_txt added")
-            console.log("reached")
             if (getItem(inner2[0].innerText) in replacers && getItem(inner2[0].innerText) in selectedIngred){
-                console.log("reached 1")
-                var replacersss = replacers[getItem(inner2[0].innerText)][2]
+                //var replacersss = replacers[getItem(inner2[0].innerText)][2]
                 var number = selectedIngred[getItem(inner2[0].innerText)]
-                console.log(number)
-                console.log(replacers[getItem(inner2[0].innerText)][2][0].replacer)
                 var to_replace = ""
                 for(var k = 0; k<replacers[getItem(inner2[0].innerText)][2][0].replacer.length; k++){
                     to_replace = to_replace + " and " + replacers[getItem(inner2[0].innerText)][2][number].replacer[k]["replacermeasurement"] + " " + replacers[getItem(inner2[0].innerText)][2][number].replacer[k]["name"]
                 }
-                inner2[0].innerText = to_replace.substring(5) + " (" + getItem(inner2[0].innerText) + ")"
+                inner2[0].innerText = to_replace.substring(5) + " (" + getItem(inner2[0].innerText) + ")" 
             }
         }
     }
 }
-
-
-/*
-export function replaceonScreen(){
-    calculateAmount()
-    var checklists = document.querySelectorAll('ul[class^="checklist dropdownwrapper list-ingredients-"]')
-    for (var i = 0; i < checklists.length; i++){
-        var inner1 = checklists[i].getElementsByClassName("checkList__line")
-        for (var j = 0; j<inner1.length; j++){
-            var inner2 = inner1[j].getElementsByClassName("recipe-ingred_txt added")
-            console.log("reached")
-            if (getItem(inner2[0].innerText) in replacers){
-                console.log("reached 1")
-                var replacersss = replacers[getItem(inner2[0].innerText)][2]
-                console.log(replacers[getItem(inner2[0].innerText)][2][0].replacer)
-                var to_replace = ""
-                for(var k = 0; k<replacers[getItem(inner2[0].innerText)][2][0].replacer.length; k++){
-                    to_replace = to_replace + " and " + replacers[getItem(inner2[0].innerText)][2][0].replacer[k]["replacermeasurement"] + " " + replacers[getItem(inner2[0].innerText)][2][0].replacer[k]["name"]
-                }
-                inner2[0].innerText = to_replace.substring(5)
-            }
-            
-
-        }
-    }
-}
-*/
-
 
 
 //returns a dictionary with the original ingredient and amount with the necessary replacement amount for that ingredient and notes 
 function calculateAmount(){
     for (var replacer in replacers){
-        console.log(replacers[replacer][2][0])
         var conv_factor = replacers[replacer][0]/getVal(replacers[replacer][2][0]["replaceemeasurement"])
         for (var sub_replace in replacers[replacer][2][0]["replacer"]){
-            console.log("in")
             replacers[replacer][2][0]["replacer"][sub_replace]["replacermeasurement"] = numberToFraction((conv_factor * getVal(replacers[replacer][2][0]["replacer"][sub_replace]["replacermeasurement"]))).toString() + " " + getMeas(replacers[replacer][2][0]["replacer"][sub_replace]["replacermeasurement"]) + "(s)"
-            console.log("out")
         }
         delete replacers[replacer][2].replaceemeasurement
     }
-    console.log(replacer)
-    console.log("exit")
     return replacers
 
 }
@@ -186,15 +180,13 @@ export function onlyReplacements(){
             replacements_only.push(replacement)  
 
         }
-        if (replacements_only.length == 0){
-            replacements_only = ["no replacements"]
-        }
         final[replacer] = replacements_only
         replacements_only = []
 
     }
     return final
 }
+// {"all purpose flour": ["rolled oats and baking power", "whole wheat flour and white flour"], "eggs": ["banana", "applesauce", "flaxseeds and water"]}
 
 
 
