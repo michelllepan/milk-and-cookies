@@ -118,12 +118,100 @@ class Replacement {
 
     /**
      * Calculate amount of the replacement.
-     * @param {number} amount - The amount of the ingredient to replace.
-     * @param {string} unit - The unit of the ingredient to replace.
-     * @return {string} The title of the replacement with amount, measurement, and name.
+     * @param {String} amount - The amount of the ingredient to replace.
+     * @param {String} unit - The unit of the ingredient to replace.
+     * @return {String} The title of the replacement with amount, measurement, and name.
      */
     calculateAmount(amount, unit) {
-        return "calculating amount for " + amount + " " + unit
+        //scenario 1: there are multiple parts of replacer
+        //scenario 2: there is only one replacer
+        // ^ can be solved using one loop
+
+        var conversion = "" //resulting string
+        for (var i=0; i< this.parts.length; i++){
+            var element = this.parts[i] //element is the individual part of a combination
+            //calculate the conversion
+            var multiplier = element["multiplier"]
+            //get the number version of multiplier and amount [multiplier, amount, unit]
+            var components = this.extractNumbers(multiplier, amount, unit)
+            var new_amount = this.numberToFraction(components[0] * components[1])
+            //add the conversion to the string
+            conversion += (new_amount + " " + components[2] + "(s) " + element["name"])
+            //determine whether or not to add an "and" clause
+            if (this.parts.length > 2 && i+1 < this.parts.length){
+                conversion += ", "
+            } else if (i+1 == this.parts.length -1){
+                conversion += " and "
+            }
+        }
+        return conversion
+    }
+
+    /**
+     * Returns the decimal values of each fraction
+     * @param {String} multiplier the string to extract a number from 
+     * @param {String} amount the amount to convert
+     * @return {Array} [multiplier, amount, unit]
+     */
+    extractNumbers(multiplier, amount, unit){
+        //get the numerator and denominator of the multiplier
+        var mult = parseInt(multiplier)
+        if (multiplier.includes('/')){ // check if the multiplier is a fraction
+            var mult_num = parseInt(multiplier.split('/')[0])
+            var mult_denom = parseInt(multiplier.split('/')[1])
+            mult = mult_num/mult_denom
+        }
+        //get the numerator and denominator of the amount
+        var amt = parseInt(amount)
+        if (amount.includes('/')){ // check if the amount is a fraction
+            var am_denom = parseInt(amount.split('/')[1])
+            var am_num = parseInt(amount.split('/')[0])
+            amt = am_num/am_denom
+        }
+
+        if (mult_denom % 48 == 0){ //tsp case
+            var new_mult = mult_num / (mult_denom/48)
+            return [new_mult, amt, "teaspoon"]
+        } else {
+            return [mult, amt, unit]
+        }
+    }
+
+    /**
+     * Converts numbers to fractions:
+     * - 1.25 to 1 1/4
+     * - 2 to 2
+     */
+    numberToFraction ( amount ) {
+        // This is a whole number and doesn't need modification.
+        if ( parseFloat( amount ) === parseInt( amount ) ) {
+            return amount;
+        }
+        // Next 12 lines are cribbed from https://stackoverflow.com/a/23575406.
+        var gcd = function(a, b) {
+            if (!b) {
+                return a;
+            }
+            return gcd(b, (a % b));
+        };
+        var len = amount.toString().length - 2;
+        var denominator = Math.pow(10, len);
+        var numerator = amount * denominator;
+        var divisor = gcd(numerator, denominator);
+        numerator /= divisor;
+        denominator /= divisor;
+        var base = 0;
+        // In a scenario like 3/2, convert to 1 1/2
+        // by pulling out the base number and reducing the numerator.
+        if ( numerator > denominator ) {
+            base = Math.floor( numerator / denominator );
+            numerator -= base * denominator;
+        }
+        amount = Math.floor(numerator) + '/' + Math.floor(denominator);
+        if ( base ) {
+            amount = base + ' ' + amount;
+        }
+        return amount;
     }
   
 }
