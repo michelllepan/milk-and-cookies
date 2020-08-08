@@ -132,11 +132,11 @@ class Replacement {
             var element = this.parts[i] //element is the individual part of a combination
             //calculate the conversion
             var multiplier = element["multiplier"]
-            //get the number version of multiplier and amount [multiplier, amount, unit]
-            var components = this.extractNumbers(multiplier, amount, unit)
-            var new_amount = this.numberToFraction(components[0] * components[1])
+            //get the converted amount in the form of a fraction: [converted amount, unit]
+            var components = this.formConversion(multiplier, amount, unit)
+            var new_amount = components[0] 
             //add the conversion to the string
-            conversion += (new_amount + " " + components[2] + "(s) " + element["name"])
+            conversion += (new_amount + " " + components[1] + "(s) " + element["name"])
             //determine whether or not to add an "and" clause
             if (this.parts.length > 2 && i+1 < this.parts.length){
                 conversion += ", "
@@ -148,55 +148,53 @@ class Replacement {
     }
 
     /**
-     * Returns the decimal values of each fraction
+     * Converts the amount using the multiplier
      * @param {String} multiplier the string to extract a number from 
      * @param {String} amount the amount to convert
-     * @return {Array} [multiplier, amount, unit]
+     * @param {String} unit the original unit of the amount to convert
+     * @return {Array} the converted amount (fraction) and the unit of the conversion. EXAMPLE: ["2 / 3", "cup"]
      */
-    extractNumbers(multiplier, amount, unit){
-        //get the numerator and denominator of the multiplier
-        var mult = parseInt(multiplier)
+    formConversion(multiplier, amount, unit){
+        var mult_num = parseInt(multiplier)
+        var mult_denom = 0
         if (multiplier.includes('/')){ // check if the multiplier is a fraction
-            var mult_num = parseInt(multiplier.split('/')[0])
-            var mult_denom = parseInt(multiplier.split('/')[1])
-            mult = mult_num/mult_denom
+            mult_denom = parseInt(multiplier.split('/')[1])
         }
-        //get the numerator and denominator of the amount
-        var amt = parseInt(amount)
+        var am_num = parseInt(amount)
+        var am_denom = 0
         if (amount.includes('/')){ // check if the amount is a fraction
-            var am_denom = parseInt(amount.split('/')[1])
-            var am_num = parseInt(amount.split('/')[0])
-            amt = am_num/am_denom
+            am_denom = parseInt(amount.split('/')[1])
         }
 
-        if (mult_denom % 48 == 0){ //tsp case
-            var new_mult = mult_num / (mult_denom/48)
-            return [new_mult, amt, "teaspoon"]
-        } else {
-            return [mult, amt, unit]
+        var final_num = mult_num*am_num
+        var final_denom
+        if ((am_denom == 0 && mult_denom != 0) || (am_denom != 0 && mult_denom == 0)){ //only one is a fraction
+            final_denom = Math.max(am_denom, mult_denom)
+        } else if (am_denom == 0 && mult_denom == 0){ //both am and mult are whole numbers
+            final_denom = 1
+        } else { //denom exists for both
+            final_denom = am_denom * mult_denom
+        }
+
+        if (mult_denom % 48 == 0 && mult_denom != 0){ //teaspoon case
+            var converted = this.simplifyFraction(mult_num, mult_denom/48)
+            return [converted, "teaspoon"]
+        } else { //normal case
+            return [this.simplifyFraction(final_num, final_denom), unit]
         }
     }
 
-    /**
-     * Converts numbers to fractions:
-     * - 1.25 to 1 1/4
-     * - 2 to 2
-     */
-    numberToFraction ( amount ) {
+    simplifyFraction(numerator, denominator){
         // This is a whole number and doesn't need modification.
-        if ( parseFloat( amount ) === parseInt( amount ) ) {
-            return amount;
+        if (numerator % denominator == 0){
+            return numerator / denominator
         }
-        // Next 12 lines are cribbed from https://stackoverflow.com/a/23575406.
         var gcd = function(a, b) {
             if (!b) {
                 return a;
             }
             return gcd(b, (a % b));
         };
-        var len = amount.toString().length - 2;
-        var denominator = Math.pow(10, len);
-        var numerator = amount * denominator;
         var divisor = gcd(numerator, denominator);
         numerator /= divisor;
         denominator /= divisor;
@@ -207,11 +205,10 @@ class Replacement {
             base = Math.floor( numerator / denominator );
             numerator -= base * denominator;
         }
-        amount = Math.floor(numerator) + '/' + Math.floor(denominator);
+        var amount = Math.floor(numerator) + '/' + Math.floor(denominator);
         if ( base ) {
             amount = base + ' ' + amount;
         }
         return amount;
     }
-  
 }
