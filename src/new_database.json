@@ -34,5 +34,607 @@
             }
         ]
 
+    },
+    "allspice":{
+        "ingredient": "allspice",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "cinnamon",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            }
+
+        ]
+    },
+
+    "baking powder":{
+        "ingredient": "baking powder",
+        "replacements":
+        [
+            {
+                "replacer":
+                [
+                    {
+                        "name": "baking soda",
+                        "multiplier": "NOT SURE"
+                    }, 
+                    {
+                        "name": "cream of tartar",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "reverse also works with baking powder replacing baking soda + cream of tartar"
+            }
+        ]
+    },
+    "basil":{
+        "ingredient": "basil",
+        "replacements": [
+            {
+                "replacer":
+                [
+                    {
+                        "name": "oregano",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes":"None"
+            }, 
+            
+            {
+                "replacer":
+                [
+                    {
+                        "name": "thyme",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            }
+
+
+        ]
+    },
+    "brown sugar":{
+        "ingredient": "brown sugar",
+        "replacements":
+        [
+            {
+                "replacer":
+                [
+                    {
+                        "name": "white sugar",
+                        "multiplier": "NOT SURE"
+                    }, 
+                    {
+                        "name": "molasses",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            }
+        ]
+    },
+    "butter":{
+        "ingredient": "butter",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "coconut oil",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            }
+
+        ]
+    },
+    "buttermilk": {
+        "ingredient": "buttermilk",
+        "replacements":
+        [
+            {
+                "replacer":
+                [
+                    {
+                        "name": "yogurt",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes":"plain yogurt"
+            }, 
+            
+            {
+                "replacer":
+                [
+                    {
+                        "name": "milk",
+                        "multiplier": "NOT SURE"
+                    }, 
+                    {
+                        "name": "lemon juice",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "only need to add enough milk to make original amount in total, let stand 5 minutes before using"
+            },
+            {
+                "replacer":
+                [
+                    {
+                        "name": "milk",
+                        "multiplier": "NOT SURE"
+                    }, 
+                    {
+                        "name": "vinegar",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "only need to add enough milk to make original amount in total, let stand 5 minutes before using"
+            }
+        ]
+
+    },
+    "chilli powder":{
+        "ingredient": "chilli powder",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "cumin",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            }
+
+        ]
+    },
+    "confectioner's sugar":{
+        "ingredient": "confectioner's sugar",
+        "replacements":
+        [
+            {
+                "replacer":
+                [
+                    {
+                        "name": "regular (granulated) sugar",
+                        "multiplier": "NOT SURE"
+                    }, 
+                    {
+                        "name": "cornstarch",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "blend until a fine powder"
+            }
+        ]
+    },
+    "corn syrup":{
+        "ingredient": "corn syrup",
+        "replacements":
+        [
+            {
+                "replacer":
+                [
+                    {
+                        "name": "regular (granulated) sugar",
+                        "multiplier": "NOT SURE"
+                    }, 
+                    {
+                        "name": "water",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            }
+        ]
+    },    
+    "cornstarch":{
+        "ingredient": "cornstarch",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "flour",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            }
+
+        ]
+    },
+    "cream of tartar":{
+        "ingredient": "cream of tartar",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "white vinegar",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            },
+            {
+                "replacer":
+                [
+                    {
+                        "name": "lemon juice",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "preferred"
+            }
+
+        ]
+    },
+    "cumin":{
+        "ingredient": "cumin",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "chilli powder",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            }
+
+        ]
+    },
+    "egg":{
+        "ingredient": "egg",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "banana",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "cupckaes, brownies, cakes"
+            },
+            {
+                "replacer":
+                [
+                    {
+                        "name": "applesauce",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "cupckaes, brownies, cakes"
+            },
+            {
+                "replacer":
+                [
+                    {
+                        "name": "silken tofu",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "cupckaes, brownies, cakes"
+            },
+            {
+                "replacer":
+                [
+                    {
+                        "name": "buttermilk",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "cupckaes, brownies, cakes"
+            },
+            {
+                "replacer":
+                [
+                    {
+                        "name": "flaxseed",
+                        "multiplier": "NOT SURE"
+                    }, 
+                    {
+                        "name": "warm water",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "brownies, cookies"
+            }
+
+        ]
+    },
+    "flour":{
+        "ingredient": "flour",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "oat flour",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "blend up oats"
+            }
+
+        ]
+    },
+    "ginger":{
+        "ingredient": "ginger",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "all spice",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            }
+
+        ]
+    },
+    "half and half":{
+        "ingredient": "half and half",
+        "replacements":
+        [
+            {
+                "replacer":
+                [
+                    {
+                        "name": "melted butter",
+                        "multiplier": "NOT SURE"
+                    }, 
+                    {
+                        "name": "whole milk",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "only need to add enough to make original amount in total"
+            }
+        ]
+    },
+    "honey":{
+        "ingredient": "honey",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "maple syrup",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            },
+            {
+                "replacer":
+                [
+                    {
+                        "name": "corn syrup",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            },
+            {
+                "replacer":
+                [
+                    {
+                        "name": "molasses",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            },
+            {
+                "replacer":
+                [
+                    {
+                        "name": "sugar",
+                        "multiplier": "NOT SURE"
+                    }, 
+                    {
+                        "name": "water",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "heat over medium heat until dissolved"
+            }
+
+        ]
+    },
+    "milk":{
+        "ingredient": "milk",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "almond milk",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            }
+
+        ]
+    },
+    "molasses":{
+        "ingredient": "molasses",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "honey",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            }
+
+        ]
+    },
+    "oregano":{
+        "ingredient": "oregano",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "basil",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            }
+
+        ]
+    },
+    "parsley":{
+        "ingredient": "parsley",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "cilantro",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            }
+
+        ]
+    },
+    "pumpkin pie spice":{
+        "ingredient": "pumpkin pie spice",
+        "replacements":
+        [
+            {
+                "replacer":
+                [
+                    {
+                        "name": "ground cinnamon",
+                        "multiplier": "NOT SURE"
+                    }, 
+                    {
+                        "name": "ginger",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "also 2 teaspoons ground allspice and 1 teaspoon ground nutmeg"
+            }
+        ]
+    },
+    "self rising flour":{
+        "ingredient": "self rising flour",
+        "replacements":
+        [
+            {
+                "replacer":
+                [
+                    {
+                        "name": "all purpose flour",
+                        "multiplier": "NOT SURE"
+                    }, 
+                    {
+                        "name": "baking powder",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "also 2 teaspoons salt, 1 teaspoon baking soda"
+            }
+        ]
+    },
+    "sour cream":{
+        "ingredient": "sour cream",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "yogurt",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "plain yogurt"
+            }
+
+        ]
+    },
+    "vanilla extract":{
+        "ingredient": "vanilla extracy",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "maple syrup",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            }
+
+        ]
+    },
+    "vinegar":{
+        "ingredient": "vinegar",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "lemon juice",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "None"
+            }
+
+        ]
+    },
+    "yogurt":{
+        "ingredient": "yogurt",
+        "replacements":[
+            {
+                "replacer":
+                [
+                    {
+                        "name": "sour cream",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "plain yogurt"
+            },
+            {
+                "replacer":
+                [
+                    {
+                        "name": "buttermilk",
+                        "multiplier": "NOT SURE"
+                    }
+                ], 
+                "notes": "plain yogurt"
+            }
+        ]
     }
+
+
 }
