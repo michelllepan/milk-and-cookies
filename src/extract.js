@@ -98,6 +98,7 @@ export function replaceOnScreen(toReplace){
             var ingred_in_title = included(names, text_to_change)
             if(ingred_in_title != ""){
                 var replacement = ingredient_names[ingred_in_title].calculateAmount(toReplace[ingred_in_title])
+                replaceInstructions(ingred_in_title, replacement)
                 lines[j].getElementsByClassName("recipe-ingred_txt added")[0].innerText = replacement + " (" + Ingredient.getName(text_to_change) + ")"
             }
 
@@ -115,7 +116,34 @@ function included(keys, item){
     return ""
 }
 
+/**
+ * Replaces selected ingredients/measurements with corresponding replacement
+ * @param {String} ingredient ingredient that needs to be replaced in the instructions
+ * @param {String} replacement string of the replacement for that ingredient 
+ */
+function replaceInstructions(ingredient,replacement){
+    // check for special case of flour NEED TO ADD MORE OF THESE (ex. for walnuts it just says nuts)
+    if(ingredient == "all-purpose flour"){
+        ingredient = "flour,"
+    }
+    else{
+        ingredient = ingredient + ","
+    }
 
+    //get all the steps
+    var directions = document.getElementsByClassName('recipe-directions__list--item')
+
+    // loop through all the steps
+    for(var i = 0; i<directions.length;i++){
+        //get text of the steps
+        var text = directions[i].innerHTML
+        //if the step has that ingredient replace appropriately
+        if(text.includes(ingredient)){
+            var result = replacement.bold()
+            directions[i].innerHTML = text.split(ingredient)[0] + ingredient + " (" + result + ")" + text.split(ingredient)[1]
+        }
+    }
+}
 
 
 
