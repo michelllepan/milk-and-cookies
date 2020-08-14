@@ -60,7 +60,6 @@ class Popup extends React.Component {
   }
 
   componentDidMount = () => {
-    console.log("mounting")
     const components = getOptions() //[]
     // const names = exportNames()
     // const replacements = getReplacer()
