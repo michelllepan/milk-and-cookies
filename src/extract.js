@@ -37,18 +37,28 @@ function populateIngredientNames(){
 /**
  * Uses titles from the website to populate the record of Ingredient instances
  */
-//FIX THIS FUNCTION - INGREDIENT CLASS TAKES IN TWO THINGS
 function populateIngredients() {
     var titles = getTitles()
-    // for each ingredient object in database:
-        // IF the ingredient name is in titles, construct Ingredient instance and add to ingredient list
-        // pass in the ingredient object to the constructor
-	for (var i=0; i<titles.length; i++){
-        if (database[Ingredient.getName(titles[i])] !== undefined) {
-            ingredients.push(new Ingredient(titles[i], database[Ingredient.getName(titles[i])]))
+	for (var i=0; i < titles.length; i++){
+        var keys = Object.keys(database)
+        for (var j=0; j < keys.length; j++) {
+            
+            if (Ingredient.getName(titles[i]).includes([keys[j]])) {
+                ingredients.push(new Ingredient(titles[i], database[keys[j]]))
+                console.log("ingredient found: " + Ingredient.getName(titles[i]))
+            }
         }
+        //     ingredients.push(new Ingredient(titles[i], database[Ingredient.getName(titles[i])]))
+        // }
 	}
 }
+
+// helper function
+    // loop through the keys of the database
+    // for each key in the database check if any of the titles include that key
+        // if a title includes that key then add to an object with format title: object from database
+    // return that object
+
 
 /**
  * Gets the titles from the website
@@ -101,7 +111,6 @@ function checklistTitles(){
     return titles
 }
 
-// other checklist scenario
 
 /**
  * Replaces selected ingredients/measurements with corresponding replacement
@@ -137,7 +146,8 @@ function replaceInFieldSet(toReplace){
         var ingred_in_title = included(names, text)
         if(ingred_in_title != ""){
             var replacement = ingredient_names[ingred_in_title].calculateAmount(toReplace[ingred_in_title])
-            checkmark[0].getElementsByClassName("ingredients-item-name")[0].innerText = replacement + " (" + Ingredient.getName(text_to_change) + ")"
+            var result = replacement.bold()
+            checkmark[0].getElementsByClassName("ingredients-item-name")[0].innerHTML = result + " (" + Ingredient.getName(text_to_change) + ")"
         }
     }
     
@@ -160,7 +170,8 @@ function replaceInChecklist(toReplace){
             if(ingred_in_title != ""){
                 var replacement = ingredient_names[ingred_in_title].calculateAmount(toReplace[ingred_in_title])
                 replaceInstructions(ingred_in_title, replacement)
-                lines[j].getElementsByClassName("recipe-ingred_txt added")[0].innerText = replacement + " (" + Ingredient.getName(text_to_change) + ")"
+                var result = replacement.bold()
+                lines[j].getElementsByClassName("recipe-ingred_txt added")[0].innerHTML = result + " (" + Ingredient.getName(text_to_change) + ")"
             }
 
         }

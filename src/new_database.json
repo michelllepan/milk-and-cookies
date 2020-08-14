@@ -31,6 +31,16 @@
                     }
                 ], 
                 "notes": "will result in a heavier yeast bread product"
+            },
+            {
+                "replacer":
+                [
+                    {
+                        "name": "oat flour",
+                        "multiplier": "1"
+                    }
+                ], 
+                "notes":"blend up oats"
             }
         ]
 
@@ -182,8 +192,8 @@
         ]
 
     },
-    "chilli powder":{
-        "ingredient": "chilli powder",
+    "chili powder":{
+        "ingredient": "chili powder",
         "replacements":[
             {
                 "replacer":
@@ -287,7 +297,7 @@
                 "replacer":
                 [
                     {
-                        "name": "chilli powder",
+                        "name": "chili powder",
                         "multiplier": "NOT SURE"
                     }
                 ], 
@@ -352,22 +362,6 @@
                     }
                 ], 
                 "notes": "brownies, cookies"
-            }
-
-        ]
-    },
-    "flour":{
-        "ingredient": "flour",
-        "replacements":[
-            {
-                "replacer":
-                [
-                    {
-                        "name": "oat flour",
-                        "multiplier": "NOT SURE"
-                    }
-                ], 
-                "notes": "blend up oats"
             }
 
         ]
@@ -579,7 +573,7 @@
         ]
     },
     "vanilla extract":{
-        "ingredient": "vanilla extracy",
+        "ingredient": "vanilla extract",
         "replacements":[
             {
                 "replacer":

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Ingredient from './Ingredient';
+import './Popup.css';
 import { getOptions, replaceOnScreen } from '../extract.js'; //{getIngred, getReplacer, onlyReplacements, exportNames, replaceonScreen} from '../ingredextract';
 
 const Overlay = styled.div`
