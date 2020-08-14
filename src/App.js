@@ -6,7 +6,7 @@ import Popup from './popup/Popup';
 function App() {
 
   const unmount = () => {
-    var root = document.getElementById('root');
+    var root = document.getElementById("overlay");
     root.parentNode.removeChild(root)
   }
 
