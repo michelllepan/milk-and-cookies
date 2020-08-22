@@ -200,7 +200,7 @@
                 [
                     {
                         "name": "cumin",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "None"
@@ -217,11 +217,11 @@
                 [
                     {
                         "name": "regular (granulated) sugar",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }, 
                     {
                         "name": "cornstarch",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1 / 48"
                     }
                 ], 
                 "notes": "blend until a fine powder"
@@ -237,11 +237,11 @@
                 [
                     {
                         "name": "regular (granulated) sugar",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }, 
                     {
                         "name": "water",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1 / 4"
                     }
                 ], 
                 "notes": "None"
@@ -256,7 +256,7 @@
                 [
                     {
                         "name": "flour",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "2"
                     }
                 ], 
                 "notes": "None"
@@ -272,7 +272,7 @@
                 [
                     {
                         "name": "white vinegar",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "2"
                     }
                 ], 
                 "notes": "None"
@@ -282,7 +282,7 @@
                 [
                     {
                         "name": "lemon juice",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "2"
                     }
                 ], 
                 "notes": "preferred"
@@ -298,7 +298,7 @@
                 [
                     {
                         "name": "chili powder",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "None"
@@ -314,17 +314,17 @@
                 [
                     {
                         "name": "banana",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1 / 2"
                     }
                 ], 
-                "notes": "cupckaes, brownies, cakes"
+                "notes": "cupcakes, brownies, cakes"
             },
             {
                 "replacer":
                 [
                     {
                         "name": "applesauce",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "64 / 16"
                     }
                 ], 
                 "notes": "cupckaes, brownies, cakes"
@@ -334,31 +334,31 @@
                 [
                     {
                         "name": "silken tofu",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "64 / 16"
                     }
                 ], 
-                "notes": "cupckaes, brownies, cakes"
+                "notes": "cupcakes, brownies, cakes"
             },
             {
                 "replacer":
                 [
                     {
                         "name": "buttermilk",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "64 / 16"
                     }
                 ], 
-                "notes": "cupckaes, brownies, cakes"
+                "notes": "cupcakes, brownies, cakes"
             },
             {
                 "replacer":
                 [
                     {
                         "name": "flaxseed",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1 / 16"
                     }, 
                     {
                         "name": "warm water",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "48 / 16"
                     }
                 ], 
                 "notes": "brownies, cookies"
