@@ -53,7 +53,7 @@
                 [
                     {
                         "name": "cinnamon",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "None"
@@ -71,11 +71,11 @@
                 [
                     {
                         "name": "baking soda",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1 / 4"
                     }, 
                     {
                         "name": "cream of tartar",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "2 / 4"
                     }
                 ], 
                 "notes": "reverse also works with baking powder replacing baking soda + cream of tartar"
@@ -90,7 +90,7 @@
                 [
                     {
                         "name": "oregano",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes":"None"
@@ -101,7 +101,7 @@
                 [
                     {
                         "name": "thyme",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "None"
@@ -119,11 +119,11 @@
                 [
                     {
                         "name": "white sugar",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "4 / 4"
                     }, 
                     {
                         "name": "molasses",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1 / 4"
                     }
                 ], 
                 "notes": "None"
@@ -138,7 +138,7 @@
                 [
                     {
                         "name": "coconut oil",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1 / 2"
                     }
                 ], 
                 "notes": "None"
@@ -155,7 +155,7 @@
                 [
                     {
                         "name": "yogurt",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes":"plain yogurt"
@@ -166,11 +166,11 @@
                 [
                     {
                         "name": "milk",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }, 
                     {
                         "name": "lemon juice",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1 / 16"
                     }
                 ], 
                 "notes": "only need to add enough milk to make original amount in total, let stand 5 minutes before using"
@@ -180,11 +180,11 @@
                 [
                     {
                         "name": "milk",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }, 
                     {
                         "name": "vinegar",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1 / 16"
                     }
                 ], 
                 "notes": "only need to add enough milk to make original amount in total, let stand 5 minutes before using"
