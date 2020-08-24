@@ -14,15 +14,19 @@ var ingredient_names = {}
 var database = require('./new_database.json')
 
 
-
-// a string of the text that needs to be replaced "2 cups all purpose flour"
-//function replaceOnScreen
-    //replacement on screen for ingredient
-    //take in element 
-    //call form conversion on given element
-    //replace inner text with the resulting text returned by the Ingredient.formConversion function
-    // document.body.innerHTML = document.body.innerHTML.replace('2 cups all purpose flour', '1/4 teaspoon baking powder and kdjsljfs'); DOES THIS WORK? iT DOES!!
-    // addPair(text)
+/**
+ * replaces ingredients onto the website
+ * ex title: "2 cups all purpose flour"
+ * ex selection: "rolled oats and baking powder"
+ */
+export function replaceOnScreen(title, selection){
+    //title = "2 cups all purpose flour"
+    let ingredient = new Ingredient(title, database[Ingredient.getName(title)])
+    //selection = "rolled oats and baking powder"
+    let new_text = ingredient.calculateAmount(selection)
+    document.body.innerHTML = document.body.innerHTML.replace('2 cups all purpose flour', new_text)
+    addPair(title, new_text)
+}
 
 //pairs object
 var pairs = {}
@@ -33,15 +37,20 @@ export function getPairs() {
 }
 
 //function addPairs
-function addPair(highlightedText){
-    let newText = "" //determine converted amount, unit, and replacement
+function addPair(highlightedText, newText){
     pairs[highlightedText] = newText
 }
 
 //function to get the replacement options for the drop down
+// JANVI - NEED TO ADD CHECKING FOR EDGE CASES OF NOT HIGHLIGHTED INGREDIENTS
 export function getReplacementOptions(text){
-
+    let ingredient = new Ingredient(text, database[Ingredient.getName(text)])
+    return [ingredient.replacements.map(r => r.name)]
 }
+
+
+
+/***************************Functions not needed**************************/
 
 export function getOptions(){
     var options = []
