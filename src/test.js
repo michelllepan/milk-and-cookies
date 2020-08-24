@@ -3,7 +3,7 @@
 const database = require("./new_database")
 const Ingredient = require("./ingredient")
 
-const tester = "2 cups all-purpose flour"
+const tester = "3 cups all-purpose flour"
 
 var ingredient = new Ingredient(tester, database["all-purpose flour"])
 var replacement1 = ingredient.replacements[1]

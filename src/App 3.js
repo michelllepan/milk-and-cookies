@@ -1,12 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
-// import './App.css';
+import './App.css';
 import Popup from './popup/Popup';
 
 function App() {
 
   const unmount = () => {
-    var root = document.getElementById("overlay");
+    var root = document.getElementById('root');
     root.parentNode.removeChild(root)
   }
 
