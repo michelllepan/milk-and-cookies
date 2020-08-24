@@ -14,6 +14,35 @@ var ingredient_names = {}
 var database = require('./new_database.json')
 
 
+
+// a string of the text that needs to be replaced "2 cups all purpose flour"
+//function replaceOnScreen
+    //replacement on screen for ingredient
+    //take in element 
+    //call form conversion on given element
+    //replace inner text with the resulting text returned by the Ingredient.formConversion function
+    // document.body.innerHTML = document.body.innerHTML.replace('2 cups all purpose flour', '1/4 teaspoon baking powder and kdjsljfs'); DOES THIS WORK? iT DOES!!
+    // addPair(text)
+
+//pairs object
+var pairs = {}
+
+//function getPairs
+export function getPairs() {
+    return pairs
+}
+
+//function addPairs
+function addPair(highlightedText){
+    let newText = "" //determine converted amount, unit, and replacement
+    pairs[highlightedText] = newText
+}
+
+//function to get the replacement options for the drop down
+export function getReplacementOptions(text){
+
+}
+
 export function getOptions(){
     var options = []
     populateIngredients()
