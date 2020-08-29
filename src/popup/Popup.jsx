@@ -1,8 +1,10 @@
+
+/*
 import React from 'react';
 import styled from 'styled-components';
 import Ingredient from './Ingredient';
 import './Popup.css';
-import { getOptions, replaceOnScreen } from '../extract.js'; //{getIngred, getReplacer, onlyReplacements, exportNames, replaceonScreen} from '../ingredextract';
+import { replaceOnScreen } from '../extract.js'; //{getIngred, getReplacer, onlyReplacements, exportNames, replaceonScreen} from '../ingredextract';
 
 const Overlay = styled.div`
   width: 100%;
@@ -118,3 +120,4 @@ class Popup extends React.Component {
 }
 
 export default Popup;
+*/

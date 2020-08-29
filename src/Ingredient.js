@@ -69,6 +69,46 @@ export default class Ingredient {
         return words[0].trim()
     }
 
+    
+
+    
+    // OLD CODE START
+    static getAmount(title) {
+        var index = 0
+        while (! title.charAt(index).toLowerCase().match(/[a-z$-.A-Z]/i) ){
+            index++
+        }
+        return title.substring(0, index).trim()
+    }
+
+    /**
+     * Extract the measurement unit of the ingredient.
+     * @return {string} - The measurement unit of the ingredient.
+     */
+    static getUnit(title) {
+        var rest = title.replace(Ingredient.getAmount(title), "")
+        var unit = rest.trim().split(" ")[0]
+        return unit
+    }
+
+    /**
+     * Extract the name of the ingredient.
+     * @return {string} - The name of the ingredient.
+     */
+    static getName(title) {
+        if (Ingredient.getUnit(title).includes("egg")) {
+            return Ingredient.getUnit(title)
+        }
+        var rest = title.replace(Ingredient.getAmount(title) + " " + Ingredient.getUnit(title), "")
+        var words = rest.split(",")
+        return words[0].trim()
+    }
+     // OLD CODE END
+
+
+
+
+
     /**
      * Retreive replacement information from the database.
      * @param {Object} ingredientObject - The database object representing the ingredient.

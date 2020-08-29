@@ -5,6 +5,7 @@ import logo from './logo.png';
 import App from './App';
 import Cookie from './Cookie';
 import * as serviceWorker from './serviceWorker';
+import {replaceOnScreen} from './extract.js';
 
 // var a = document.createElement("div");
 // a.id = "overlay";
@@ -62,15 +63,16 @@ ReactDOM.render(
 window.addEventListener("mouseup", function(event) {
     
   var sel = window.getSelection();
-  var hTag = sel.anchorNode.parentElement;
-  var range = sel.getRangeAt(0);
-  var rect = hTag.getBoundingClientRect();
-  console.log(rect);
-  var selectedText = sel.toString();
-  console.log(selectedText);
-
+ // var hTag = sel.anchorNode.parentElement;
+ // var range = sel.getRangeAt(0);
+  //var rect = hTag.getBoundingClientRect();
+  //console.log(rect);
+  if (isRecipeSite()){
+    var selectedText = sel.toString();
+    console.log(selectedText);
+    replaceOnScreen(selectedText)
+  }
 });
-
 
 function isRecipeSite(){
   //selects schema
