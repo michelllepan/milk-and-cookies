@@ -1,4 +1,9 @@
-// module.exports = class Ingredient {
+var unicode = {'½': '1/2', '⅓': '1/3', '⅔': '2/3', '¼': '1/4', '¾': '3/4',
+                     '⅕': '1/5', '⅖': '2/5', '⅗': '3/5', '⅘': '4/5', '⅙': '1/6',
+                     '⅚': '5/6', '⅐': '1/7', '⅛': '1/8', '⅜': '3/8', '⅝': '5/8',
+                     '⅞': '7/8', '⅑': '1/9', '⅒': '1/10'}
+
+//module.exports = class Ingredient {
 export default class Ingredient {
 
     /**
@@ -6,11 +11,11 @@ export default class Ingredient {
      * @arg {string} title - The amount, unit, and name for an ingredient.
      * @arg {Object} ingredientObject - The database object representing the ingredient.
      */
-    constructor(title, ingredientObject) {
-        this.title = title               // 2 cups all-purpose flour (string)
-        this.amount = Ingredient.getAmount(title)   // 2 (string)
-        this.unit = Ingredient.getUnit(title)       // cup (string)
-        this.name = Ingredient.getName(title)       // all-purpose flour (string)
+    constructor(titleGiven, ingredientObject) {
+        this.title = titleGiven               // 2 cups all-purpose flour (string)
+        this.amount = this.getAmount()   // 2 (string)
+        this.unit = this.getUnit()       // cup (string)
+        this.name = this.getName()       // all-purpose flour (string)
         this.replacements = this.fileReplacements(ingredientObject) // list of Replacement instances
     }
 
@@ -18,21 +23,37 @@ export default class Ingredient {
      * Extract the amount of the ingredient.
      * @return {number} - The amount of the ingredient.
      */
-    static getAmount(title) {
+    getAmount(){
         var index = 0
-        while (! title.charAt(index).toLowerCase().match(/[a-x]/i) ){
+        while (! this.title.charAt(index).match(/[$-.a-zA-Z]/) ){ ///[a-z]/i) ){
             index++
         }
-        return title.substring(0, index).trim()
+        let num = this.title.substring(0, index).trim() //everything before the unit 
+        this.title = this.title.substring(index) //change the title
+        if (unicode[num]){ //if the amount is a unicode char
+            return unicode[num]
+        }
+        //if the amount is a mixed fraction
+        let parts = num.trim().split(" ")
+        if (parts.length > 1){
+            return this.to_improper(parts[0], parts[1])
+        }
+        //if the amount is a mixed fraction with a unicode char
+        let possible_mix = num.substring(1).trim()
+        let part = possible_mix.substring(0, 1)
+        if (unicode[part]){
+            return this.to_improper(num.substring(0, 1), unicode[part])
+        }
+        return num //if the amount is simply a number
     }
 
     /**
      * Extract the measurement unit of the ingredient.
      * @return {string} - The measurement unit of the ingredient.
      */
-    static getUnit(title) {
-        var rest = title.replace(Ingredient.getAmount(title), "")
-        var unit = rest.trim().split(" ")[0]
+    getUnit() {
+        var unit = this.title.trim().split(" ")[0]
+        this.title = this.title.replace(unit, "")
         return unit
     }
 
@@ -40,12 +61,11 @@ export default class Ingredient {
      * Extract the name of the ingredient.
      * @return {string} - The name of the ingredient.
      */
-    static getName(title) {
-        if (Ingredient.getUnit(title).includes("egg")) {
-            return Ingredient.getUnit(title)
+    getName(title) {
+        if (this.unit.includes("egg")) {
+            return this.unit
         }
-        var rest = title.replace(Ingredient.getAmount(title) + " " + Ingredient.getUnit(title), "")
-        var words = rest.split(",")
+        var words = this.title.split(",")
         return words[0].trim()
     }
 
@@ -55,8 +75,6 @@ export default class Ingredient {
      * @return {Replacement[]} An array of replacements for the ingredient.
      */
     fileReplacements(ingredientObject) {
-        console.log("object in filereplacements method")
-        console.log(ingredientObject)
         var replacementList = ingredientObject["replacements"]
         var replacements = replacementList.map(r => (new Replacement(r)))
         return replacements
@@ -73,6 +91,15 @@ export default class Ingredient {
                 return this.replacements[i].calculateAmount(this.amount, this.unit)
             }
         }
+    }
+
+    //changes a mixed fraction to an improper fraction
+    to_improper(whole, part){
+        var w = parseInt(whole)
+        var p_num = parseInt(part)
+        var p_denom = parseInt(part.split('/')[1])
+        var new_p_num = p_denom*w + p_num
+        return new_p_num + "/" + p_denom
     }
 }
 
@@ -133,12 +160,12 @@ class Replacement {
             //get the converted amount in the form of a fraction: [converted amount, unit]
             var components = this.formConversion(multiplier, amount, unit)
             var new_amount = components[0] 
-            var unit = components[1]
-            if (unit.charAt(unit.length - 1) === "s") {
-                unit = unit.substring(0, unit.length - 1)
+            var new_unit = components[1]
+            if (new_unit.charAt(new_unit.length - 1) === "s") {
+                new_unit = new_unit.substring(0, unit.length - 1)
             }
             //add the conversion to the string
-            conversion += (new_amount + " " + unit + "(s) " + element["name"])
+            conversion += (new_amount + " " + new_unit + "(s) " + element["name"])
             //determine whether or not to add an "and" clause
             if (this.parts.length > 2 && i+1 < this.parts.length){
                 conversion += ", "
@@ -178,9 +205,22 @@ class Replacement {
             final_denom = am_denom * mult_denom
         }
 
-        if (mult_denom % 48 == 0 && mult_denom != 0){ //teaspoon case
-            var converted = this.simplifyFraction(mult_num, mult_denom/48)
+        if (mult_denom % 48 === 0 && mult_denom !== 0){ //teaspoon case
+            let converted
+            if (mult_num > mult_denom){
+                converted = this.simplifyFraction(mult_num, mult_denom/48)
+            } else {
+                converted = this.simplifyFraction(mult_num, mult_denom)
+            }
             return [converted, "teaspoon"]
+        } else if (mult_denom % 16 === 0 && mult_denom !== 0){ //tbsp case
+            let converted
+            if (mult_num > mult_denom){
+                converted = this.simplifyFraction(mult_num, mult_denom/16)
+            } else {
+                converted = this.simplifyFraction(mult_num, mult_denom)
+            }
+            return [converted, "tablespoon"]
         } else { //normal case
             return [this.simplifyFraction(final_num, final_denom), unit]
         }

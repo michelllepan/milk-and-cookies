@@ -59,6 +59,31 @@ ReactDOM.render(
   document.getElementById("cookie")
 );
 
+window.addEventListener("mouseup", function(event) {
+    
+  var sel = window.getSelection();
+  var hTag = sel.anchorNode.parentElement;
+  var range = sel.getRangeAt(0);
+  var rect = hTag.getBoundingClientRect();
+  console.log(rect);
+  var selectedText = sel.toString();
+  console.log(selectedText);
+
+});
+
+
+function isRecipeSite(){
+  //selects schema
+  var items = document.querySelectorAll('script[type^="application/ld+json"]')
+  for (var i=0; i<items.length; i++){
+    //check type
+    if (items[i].innerText.replace(/ /g, "").includes("\"@type\":\"Recipe\"")){
+      return true
+    }
+  }
+  return false
+}
+
 // ReactDOM.render(
 //   <React.StrictMode>
 //     <App />
