@@ -53,7 +53,7 @@
                 [
                     {
                         "name": "cinnamon",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "None"
@@ -71,11 +71,11 @@
                 [
                     {
                         "name": "baking soda",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1 / 4"
                     }, 
                     {
                         "name": "cream of tartar",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "2 / 4"
                     }
                 ], 
                 "notes": "reverse also works with baking powder replacing baking soda + cream of tartar"
@@ -90,7 +90,7 @@
                 [
                     {
                         "name": "oregano",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes":"None"
@@ -101,7 +101,7 @@
                 [
                     {
                         "name": "thyme",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "None"
@@ -119,11 +119,11 @@
                 [
                     {
                         "name": "white sugar",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "4 / 4"
                     }, 
                     {
                         "name": "molasses",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1 / 4"
                     }
                 ], 
                 "notes": "None"
@@ -138,7 +138,7 @@
                 [
                     {
                         "name": "coconut oil",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1 / 2"
                     }
                 ], 
                 "notes": "None"
@@ -155,7 +155,7 @@
                 [
                     {
                         "name": "yogurt",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes":"plain yogurt"
@@ -166,11 +166,11 @@
                 [
                     {
                         "name": "milk",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }, 
                     {
                         "name": "lemon juice",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1 / 16"
                     }
                 ], 
                 "notes": "only need to add enough milk to make original amount in total, let stand 5 minutes before using"
@@ -180,11 +180,11 @@
                 [
                     {
                         "name": "milk",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }, 
                     {
                         "name": "vinegar",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1 / 16"
                     }
                 ], 
                 "notes": "only need to add enough milk to make original amount in total, let stand 5 minutes before using"
@@ -374,7 +374,7 @@
                 [
                     {
                         "name": "all spice",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "None"
@@ -391,11 +391,11 @@
                 [
                     {
                         "name": "melted butter",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1/16"
                     }, 
                     {
                         "name": "whole milk",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "only need to add enough to make original amount in total"
@@ -410,7 +410,7 @@
                 [
                     {
                         "name": "maple syrup",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "None"
@@ -420,7 +420,7 @@
                 [
                     {
                         "name": "corn syrup",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "None"
@@ -430,7 +430,7 @@
                 [
                     {
                         "name": "molasses",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "None"
@@ -440,11 +440,11 @@
                 [
                     {
                         "name": "sugar",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }, 
                     {
                         "name": "water",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "heat over medium heat until dissolved"
@@ -460,7 +460,7 @@
                 [
                     {
                         "name": "almond milk",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "None"
@@ -476,7 +476,7 @@
                 [
                     {
                         "name": "honey",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "None"
@@ -492,7 +492,7 @@
                 [
                     {
                         "name": "basil",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "None"
@@ -508,7 +508,7 @@
                 [
                     {
                         "name": "cilantro",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "None"
@@ -525,11 +525,11 @@
                 [
                     {
                         "name": "ground cinnamon",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "2"
                     }, 
                     {
                         "name": "ginger",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "4"
                     }
                 ], 
                 "notes": "also 2 teaspoons ground allspice and 1 teaspoon ground nutmeg"
@@ -545,11 +545,11 @@
                 [
                     {
                         "name": "all purpose flour",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }, 
                     {
                         "name": "baking powder",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "4/384"
                     }
                 ], 
                 "notes": "also 2 teaspoons salt, 1 teaspoon baking soda"
@@ -564,7 +564,7 @@
                 [
                     {
                         "name": "yogurt",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "plain yogurt"
@@ -580,7 +580,7 @@
                 [
                     {
                         "name": "maple syrup",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "None"
@@ -596,7 +596,7 @@
                 [
                     {
                         "name": "lemon juice",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "None"
@@ -612,7 +612,7 @@
                 [
                     {
                         "name": "sour cream",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "plain yogurt"
@@ -622,7 +622,7 @@
                 [
                     {
                         "name": "buttermilk",
-                        "multiplier": "NOT SURE"
+                        "multiplier": "1"
                     }
                 ], 
                 "notes": "plain yogurt"
