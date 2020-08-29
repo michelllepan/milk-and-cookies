@@ -42,10 +42,25 @@ function addPair(highlightedText, newText){
 }
 
 //function to get the replacement options for the drop down
-// JANVI - NEED TO ADD CHECKING FOR EDGE CASES OF NOT HIGHLIGHTED INGREDIENTS
 export function getReplacementOptions(text){
+    if(!isIngredient(text)){
+        return []
+    }
     let ingredient = new Ingredient(text, database[Ingredient.getName(text)])
     return [ingredient.replacements.map(r => r.name)]
+}
+
+function isIngredient(text){
+    measurements = ["cup", "tablespoon", "teaspoon", "cups", "teaspoons", "tablespoons", "eggs", "egg"]
+    if(!(text.charAt(0) >= '0' && text.charAt(0) <= '9')){
+        return False
+    }
+    for (var i = 0; i < measurements.length; i++) {
+        if(text.includes(measurements[i])){
+            return True
+        }    
+    }
+    return False
 }
 
 
