@@ -26,7 +26,10 @@ import {replaceOnScreen, getReplacementOptions} from './extract.js';
 // }
 
 function handleSelect(ingredient, selection) {
+    
+    console.log(ingredient);
     console.log(selection);
+    replaceOnScreen(ingredient, selection);
 }
 
 window.addEventListener("mouseup", function(event) {
@@ -80,12 +83,11 @@ window.addEventListener("mouseup", function(event) {
                             selected: null, 
                             replacements: getReplacementOptions(selectedText)} ;
           
-          //replaceOnScreen(selectedText)
 
           ReactDOM.render(
             <React.StrictMode>
               <Dropdown ingredient={ingredient} 
-                        handleSelect={(i, s) => console.log(s)}/>
+                        handleSelect={handleSelect}/>
             </React.StrictMode>,
             document.getElementById("milk-and-cookies-popup")
           );}
@@ -103,24 +105,24 @@ window.addEventListener("mouseup", function(event) {
 
 });
 
-function mountPopup() {
-    var a = document.createElement("div");
-    a.id = "overlay";
-    a.style.width = "100%";
-    a.style.height = "100%";
-    a.style.position = "absolute"
-    a.style.top = "0px"
-    a.style.left = "0px"
-    a.style.zIndex = 9999999;
-    document.body.insertBefore(a, document.body.firstChild);
+// function mountPopup() {
+//     var a = document.createElement("div");
+//     a.id = "overlay";
+//     a.style.width = "100%";
+//     a.style.height = "100%";
+//     a.style.position = "absolute"
+//     a.style.top = "0px"
+//     a.style.left = "0px"
+//     a.style.zIndex = 9999999;
+//     document.body.insertBefore(a, document.body.firstChild);
 
-    ReactDOM.render(
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>,
-      document.getElementById("overlay")
-    );
-}
+//     ReactDOM.render(
+//       <React.StrictMode>
+//         <App />
+//       </React.StrictMode>,
+//       document.getElementById("overlay")
+//     );
+// }
 
 // var b = document.createElement("div");
 // b.id = "cookie";
@@ -152,15 +154,16 @@ function mountPopup() {
 // });
 
 function isRecipeSite(){
-  //selects schema
-  var items = document.querySelectorAll('script[type^="application/ld+json"]')
-  for (var i=0; i<items.length; i++){
-    //check type
-    if (items[i].innerText.replace(/ /g, "").includes("\"@type\":\"Recipe\"")){
-      return true
-    }
-  }
-  return false
+  // //selects schema
+  // var items = document.querySelectorAll('script[type^="application/ld+json"]')
+  // for (var i=0; i<items.length; i++){
+  //   //check type
+  //   if (items[i].innerText.replace(/ /g, "").includes("\"@type\":\"Recipe\"")){
+  //     return true
+  //   }
+  // }
+  // return false
+  return true
 }
 
 // ReactDOM.render(

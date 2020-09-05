@@ -19,13 +19,13 @@ var database = require('./new_database.json')
  * ex title: "2 cups all purpose flour"
  * ex selection: "rolled oats and baking powder"
  */
-export function replaceOnScreen(title){
+export function replaceOnScreen(title, selection){
     //title = "2 cups all purpose flour"
     let ingredient = new Ingredient(title, database[Ingredient.getName(title)])
     //selection = "rolled oats and baking powder"
     //let new_text = ingredient.calculateAmount(selection)
-    document.body.innerHTML = document.body.innerHTML.replace(title, "yay we're here")
-    addPair(title, "new_text")
+    document.body.innerHTML = document.body.innerHTML.replace(title, selection)
+    addPair(title, selection)
 }
 
 //pairs object
@@ -50,7 +50,7 @@ export function getReplacementOptions(text){
         return []
     }
     let ingredient = new Ingredient(text, database[Ingredient.getName(text)])
-    return [ingredient.replacements.map(r => r.name)]
+    return ingredient.replacements.map(r => r.name);
 }
 
 
