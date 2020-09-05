@@ -7,29 +7,10 @@ import Cookie from './popup/Cookie';
 import Dropdown from './highlight/Dropdown';
 import HighlightCookie from './highlight/HighlightCookie';
 import * as serviceWorker from './serviceWorker';
-import {replaceOnScreen} from './extract.js';
+import {replaceOnScreen, getReplacementOptions} from './extract.js';
 
-// var a = document.createElement("div");
-// a.id = "overlay";
-// a.style.width = "100%";
-// a.style.height = "100%";
-// a.style.position = "absolute"
-// a.style.top = "0px"
-// a.style.left = "0px"
-// a.style.zIndex = 9999999;
-// document.body.insertBefore(a, document.body.firstChild);
-
-// function test() {
-//   console.log("hello")
-// }
-
-// const cookie = <div><img src="./logo.png" onClick={test}/></div>
-// window.onload = function() {
-//   document.body.insertAdjacentHTML("afterbegin", "<div><img src='./logo.png' onClick='console.log()'/></div>");
-// }
-
-var focused = document.activeElement;
-var selectedText;
+// var focused = document.activeElement;
+// var selectedText;
 // if (focused) {
 //     console.log("focused")
 //     try {
@@ -48,45 +29,27 @@ function handleSelect(ingredient, selection) {
     console.log(selection);
 }
 
-// function showDropdown() {
-//     ReactDOM.render(
-//       <React.StrictMode>
-//         <Dropdown ingredient={{name: "milk",
-//                               selected: "cookies",
-//                               replacements: ["cookies", "more cookies"]}} 
-//                   handleSelect={(i, s) => console.log(s)}/>
-//       </React.StrictMode>,
-//       document.getElementById("milk-and-cookies-popup")
-//     );
-
-//     var b = document.createElement("div");
-//     b.id = "milk-and-cookies-popup";
-//     b.style.height = "100px";
-//     b.style.width = "300px";
-//     b.style.position = "absolute"
-//     b.style.top = `${((rect.top + rect.bottom) / 2) - 12 + window.scrollY}px`;
-//     b.style.left = `${rect.right + 40 + window.scrollX}px`;
-//     b.style.zIndex = 9999999;
-//     document.body.insertBefore(b, document.body.firstChild);
-// }
-
 window.addEventListener("mouseup", function(event) {
     
     var myobj = document.getElementById("milk-and-cookies");
     var sel = window.getSelection();
     var selectedText = sel.toString();
 
-    console.log(sel);
-
-    if (myobj === null && selectedText !== "") {
+    if (myobj === null && selectedText !== "" && isRecipeSite()) {
         var hTag = sel.anchorNode.parentElement;
         var range = sel.getRangeAt(0);
         var rect = hTag.getBoundingClientRect();
-        console.log(rect);
-        console.log(selectedText);
-        console.log(rect.top);
-        console.log(rect.right);
-
+        // console.log(rect);
+        // console.log(selectedText);
+        // console.log(rect.top);
+        // console.log(rect.right);
+        var sel = window.getSelection();
+        // var hTag = sel.anchorNode.parentElement;
+        // var range = sel.getRangeAt(0);
+          //var rect = hTag.getBoundingClientRect();
+          //console.log(rect);
+        
+          
         var a = document.createElement("div");
         a.id = "milk-and-cookies";
         a.style.height = "20px";
@@ -109,17 +72,23 @@ window.addEventListener("mouseup", function(event) {
           b.style.left = `${rect.right + 40 + window.scrollX}px`;
           b.style.zIndex = 9999999;
           document.body.insertBefore(b, document.body.firstChild);
+          
+          // var ingredient = {name: "milk",
+          //                   selected: "cookies",
+          //                   replacements: ["cookies", "more cookies"]}
+          var ingredient = {name: selectedText, 
+                            selected: null, 
+                            replacements: getReplacementOptions(selectedText)} ;
+          
+          //replaceOnScreen(selectedText)
 
           ReactDOM.render(
             <React.StrictMode>
-              <Dropdown ingredient={{name: "milk",
-                                    selected: "cookies",
-                                    replacements: ["cookies", "more cookies"]}} 
+              <Dropdown ingredient={ingredient} 
                         handleSelect={(i, s) => console.log(s)}/>
             </React.StrictMode>,
             document.getElementById("milk-and-cookies-popup")
-          );
-      }
+          );}
 
         ReactDOM.render(
           <React.StrictMode>
@@ -135,22 +104,22 @@ window.addEventListener("mouseup", function(event) {
 });
 
 function mountPopup() {
-  var a = document.createElement("div");
-  a.id = "overlay";
-  a.style.width = "100%";
-  a.style.height = "100%";
-  a.style.position = "absolute"
-  a.style.top = "0px"
-  a.style.left = "0px"
-  a.style.zIndex = 9999999;
-  document.body.insertBefore(a, document.body.firstChild);
+    var a = document.createElement("div");
+    a.id = "overlay";
+    a.style.width = "100%";
+    a.style.height = "100%";
+    a.style.position = "absolute"
+    a.style.top = "0px"
+    a.style.left = "0px"
+    a.style.zIndex = 9999999;
+    document.body.insertBefore(a, document.body.firstChild);
 
-  ReactDOM.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-    document.getElementById("overlay")
-  );
+    ReactDOM.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>,
+      document.getElementById("overlay")
+    );
 }
 
 // var b = document.createElement("div");
@@ -183,16 +152,15 @@ function mountPopup() {
 // });
 
 function isRecipeSite(){
-  return true
-  // //selects schema
-  // var items = document.querySelectorAll('script[type^="application/ld+json"]')
-  // for (var i=0; i<items.length; i++){
-  //   //check type
-  //   if (items[i].innerText.replace(/ /g, "").includes("\"@type\":\"Recipe\"")){
-  //     return true
-  //   }
-  // }
-  // return false
+  //selects schema
+  var items = document.querySelectorAll('script[type^="application/ld+json"]')
+  for (var i=0; i<items.length; i++){
+    //check type
+    if (items[i].innerText.replace(/ /g, "").includes("\"@type\":\"Recipe\"")){
+      return true
+    }
+  }
+  return false
 }
 
 // ReactDOM.render(
