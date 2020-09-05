@@ -65,6 +65,10 @@ window.addEventListener("mouseup", function(event) {
         document.body.insertBefore(a, document.body.firstChild);
 
         function showDropdown() {
+
+          if (getReplacementOptions(selectedText).length === 0) {
+              return;
+          }
           
           var b = document.createElement("div");
           b.id = "milk-and-cookies-popup";
