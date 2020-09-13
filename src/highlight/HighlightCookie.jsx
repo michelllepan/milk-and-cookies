@@ -5,7 +5,7 @@ class Cookie extends React.Component {
 
   render() {
     return (
-      <Logo className="button-element" onClick={this.props.onClick}/>
+      <Logo className="button-element" onMouseUp={(e) => {this.props.onClick(); e.stopPropagation()}}/>
     )
   }
 }

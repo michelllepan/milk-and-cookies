@@ -92,7 +92,7 @@ class Dropdown extends React.Component {
   render() {
     return (
       <Wrapper isOpen={this.state.isOpen} selected={this.props.ingredient.selected}>
-        <Header className="button-element" onClick={this.toggleOpen}>
+        <Header className="button-element" onMouseUp={(e) => {this.toggleOpen(); e.stopPropagation();}}>
           <SelectedText>{ this.props.ingredient.selected ? this.props.ingredient.selected : 
                           "select a replacement"}</SelectedText>
           { this.state.isOpen ? <UpArrow /> : <DownArrow /> }
@@ -100,7 +100,7 @@ class Dropdown extends React.Component {
         { this.state.isOpen && 
           <ListWrapper>
             { this.props.ingredient.replacements.map(r => 
-              <ListItemWrapper className="button-element" onClick={() => this.props.handleSelect(this.props.ingredient.name, r)}>
+              <ListItemWrapper className="button-element" onMouseUp={(e) => this.props.handleSelect(this.props.ingredient.name, r)}>
                 <ListText>{ r }</ListText>
               </ListItemWrapper>) 
             }

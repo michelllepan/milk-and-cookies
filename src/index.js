@@ -64,8 +64,11 @@ function showCookie() {
   document.body.insertBefore(a, document.body.firstChild);
 
   function showDropdown() {
+    console.log("hello");
 
     if (getReplacementOptions(selectedText).length === 0) {
+        var myobj = document.getElementById("milk-and-cookies");
+        myobj.remove();
         return;
     }
     
@@ -105,8 +108,12 @@ function showCookie() {
 }
 
 window.addEventListener("mouseup", function(event) {
+
+    console.log("here is an event");
+    console.log(event);
     
     var myobj = document.getElementById("milk-and-cookies");
+    var mydropdown = document.getElementById("milk-and-cookies-popup");
     var sel = window.getSelection();
     var selectedText = sel.toString();
 
@@ -120,6 +127,10 @@ window.addEventListener("mouseup", function(event) {
         if (selectedText !== "") {
           showCookie();
         }
+    }
+
+    if (mydropdown !== null) {
+        mydropdown.remove();
     }
 
 });
