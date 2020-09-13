@@ -184,16 +184,15 @@ window.addEventListener("mouseup", function(event) {
 // });
 
 function isRecipeSite(){
-  // //selects schema
-  // var items = document.querySelectorAll('script[type^="application/ld+json"]')
-  // for (var i=0; i<items.length; i++){
-  //   //check type
-  //   if (items[i].innerText.replace(/ /g, "").includes("\"@type\":\"Recipe\"")){
-  //     return true
-  //   }
-  // }
-  // return false
-  return true
+  //selects schema
+  var items = document.querySelectorAll('script[type^="application/ld+json"]')
+  for (var i=0; i<items.length; i++){
+    //check type
+    if (items[i].innerText.replace(/ /g, "").includes("\"@type\":\"Recipe\"")){
+      return true
+    }
+  }
+  return false
 }
 
 // ReactDOM.render(
