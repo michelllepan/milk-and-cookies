@@ -32,6 +32,78 @@ function handleSelect(ingredient, selection) {
     replaceOnScreen(ingredient, selection);
 }
 
+function showCookie() {
+
+  var myobj = document.getElementById("milk-and-cookies");
+  var sel = window.getSelection();
+  var selectedText = sel.toString();
+
+  var hTag = sel.anchorNode.parentElement;
+  var range = sel.getRangeAt(0);
+  var rect = hTag.getBoundingClientRect();
+  // console.log(rect);
+  // console.log(selectedText);
+  // console.log(rect.top);
+  // console.log(rect.right);
+  var sel = window.getSelection();
+  // var hTag = sel.anchorNode.parentElement;
+  // var range = sel.getRangeAt(0);
+    //var rect = hTag.getBoundingClientRect();
+    //console.log(rect);
+  
+    
+  var a = document.createElement("div");
+  a.id = "milk-and-cookies";
+  a.style.height = "20px";
+  a.style.width = "20px";
+  // a.style.backgroundColor = "red";
+  a.style.position = "absolute"
+  a.style.top = `${((rect.top + rect.bottom) / 2) - 12 + window.scrollY}px`;
+  a.style.left = `${rect.right + 10 + window.scrollX}px`;
+  a.style.zIndex = 9999999;
+  document.body.insertBefore(a, document.body.firstChild);
+
+  function showDropdown() {
+
+    if (getReplacementOptions(selectedText).length === 0) {
+        return;
+    }
+    
+    var b = document.createElement("div");
+    b.id = "milk-and-cookies-popup";
+    b.style.height = "100px";
+    b.style.width = "300px";
+    b.style.position = "absolute"
+    b.style.top = `${((rect.top + rect.bottom) / 2) - 12 + window.scrollY}px`;
+    b.style.left = `${rect.right + 40 + window.scrollX}px`;
+    b.style.zIndex = 9999999;
+    document.body.insertBefore(b, document.body.firstChild);
+    
+    // var ingredient = {name: "milk",
+    //                   selected: "cookies",
+    //                   replacements: ["cookies", "more cookies"]}
+    var ingredient = {name: selectedText, 
+                      selected: null, 
+                      replacements: getReplacementOptions(selectedText)} ;
+    
+
+    ReactDOM.render(
+      <React.StrictMode>
+        <Dropdown ingredient={ingredient} 
+                  handleSelect={handleSelect}/>
+      </React.StrictMode>,
+      document.getElementById("milk-and-cookies-popup")
+    );}
+
+  ReactDOM.render(
+    <React.StrictMode>
+      <HighlightCookie onClick={showDropdown}/>
+    </React.StrictMode>,
+    document.getElementById("milk-and-cookies")
+  );
+
+}
+
 window.addEventListener("mouseup", function(event) {
     
     var myobj = document.getElementById("milk-and-cookies");
@@ -39,72 +111,15 @@ window.addEventListener("mouseup", function(event) {
     var selectedText = sel.toString();
 
     if (myobj === null && selectedText !== "" && isRecipeSite()) {
-        var hTag = sel.anchorNode.parentElement;
-        var range = sel.getRangeAt(0);
-        var rect = hTag.getBoundingClientRect();
-        // console.log(rect);
-        // console.log(selectedText);
-        // console.log(rect.top);
-        // console.log(rect.right);
-        var sel = window.getSelection();
-        // var hTag = sel.anchorNode.parentElement;
-        // var range = sel.getRangeAt(0);
-          //var rect = hTag.getBoundingClientRect();
-          //console.log(rect);
-        
-          
-        var a = document.createElement("div");
-        a.id = "milk-and-cookies";
-        a.style.height = "20px";
-        a.style.width = "20px";
-        // a.style.backgroundColor = "red";
-        a.style.position = "absolute"
-        a.style.top = `${((rect.top + rect.bottom) / 2) - 12 + window.scrollY}px`;
-        a.style.left = `${rect.right + 10 + window.scrollX}px`;
-        a.style.zIndex = 9999999;
-        document.body.insertBefore(a, document.body.firstChild);
-
-        function showDropdown() {
-
-          if (getReplacementOptions(selectedText).length === 0) {
-              return;
-          }
-          
-          var b = document.createElement("div");
-          b.id = "milk-and-cookies-popup";
-          b.style.height = "100px";
-          b.style.width = "300px";
-          b.style.position = "absolute"
-          b.style.top = `${((rect.top + rect.bottom) / 2) - 12 + window.scrollY}px`;
-          b.style.left = `${rect.right + 40 + window.scrollX}px`;
-          b.style.zIndex = 9999999;
-          document.body.insertBefore(b, document.body.firstChild);
-          
-          // var ingredient = {name: "milk",
-          //                   selected: "cookies",
-          //                   replacements: ["cookies", "more cookies"]}
-          var ingredient = {name: selectedText, 
-                            selected: null, 
-                            replacements: getReplacementOptions(selectedText)} ;
-          
-
-          ReactDOM.render(
-            <React.StrictMode>
-              <Dropdown ingredient={ingredient} 
-                        handleSelect={handleSelect}/>
-            </React.StrictMode>,
-            document.getElementById("milk-and-cookies-popup")
-          );}
-
-        ReactDOM.render(
-          <React.StrictMode>
-            <HighlightCookie onClick={showDropdown}/>
-          </React.StrictMode>,
-          document.getElementById("milk-and-cookies")
-        );
+        showCookie();
 
     } else if (myobj !== null) {
-        // myobj.remove();
+        myobj.remove();
+        var sel = window.getSelection();
+        var selectedText = sel.toString();
+        if (selectedText !== "") {
+          showCookie();
+        }
     }
 
 });
