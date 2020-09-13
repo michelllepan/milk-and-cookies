@@ -246,24 +246,36 @@ class Replacement {
         }
 
         if (mult_denom % 48 === 0 && mult_denom !== 0){ //teaspoon case
-            let converted
-            if (mult_num > mult_denom){
-                converted = this.simplifyFraction(mult_num, mult_denom/48)
-            } else {
-                converted = this.simplifyFraction(mult_num, mult_denom)
-            }
-            return [converted, "teaspoon"]
+            let converted = this.simplifyFraction(mult_num, mult_denom/48)
+            return [this.extractUnicode(converted.toString()), "teaspoon"]
         } else if (mult_denom % 16 === 0 && mult_denom !== 0){ //tbsp case
-            let converted
-            if (mult_num > mult_denom){
-                converted = this.simplifyFraction(mult_num, mult_denom/16)
-            } else {
-                converted = this.simplifyFraction(mult_num, mult_denom)
-            }
-            return [converted, "tablespoon"]
+            let converted = this.simplifyFraction(mult_num, mult_denom/16)
+            return [this.extractUnicode(converted.toString()), "tablespoon"]
         } else { //normal case
-            return [this.simplifyFraction(final_num, final_denom), unit]
+            let converted = this.simplifyFraction(final_num, final_denom)
+            return [this.extractUnicode(converted.toString()), unit]
         }
+    }
+    
+    /**
+     * Reorganizes a string so that fractions become unicode
+     * @param {String} number the number to check for possible unicode changes
+     */
+    extractUnicode(number) {
+        //check if number contains a fraction
+        if (number.includes('/')) {
+            //mixed fraction case
+            if (number.split(' ').length > 1){
+                let whole = number.split(' ')[0]
+                let fraction = number.split(' ')[1]
+                let uni_fraction = Object.keys(unicode).find(key => unicode[key] === fraction)
+                return whole + ' ' + uni_fraction
+            } else {
+                //single fraction case
+                return Object.keys(unicode).find(key => unicode[key] === number)
+            }
+        }
+        return number
     }
 
     /**
