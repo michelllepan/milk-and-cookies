@@ -49,6 +49,9 @@ export function replaceOnScreen(title, selection){
         let result = "\\u" + "0000".substring(0, 4 - hex.length) + hex;
         document.body.innerHTML = document.body.innerHTML.replace(beg + " " + result + " " + rest, new_text)
     }
+
+
+
     addPair(title, new_text)
 }
 
