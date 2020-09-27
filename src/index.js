@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import logo from './logo.png';
-import App from './App';
 import Cookie from './popup/Cookie';
+import Popup from './popup/Popup';
 import Dropdown from './highlight/Dropdown';
 import HighlightCookie from './highlight/HighlightCookie';
 import * as serviceWorker from './serviceWorker';
@@ -135,39 +135,39 @@ window.addEventListener("mouseup", function(event) {
 
 });
 
-// function mountPopup() {
-//     var a = document.createElement("div");
-//     a.id = "overlay";
-//     a.style.width = "100%";
-//     a.style.height = "100%";
-//     a.style.position = "absolute"
-//     a.style.top = "0px"
-//     a.style.left = "0px"
-//     a.style.zIndex = 9999999;
-//     document.body.insertBefore(a, document.body.firstChild);
+function mountPopup() {
+  var a = document.createElement("div");
+  a.id = "overlay";
+  // a.style.width = "100%";
+  // a.style.height = "100%";
+  a.style.position = "fixed"
+  a.style.bottom = "50px"
+  a.style.right = "50px"
+  a.style.zIndex = 99999;
+  document.body.insertBefore(a, document.body.firstChild);
 
-//     ReactDOM.render(
-//       <React.StrictMode>
-//         <App />
-//       </React.StrictMode>,
-//       document.getElementById("overlay")
-//     );
-// }
+  ReactDOM.render(
+    <React.StrictMode>
+      <Popup />
+    </React.StrictMode>,
+    document.getElementById("overlay")
+  );
+}
 
-// var b = document.createElement("div");
-// b.id = "cookie";
-// b.style.position = "fixed"
-// b.style.bottom = "20px"
-// b.style.right = "20px"
-// b.style.zIndex = 9999995;
-// document.body.insertBefore(b, document.body.firstChild);
+var b = document.createElement("div");
+b.id = "cookie";
+b.style.position = "fixed"
+b.style.bottom = "20px"
+b.style.right = "20px"
+b.style.zIndex = 9999995;
+document.body.insertBefore(b, document.body.firstChild);
 
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <Cookie handleClick={mountPopup}/>
-//   </React.StrictMode>,
-//   document.getElementById("cookie")
-// );
+ReactDOM.render(
+  <React.StrictMode>
+    <Cookie handleClick={mountPopup}/>
+  </React.StrictMode>,
+  document.getElementById("cookie")
+);
 
 // window.addEventListener("mouseup", function(event) {
     

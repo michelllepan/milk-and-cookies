@@ -1,33 +1,47 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap'); */
-@import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #FFF;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #BBB;
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #888;
+  }
 
 .button-element:hover {
   cursor: pointer;
 }
-
+/* 
 body {
   margin: 0;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: proxima-nova, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 h3 {
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: proxima-nova, sans-serif;
   margin: 0;
 }
 
 h4 {
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: proxima-nova, sans-serif;
   margin: 0;
 }
 
 p {
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: proxima-nova, sans-serif;
   margin: 0;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
+} */

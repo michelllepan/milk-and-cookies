@@ -14,3 +14,41 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #888;
   }
+
+.button-element:hover {
+  cursor: pointer;
+}
+
+body {
+  margin: 0;
+  font-family: 'proxima-nova', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* body {
+  margin: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h3 {
+  font-family: 'Helvetica Neue', sans-serif;
+  margin: 0;
+}
+
+h4 {
+  font-family: 'Helvetica Neue', sans-serif;
+  margin: 0;
+}
+
+p {
+  font-family: 'Helvetica Neue', sans-serif;
+  margin: 0;
+} */
+
+/* code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+} */
