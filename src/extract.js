@@ -22,7 +22,33 @@ var database = require('./new_database.json')
 export function replaceOnScreen(title, selection){
     let ingredient = new Ingredient(title, database[Ingredient.getName(title)])
     let new_text = ingredient.calculateAmount(selection)
-    document.body.innerHTML = document.body.innerHTML.replace(title, new_text)
+    if (document.body.innerHTML.includes(title)) {
+        document.body.innerHTML = document.body.innerHTML.replace(title, new_text)
+    } else if (document.body.innerText.includes(title)) {
+        let element = Array.from(document.querySelectorAll('li')).find(el => el.innerText.includes(title));
+        let toReplace = element.innerText;
+        let toReplaceParts = [Ingredient.getAmount(toReplace), Ingredient.getUnit(toReplace), Ingredient.getName(toReplace)]
+        let newParts = [new_text.split(' ')[0], new_text.split(' ')[1], new_text.split(' ').slice(2).join(' ')]
+
+        let newHTML = element.innerHTML
+        for (let i=0; i<toReplaceParts.length; i++) {
+            newHTML = newHTML.replace(toReplaceParts[i], newParts[i])
+        }
+        element.innerHTML = newHTML
+    } else if (title.charAt(0).match(/[\u00BC-\u00BE\u2150-\u215E]/)){
+        let uni = title.charAt(0)
+        let rest = title.substring(1, title.length).trim();
+        let hex = uni.codePointAt(0).toString(16);
+        let result = "\\u" + "0000".substring(0, 4 - hex.length) + hex;
+        document.body.innerHTML = document.body.innerHTML.replace(result + " " + rest, new_text)
+    } else if (title.charAt(2).match(/[\u00BC-\u00BE\u2150-\u215E]/)){
+        let uni = title.charAt(2)
+        let beg = title.substring(0, 2)
+        let rest = title.substring(3, title.length).trim();
+        let hex = uni.codePointAt(2).toString(16);
+        let result = "\\u" + "0000".substring(0, 4 - hex.length) + hex;
+        document.body.innerHTML = document.body.innerHTML.replace(beg + " " + result + " " + rest, new_text)
+    }
     addPair(title, new_text)
 }
 
@@ -55,7 +81,8 @@ export function getReplacementOptions(text){
 
 function isIngredient(text){
     var measurements = ["cup", "tablespoon", "teaspoon", "cups", "teaspoons", "tablespoons", "eggs", "egg"]
-    if(!(text.charAt(0) >= '0' && text.charAt(0) <= '9')){
+    if(!((text.charAt(0) >= '0' && text.charAt(0) <= '9') || 
+        text.charAt(0).match(/[\u00BC-\u00BE\u2150-\u215E]/)) ){
         return false
     }
     for (var i = 0; i < measurements.length; i++) {
