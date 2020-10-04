@@ -46,51 +46,10 @@ function showCookie() {
   a.style.zIndex = 9999999;
   document.body.insertBefore(a, document.body.firstChild);
 
-  function addButton(selection){
-    var a = document.createElement("div");
-    a.id = "replacementText";
-    a.style.height = "100px";
-    a.style.width = "300px";
-    // a.style.backgroundColor = "red";
-    a.style.position = "absolute"
-    a.style.top = `${((rect.top + rect.bottom) / 2) - 12 + window.scrollY}px`;
-    a.style.left = `${rect.right + 10 + window.scrollX}px`;
-    a.style.zIndex = 9999999;
-    document.body.insertBefore(a, document.body.firstChild);
-    
-    // var ingredient = {name: "milk",
-    //                   selected: "cookies",
-    //                   replacements: ["cookies", "more cookies"]}
-    let replacements = getReplacementOptions(selectedText).map(r => replaceOnScreen(selectedText, r))
-    replacements.push(selectedText)
-    var ingredient = {name: selectedText, 
-      selected: selection, 
-      replacements: replacements} ;
 
 
-    ReactDOM.render(
-      <React.StrictMode>
-        <Dropdown ingredient={ingredient} 
-                  handleSelect={handleSelect}
-                  />
-      </React.StrictMode>,
-      document.getElementById("replacementText")
-    );
-    /*
-    ReactDOM.render(
-      <React.StrictMode>
-        <TextButton onClick={showDropdown}
-                    selection = {selection}
-                    ingredient = {selectedText}
-        />
-      </React.StrictMode>,
-      document.getElementById("replacementText")
-    );
-    */
-  }
 
-
-  function showDropdown() {
+  function showDropdown(selection) {
     console.log("hello");
 
     if (getReplacementOptions(selectedText).length === 0) {
@@ -115,7 +74,7 @@ function showCookie() {
     let replacements = getReplacementOptions(selectedText).map(r => replaceOnScreen(selectedText, r))
     replacements.push(selectedText)
     var ingredient = {name: selectedText, 
-                      selected: null, 
+                      selected: selection, 
                       replacements: replacements} ;
     
 
@@ -123,7 +82,6 @@ function showCookie() {
       <React.StrictMode>
         <Dropdown ingredient={ingredient} 
                   handleSelect={handleSelect}
-                  addButton = {addButton}
                   />
       </React.StrictMode>,
       document.getElementById("milk-and-cookies-popup")
@@ -160,9 +118,9 @@ window.addEventListener("mouseup", function(event) {
         }
     }
 
-    if (mydropdown !== null) {
-        mydropdown.remove();
-    }
+    // if (mydropdown !== null) {
+    //     mydropdown.remove();
+    // }
 
 });
 
