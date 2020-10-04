@@ -21,7 +21,7 @@ export default class Ingredient {
 
     /**
      * Extract the amount of the ingredient.
-     * @return {number} - The amount of the ingredient.
+     * @return {String} - The amount of the ingredient.
      */
     getAmount(){
         var index = 0
