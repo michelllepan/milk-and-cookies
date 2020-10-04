@@ -6,30 +6,16 @@ import App from './App';
 import Cookie from './popup/Cookie';
 import Dropdown from './highlight/Dropdown';
 import HighlightCookie from './highlight/HighlightCookie';
+import TextButton from './highlight/TextButton';
 import * as serviceWorker from './serviceWorker';
 import {replaceOnScreen, getReplacementOptions} from './extract.js';
-
-// var focused = document.activeElement;
-// var selectedText;
-// if (focused) {
-//     console.log("focused")
-//     try {
-//         selectedText = focused.value.substring(
-//             focused.selectionStart, focused.selectionEnd);
-//     } catch (err) {
-//         console.log("error")
-//     }
-// }
-// if (selectedText == undefined) {
-//     var sel = window.getSelection();
-//     var selectedText = sel.toString();
-// }
 
 function handleSelect(ingredient, selection) {
     
     console.log(ingredient);
     console.log(selection);
     replaceOnScreen(ingredient, selection);
+    //addButton();
 }
 
 function showCookie() {
@@ -59,6 +45,28 @@ function showCookie() {
   a.style.left = `${rect.right + 10 + window.scrollX}px`;
   a.style.zIndex = 9999999;
   document.body.insertBefore(a, document.body.firstChild);
+
+  function addButton(selection){
+    var a = document.createElement("div");
+    a.id = "replacementText";
+    a.style.height = "100px";
+    a.style.width = "100px";
+    // a.style.backgroundColor = "red";
+    a.style.position = "absolute"
+    a.style.top = `${((rect.top + rect.bottom) / 2) - 12 + window.scrollY}px`;
+    a.style.left = `${rect.right + 10 + window.scrollX}px`;
+    a.style.zIndex = 9999999;
+    document.body.insertBefore(a, document.body.firstChild);
+    ReactDOM.render(
+      <React.StrictMode>
+        <TextButton onClick={showDropdown}
+                    selection = {selection}
+        />
+      </React.StrictMode>,
+      document.getElementById("replacementText")
+    );
+  }
+
 
   function showDropdown() {
     console.log("hello");
@@ -90,7 +98,9 @@ function showCookie() {
     ReactDOM.render(
       <React.StrictMode>
         <Dropdown ingredient={ingredient} 
-                  handleSelect={handleSelect}/>
+                  handleSelect={handleSelect}
+                  addButton = {addButton}
+                  />
       </React.StrictMode>,
       document.getElementById("milk-and-cookies-popup")
     );}
@@ -132,53 +142,6 @@ window.addEventListener("mouseup", function(event) {
 
 });
 
-// function mountPopup() {
-//     var a = document.createElement("div");
-//     a.id = "overlay";
-//     a.style.width = "100%";
-//     a.style.height = "100%";
-//     a.style.position = "absolute"
-//     a.style.top = "0px"
-//     a.style.left = "0px"
-//     a.style.zIndex = 9999999;
-//     document.body.insertBefore(a, document.body.firstChild);
-
-//     ReactDOM.render(
-//       <React.StrictMode>
-//         <App />
-//       </React.StrictMode>,
-//       document.getElementById("overlay")
-//     );
-// }
-
-// var b = document.createElement("div");
-// b.id = "cookie";
-// b.style.position = "fixed"
-// b.style.bottom = "20px"
-// b.style.right = "20px"
-// b.style.zIndex = 9999995;
-// document.body.insertBefore(b, document.body.firstChild);
-
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <Cookie handleClick={mountPopup}/>
-//   </React.StrictMode>,
-//   document.getElementById("cookie")
-// );
-
-// window.addEventListener("mouseup", function(event) {
-    
-//   var sel = window.getSelection();
-//  // var hTag = sel.anchorNode.parentElement;
-//  // var range = sel.getRangeAt(0);
-//   //var rect = hTag.getBoundingClientRect();
-//   //console.log(rect);
-//   if (isRecipeSite()){
-//     var selectedText = sel.toString();
-//     console.log(selectedText);
-//     replaceOnScreen(selectedText)
-//   }
-// });
 
 function isRecipeSite(){
   //selects schema
@@ -191,15 +154,3 @@ function isRecipeSite(){
   }
   return false
 }
-
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>,
-//   document.getElementById("overlay")
-// );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-// serviceWorker.unregister();

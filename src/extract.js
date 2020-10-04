@@ -23,7 +23,7 @@ export function replaceOnScreen(title, selection){
     let ingredient = new Ingredient(title, database[Ingredient.getName(title)])
     let new_text = ingredient.calculateAmount(selection)
     if (document.body.innerHTML.includes(title)) {
-        document.body.innerHTML = document.body.innerHTML.replace(title, new_text)
+        document.body.innerHTML = document.body.innerHTML.replace(title, "")
     } else if (document.body.innerText.includes(title)) {
         let element = Array.from(document.querySelectorAll('li')).find(el => el.innerText.includes(title));
         let toReplace = element.innerText;
@@ -49,6 +49,9 @@ export function replaceOnScreen(title, selection){
         let result = "\\u" + "0000".substring(0, 4 - hex.length) + hex;
         document.body.innerHTML = document.body.innerHTML.replace(beg + " " + result + " " + rest, new_text)
     }
+
+
+
     addPair(title, new_text)
 }
 

@@ -100,7 +100,7 @@ class Dropdown extends React.Component {
         { this.state.isOpen && 
           <ListWrapper>
             { this.props.ingredient.replacements.map(r => 
-              <ListItemWrapper className="button-element" onMouseUp={(e) => this.props.handleSelect(this.props.ingredient.name, r)}>
+              <ListItemWrapper className="button-element" onMouseUp={(e) => {this.props.handleSelect(this.props.ingredient.name, r); this.props.addButton(r);}}>
                 <ListText>{ r }</ListText>
               </ListItemWrapper>) 
             }
