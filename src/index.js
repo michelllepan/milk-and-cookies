@@ -50,7 +50,7 @@ function showCookie() {
     var a = document.createElement("div");
     a.id = "replacementText";
     a.style.height = "100px";
-    a.style.width = "100px";
+    a.style.width = "300px";
     // a.style.backgroundColor = "red";
     a.style.position = "absolute"
     a.style.top = `${((rect.top + rect.bottom) / 2) - 12 + window.scrollY}px`;

@@ -26,8 +26,25 @@ export function replaceOnScreen(title, selection){
     if (document.body.innerHTML.includes(title)) {
         document.body.innerHTML = document.body.innerHTML.replace(title, "")
     } 
-    return new_text
-    addPair(title, new_text)
+    else if (document.body.innerText.includes(title)) {
+        let element = Array.from(document.querySelectorAll('li')).find(el => el.innerText.includes(title));
+        let toReplace = element.innerText;
+        let toReplaceParts = [Ingredient.getAmount(toReplace), Ingredient.getUnit(toReplace), Ingredient.getName(toReplace)]
+
+        let newHTML = element.innerHTML
+        for (let i=0; i<toReplaceParts.length; i++) {
+            newHTML = newHTML.replace(toReplaceParts[i], "")
+        }
+        element.innerHTML = newHTML
+    } 
+   return new_text
+
+    
+    
+
+
+
+    //addPair(title, new_text)
 }
 
 //pairs object
