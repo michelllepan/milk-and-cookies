@@ -37,14 +37,9 @@ export function replaceOnScreen(title, selection){
         }
         element.innerHTML = newHTML
     } 
+    addPair(title, new_text)
    return new_text
 
-    
-    
-
-
-
-    //addPair(title, new_text)
 }
 
 //pairs object
@@ -69,7 +64,11 @@ export function getReplacementOptions(text){
         return []
     }
     let ingredient = new Ingredient(text, database[Ingredient.getName(text)])
-    return ingredient.replacements.map(r => r.name);
+    let result = ingredient.replacements.map(r => r.name)
+    result.push(text)
+    console.log("HIIIIII JANVI");
+    console.log(result)
+    return result;//ingredient.replacements.map(r => r.name);
 }
 
 

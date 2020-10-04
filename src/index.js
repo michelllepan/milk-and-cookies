@@ -14,7 +14,7 @@ function handleSelect(ingredient, selection) {
     
     console.log(ingredient);
     console.log(selection);
-    replaceOnScreen(ingredient, selection);
+    //replaceOnScreen(ingredient, selection);
     //addButton();
 }
 
@@ -57,6 +57,26 @@ function showCookie() {
     a.style.left = `${rect.right + 10 + window.scrollX}px`;
     a.style.zIndex = 9999999;
     document.body.insertBefore(a, document.body.firstChild);
+    
+    // var ingredient = {name: "milk",
+    //                   selected: "cookies",
+    //                   replacements: ["cookies", "more cookies"]}
+    let replacements = getReplacementOptions(selectedText).map(r => replaceOnScreen(selectedText, r))
+    replacements.push(selectedText)
+    var ingredient = {name: selectedText, 
+      selected: selection, 
+      replacements: replacements} ;
+
+
+    ReactDOM.render(
+      <React.StrictMode>
+        <Dropdown ingredient={ingredient} 
+                  handleSelect={handleSelect}
+                  />
+      </React.StrictMode>,
+      document.getElementById("replacementText")
+    );
+    /*
     ReactDOM.render(
       <React.StrictMode>
         <TextButton onClick={showDropdown}
@@ -66,6 +86,7 @@ function showCookie() {
       </React.StrictMode>,
       document.getElementById("replacementText")
     );
+    */
   }
 
 
@@ -91,9 +112,11 @@ function showCookie() {
     // var ingredient = {name: "milk",
     //                   selected: "cookies",
     //                   replacements: ["cookies", "more cookies"]}
+    let replacements = getReplacementOptions(selectedText).map(r => replaceOnScreen(selectedText, r))
+    replacements.push(selectedText)
     var ingredient = {name: selectedText, 
                       selected: null, 
-                      replacements: getReplacementOptions(selectedText)} ;
+                      replacements: replacements} ;
     
 
     ReactDOM.render(
