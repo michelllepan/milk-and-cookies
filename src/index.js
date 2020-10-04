@@ -66,6 +66,7 @@ function showCookie() {
       <React.StrictMode>
         <TextButton onClick={showDropdown}
                     selection = {selection}
+                    ingredient = {selectedText}
         />
       </React.StrictMode>,
       document.getElementById("replacementText")
