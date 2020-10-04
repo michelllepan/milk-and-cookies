@@ -24,33 +24,29 @@ function showCookie() {
   var sel = window.getSelection();
   var selectedText = sel.toString();
 
-  var hTag = sel.anchorNode.parentElement;
+  var hTag;
+  if (sel.anchorOffset > sel.focusOffset) {
+    hTag = sel.anchorNode.parentNode;
+  } else {
+    hTag = sel.focusNode.parentNode;
+  }
+  //var hTag = sel.anchorNode.parentNode;
   var range = sel.getRangeAt(0);
   var rect = hTag.getBoundingClientRect();
-  // console.log(rect);
-  // console.log(selectedText);
-  // console.log(rect.top);
-  // console.log(rect.right);
   var sel = window.getSelection();
-  // var hTag = sel.anchorNode.parentElement;
-  // var range = sel.getRangeAt(0);
-    //var rect = hTag.getBoundingClientRect();
-    //console.log(rect); 
-  
     
   var a = document.createElement("div");
   a.id = "milk-and-cookies";
   a.style.height = "20px";
   a.style.width = "20px";
   // a.style.backgroundColor = "red";
-  a.style.position = "absolute"
+  a.style.position = "absolute"//"relative"
   a.style.top = `${((rect.top + rect.bottom) / 2) - 12 + window.scrollY}px`;
   a.style.left = `${rect.right + 10 + window.scrollX}px`;
   a.style.zIndex = 9999999;
   document.body.insertBefore(a, document.body.firstChild);
 
   function addButton(selection){
-    
     var a = document.createElement("div");
     a.id = "replacementText";
     a.style.height = "100px";
@@ -61,7 +57,6 @@ function showCookie() {
     a.style.left = `${rect.right + 10 + window.scrollX}px`;
     a.style.zIndex = 9999999;
     document.body.insertBefore(a, document.body.firstChild);
-    
     ReactDOM.render(
       <React.StrictMode>
         <TextButton onClick={showDropdown}
@@ -71,7 +66,6 @@ function showCookie() {
       </React.StrictMode>,
       document.getElementById("replacementText")
     );
-
   }
 
 
