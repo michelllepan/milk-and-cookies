@@ -18,6 +18,8 @@ function handleSelect(ingredient, selection) {
     //addButton();
 }
 
+var start;
+
 function showCookie() {
 
   var myobj = document.getElementById("milk-and-cookies");
@@ -27,12 +29,15 @@ function showCookie() {
   var hTag;
   if (sel.anchorOffset > sel.focusOffset) {
     hTag = sel.anchorNode.parentNode;
+    start = sel.focusNode.parentNode;
   } else {
     hTag = sel.focusNode.parentNode;
+    start = sel.anchorNode.parentNode;
   }
   //var hTag = sel.anchorNode.parentNode;
   var range = sel.getRangeAt(0);
   var rect = hTag.getBoundingClientRect();
+  var rect2 = start.getBoundingClientRect();
   var sel = window.getSelection();
     
   var a = document.createElement("div");
@@ -41,6 +46,9 @@ function showCookie() {
   a.style.width = "20px";
   // a.style.backgroundColor = "red";
   a.style.position = "absolute"//"relative"
+  console.log("=========positioning rect==========")
+  console.log(rect.top)
+  console.log(rect.bottom)
   a.style.top = `${((rect.top + rect.bottom) / 2) - 12 + window.scrollY}px`;
   a.style.left = `${rect.right + 10 + window.scrollX}px`;
   a.style.zIndex = 9999999;
@@ -52,19 +60,22 @@ function showCookie() {
   function showDropdown(selection) {
     console.log("hello");
 
-    if (getReplacementOptions(selectedText).length === 0) {
+    //if (getReplacementOptions(selectedText).length === 0) {
         var myobj = document.getElementById("milk-and-cookies");
         myobj.remove();
-        return;
-    }
+        //return;
+    //}
     
     var b = document.createElement("div");
     b.id = "milk-and-cookies-popup";
-    b.style.height = "100px";
-    b.style.width = "300px";
+    b.style.height = 'auto';
+    b.style.width = 'auto';
     b.style.position = "absolute"
-    b.style.top = `${((rect.top + rect.bottom) / 2) - 12 + window.scrollY}px`;
-    b.style.left = `${rect.right + 40 + window.scrollX}px`;
+    console.log("=========positioning rect2==========")
+    console.log(rect2.top)
+    console.log(rect2.bottom)
+    b.style.top = `${((rect2.top + rect2.bottom) / 2) - 22 + window.scrollY}px`;
+    b.style.left = `${rect2.right - rect2.width + window.scrollX}px`;
     b.style.zIndex = 9999999;
     document.body.insertBefore(b, document.body.firstChild);
     
