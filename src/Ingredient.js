@@ -246,10 +246,20 @@ class Replacement {
         }
 
         if (mult_denom % 48 === 0 && mult_denom !== 0){ //teaspoon case
-            let converted = this.simplifyFraction(mult_num, mult_denom/48)
+            let converted
+            if (mult_denom === 48) {
+                converted = this.simplifyFraction(mult_num, mult_denom)
+            } else {
+                converted = this.simplifyFraction(mult_num, mult_denom/48)
+            }
             return [this.extractUnicode(converted.toString()), "teaspoon"]
         } else if (mult_denom % 16 === 0 && mult_denom !== 0){ //tbsp case
-            let converted = this.simplifyFraction(mult_num, mult_denom/16)
+            let converted;
+            if (mult_denom === 16) {
+                converted = this.simplifyFraction(mult_num, mult_denom)
+            } else {
+                converted = this.simplifyFraction(mult_num, mult_denom/16)
+            }
             return [this.extractUnicode(converted.toString()), "tablespoon"]
         } else { //normal case
             let converted = this.simplifyFraction(final_num, final_denom)
