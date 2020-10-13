@@ -116,15 +116,17 @@ window.addEventListener("mouseup", function(event) {
     var mydropdown = document.getElementById("milk-and-cookies-popup");
     var sel = window.getSelection();
     var selectedText = sel.toString();
-
-    if (myobj === null && selectedText !== "" && isRecipeSite()) {
+    console.log(getReplacementOptions(selectedText).length)
+    if (myobj === null && selectedText !== "" && isRecipeSite() && getReplacementOptions(selectedText).length!=0) {
+        console.log("CALLING SHOW COOKIE 1")
         showCookie();
 
-    } else if (myobj !== null) {
+    } else if (myobj !== null && getReplacementOptions(selectedText).length!=0) {
         myobj.remove();
         var sel = window.getSelection();
         var selectedText = sel.toString();
         if (selectedText !== "") {
+          console.log("CALLING SHOW COOKIE 2")
           showCookie();
         }
     }
