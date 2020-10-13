@@ -65,7 +65,7 @@ export function getReplacementOptions(text){
     }
     let ingredient = new Ingredient(text, database[Ingredient.getName(text)])
     let result = ingredient.replacements.map(r => r.name)
-    result.push(text)
+    //result.push(text)
     console.log("HIIIIII JANVI");
     console.log(result)
     return result;//ingredient.replacements.map(r => r.name);
