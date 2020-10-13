@@ -141,8 +141,8 @@ function mountPopup() {
   // a.style.width = "100%";
   // a.style.height = "100%";
   a.style.position = "fixed"
-  a.style.bottom = "50px"
-  a.style.right = "50px"
+  a.style.bottom = "30px"
+  a.style.right = "90px"
   a.style.zIndex = 99999;
   document.body.insertBefore(a, document.body.firstChild);
 
@@ -152,6 +152,11 @@ function mountPopup() {
     </React.StrictMode>,
     document.getElementById("overlay")
   );
+}
+
+function unmountPopup() {
+  let myobj = document.getElementById("overlay")
+  myobj.remove()
 }
 
 var b = document.createElement("div");
@@ -164,7 +169,7 @@ document.body.insertBefore(b, document.body.firstChild);
 
 ReactDOM.render(
   <React.StrictMode>
-    <Cookie handleClick={mountPopup}/>
+    <Cookie handleMount={mountPopup} handleUnmount={unmountPopup}/>
   </React.StrictMode>,
   document.getElementById("cookie")
 );

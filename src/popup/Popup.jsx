@@ -1,10 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import './Popup.css';
 
 const PopupOuter = styled.div`
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 400px;
 
   background: #FFFFFF;
   box-shadow: 0px 13px 47px rgba(0, 0, 0, 0.15);
@@ -23,18 +23,25 @@ const Title = styled.h3`
 const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 230px;
+  height: 310px;
   overflow-y: scroll;
 `
 const Pair = styled.div`
-  margin: 5px 0px;
+  margin: 0px;
+
+  ${props => !props.last && css`
+    margin-bottom: 10px;
+  `}
 `
 const Ingredient = styled.p`
-  margin-top: 5px;
+  margin: 0px;
+
+  ${props => !props.first && css`
+    margin-top: 6px;
+  `}
 `
 const Replacement = styled.p`
-  margin-top: 5px;
-  margin-left: 10px;
+  margin: 12px 0px 0px 10px;
   color: #888888;
 `
 
@@ -53,7 +60,16 @@ class Popup extends React.Component {
       {
         name: "2 eggs",
         replacements: ["1 banana"]
-      }]
+      },
+      {
+        name: "3 eggs",
+        replacements: ["100 bananas"]
+      },
+      {
+        name: "4 eggs",
+        replacements: ["20000 bananas", "22 bananas", "345 bananananas"]
+      }
+    ]
   }
 
   render() {
@@ -62,9 +78,9 @@ class Popup extends React.Component {
         <PopupInner>
           <Title>Current Replacements:</Title>
           <ListContainer>
-          {this.state.pairs.map(pair => (
-              <Pair>
-                <Ingredient>{pair.name}</Ingredient>
+          {this.state.pairs.map((pair, i) => (
+              <Pair last={i == this.state.pairs.length - 1}>
+                <Ingredient first={i == 0}>{pair.name}</Ingredient>
                 {pair.replacements.map(r => <Replacement>{r}</Replacement>)}
               </Pair>
           ))}
