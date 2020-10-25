@@ -306,8 +306,8 @@
 
         ]
     },
-    "egg":{
-        "ingredient": "egg",
+    "eggs":{
+        "ingredient": "eggs",
         "replacements":[
             {
                 "replacer":
